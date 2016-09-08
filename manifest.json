@@ -1,0 +1,24 @@
+{
+  "author": "Marcin Kowalski",
+  "name": "Open Search",
+  "description": "Search selected text using e.g google",
+  "version": "1.0.0",
+  "permissions": [ "contextMenus", "storage","notifications", "tabs","webRequest","activeTab","runtime"],
+
+  "background": {
+    "persistent": true,
+    "scripts": [ "background.js" ]
+  },
+  "icons": {
+    "48": "ico/icon_48.png",
+    "16": "ico/icon_16.png"
+  },
+  "browser_action": {
+    "default_icon": {
+      "38": "ico/icon_38.png"
+    },
+    "default_title": "__MSG_popupTitle__",
+    "default_popup": "searchoptions.html"
+  },  
+  "default_locale": "en"
+}

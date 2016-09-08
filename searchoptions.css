@@ -1,0 +1,21 @@
+table {
+    width: 500px;
+}
+
+table, td, tr {
+    border: 1px solid #808080;
+    border-collapse: collapse;
+}
+
+td {
+    padding: 3px;
+}
+
+table input {
+    border: none;
+    width: 100%;
+}
+
+#optionsContainer {
+	display: none;
+}
