@@ -1,5 +1,5 @@
 table {
-    width: 500px;
+    width: 700px;
 }
 
 table, td, tr {
@@ -17,5 +17,5 @@ table input {
 }
 
 #optionsContainer {
-	display: none;
+	/*display: none;*/
 }

@@ -1,13 +1,14 @@
 
 (function()
 {
-	var background = browser.extension.getBackgroundPage();
-	background.searchEngines = [];
+
+	searchEngines = [];
+	
 
     /****/
 
-	background.target = browser.windows;
-	background.openInNewTab = true;
+	target = browser.windows;
+	openInNewTab = true;
     /****/
 	var defaultSearchEngines = [
 		{
@@ -45,29 +46,33 @@
 	
 	browser.storage.local.get(function (item)
 	{
-		background.searchEngines = item.list;	    
-		if(background.searchEngines.length == 0)
+		searchEngines = item.list;	    
+		console.log("Loading search engines:");
+		console.log(searchEngines);
+		if(searchEngines == undefined || searchEngines.length == 0)
 		{
-			background.searchEngines = defaultSearchEngines;
+			searchEngines = defaultSearchEngines;
 		}
 		updateMenu();
 	});		
 	
 
-	background.saveSearchEngines = function()
+	saveSearchEngines = function()
 	{
-		console.log(this.searchEngines);		
-		browser.storage.local.set({list: this.searchEngines});	
+		console.log("Saving search engines:");
+		console.log(searchEngines);		
+		browser.storage.local.set({list: searchEngines});	
+		//return searchEngines;
 	}	
     
 	function updateMenu()
 	{
 	    var contexts = ["selection"];
 	    var activeEngines = [];
-	    for (var i = 0 ; i < background.searchEngines.length ; i++)
+	    for (var i = 0 ; i < searchEngines.length ; i++)
 	    {
-	    	if(background.searchEngines[i].active) 
-	    		activeEngines.push({id: background.searchEngines[i].id, name: background.searchEngines[i].name, url: background.searchEngines[i].url});
+	    	if(searchEngines[i].active) 
+	    		activeEngines.push({id: searchEngines[i].id, name: searchEngines[i].name, url: searchEngines[i].url});
 	    }
 
 	    if (!activeEngines.length) return;
@@ -91,20 +96,20 @@
 		var id = info.menuItemId.substr(3); //sCM
 	    var url;
 
-	    for (var i = 0 ; i < background.searchEngines.length ; i++)
+	    for (var i = 0 ; i < searchEngines.length ; i++)
 	    {
-	        if (background.searchEngines[i].id == id)
+	        if (searchEngines[i].id == id)
 	        {
-	            url = background.searchEngines[i].url + encodeURIComponent(info.selectionText);
+	            url = searchEngines[i].url + encodeURIComponent(info.selectionText);
 	            break;
 	        }	            
 	    }	    
 	   
-	    if (background.openInNewTab)
+	    if (openInNewTab)
 	    {
-	        background.target = browser.tabs;
+	        target = browser.tabs;
 	    }
-	    background.target.create({ url: url});
+	    target.create({ url: url});
 		
 	});
 

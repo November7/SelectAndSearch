@@ -6,7 +6,7 @@
   "permissions": [ "contextMenus", "storage","notifications", "tabs","webRequest","activeTab","runtime"],
 
   "background": {
-    "persistent": true,
+    "persistent": false,
     "scripts": [ "background.js" ]
   },
   "icons": {
