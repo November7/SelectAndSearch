@@ -10,7 +10,7 @@
 	target = browser.windows;
 	openInNewTab = true;
     /****/
-	var defaultSearchEngines = [
+	/*var defaultSearchEngines = [
 		{
 			id: 		1, 
 			active: 	true,
@@ -39,7 +39,17 @@
 			name: 		"Bing", 
 			url: 		"http://www.bing.com/search?q="
 			
-		}];
+		}];*/
+		
+		
+		var defaultSearchEngines = 
+		{
+			id: 		1, 
+			active: 	true,
+			useSearch: 	true,
+			name: 		"Google", 
+			url: 		"https://google.com/search?q="			
+		};
 
 	
 
@@ -58,11 +68,11 @@
 	
 
 	saveSearchEngines = function()
-	{
-		console.log("Saving search engines:");
+	{		
 		console.log(searchEngines);		
+		
 		browser.storage.local.set({list: searchEngines});	
-		//return searchEngines;
+		
 	}	
     
 	function updateMenu()

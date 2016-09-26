@@ -27,31 +27,37 @@
 	});	
 
 	document.getElementById("saveOptions").addEventListener("click", function() {
-		background.searchEngines = [];
+		//background.searchEngines = [];
 		var sE = document.getElementById("searchEngines");
-		for(var i=1;i<sE.rows.length;i++)
+		for(var i = 1 ; i < sE.rows.length ; i++)
 		{
-			//console.log(sE.rows[i]);
-			var obj = {
+			/*var obj = {
 				id: 		i, 
 				name: 		sE.rows[i].cells[0].children[0].value, 
 				url: 		sE.rows[i].cells[1].children[0].value, 
 				active: 	sE.rows[i].cells[2].children[0].checked,
 				useSearch: 	sE.rows[i].cells[3].children[0].checked
-			};
-			console.log(obj);
-			alert(obj.name)
-			background.searchEngines.push(obj);			
+			};*/
+			
+			background.searchEngines.id = i;
+			background.searchEngines.name = sE.rows[i].cells[0].children[0].value;
+			background.searchEngines.url = sE.rows[i].cells[1].children[0].value;
+			background.searchEngines.active = sE.rows[i].cells[2].children[0].checked;
+			background.searchEngines.useSearch = sE.rows[i].cells[3].children[0].checked;
+			
+			
+			//background.searchEngines[i-1] = obj;			
 		}
-		//background.searchEngines = {id:1, name : "fdfsdfds", url: "", active: true, useSearch: true};
 		background.saveSearchEngines();
 	});
 
 	function showPage()
 	{
 		if(!background) return;
+		
 		var str = "<table id='searchEngines'><tr><td style='width:70px'>Nazwa</td><td style='width:270px'>adres silnika wyszukiwania</td><td>Pokaż w menu</td><td>Użyj w wyszukiwarce</td></tr>";
-		for (var i = 0; i < background.searchEngines.length ; i++)
+		
+		/*for (var i = 0; i < background.searchEngines.length ; i++)
 		{
 			str +=  "<tr><td><input type='text' value='"
 			+   background.searchEngines[i].name
@@ -63,7 +69,21 @@
 			+   (background.searchEngines[i].useSearch?"checked ":"")
 			+ "></td></tr>";
 		}
+		str += "</table>";*/
+		
+		
+			str +=  "<tr><td><input type='text' value='"
+			+   background.searchEngines.name
+			+   "'/></td><td><input type='text' value='"
+			+   background.searchEngines.url 
+			+ "'></td><td><input type='checkbox'"
+			+   (background.searchEngines.active?"checked ":"")
+			+ "></td><td><input type='checkbox'"
+			+   (background.searchEngines.useSearch?"checked ":"")
+			+ "></td></tr>";
+		
 		str += "</table>";
+		
 		document.getElementById("searchEnginesContainer").innerHTML = str;
 	}
 	
