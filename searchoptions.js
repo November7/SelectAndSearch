@@ -1,12 +1,53 @@
-(function()
-{
-	var background = null;
-	
-		
-	browser.runtime.getBackgroundPage( (bkg) => {background = bkg; showPage(); });
-	
+/****************************************************************/
 
+
+/****************************************************************/
+
+var background = browser.extension.getBackgroundPage();
+
+document.getElementById("saveOptions").addEventListener("click", function() {
+	background.searchEngines = [];
+	var sE = document.getElementById("searchEngines");
+	for(var i = 1 ; i < sE.rows.length ; i++)
+	{
+		var obj = {
+			id: 		i, 
+			name: 		sE.rows[i].cells[0].children[0].value, 
+			url: 		sE.rows[i].cells[1].children[0].value, 
+			active: 	sE.rows[i].cells[2].children[0].checked,
+			useSearch: 	sE.rows[i].cells[3].children[0].checked
+		};
+		
+		background.searchEngines.push(obj);	
+	}
+	background.saveOptions();
 	
+});	
+
+
+var str = "<table id='searchEngines'><tr><td style='width:70px'>Nazwa</td><td style='width:270px'>adres silnika wyszukiwania</td><td>Pokaż w menu</td><td>Użyj w wyszukiwarce</td></tr>";
+		
+for (var i = 0; i < background.searchEngines.length ; i++)
+{
+	str +=  "<tr><td><input type='text' value='"
+	+   background.searchEngines[i].name
+	+   "'/></td><td><input type='text' value='"
+	+   background.searchEngines[i].url 
+	+ "'></td><td><input type='checkbox'"
+	+   (background.searchEngines[i].active?"checked ":"")
+	+ "></td><td><input type='checkbox'"
+	+   (background.searchEngines[i].useSearch?"checked ":"")
+	+ "></td></tr>";
+}
+str += "</table>";
+
+document.getElementById("searchEnginesContainer").innerHTML = str;
+	
+	
+	/*var background = null;
+	
+	browser.runtime.getBackgroundPage( (bkg) => {background = bkg; showPage(); });
+		
 	document.getElementById("showOptions").addEventListener("click", function () {
 		document.getElementById("optionsContainer").style.display = "block"; 
 	});
@@ -26,68 +67,10 @@
 	    }
 	});	
 
-	document.getElementById("saveOptions").addEventListener("click", function() {
-		//background.searchEngines = [];
-		var sE = document.getElementById("searchEngines");
-		for(var i = 1 ; i < sE.rows.length ; i++)
-		{
-			/*var obj = {
-				id: 		i, 
-				name: 		sE.rows[i].cells[0].children[0].value, 
-				url: 		sE.rows[i].cells[1].children[0].value, 
-				active: 	sE.rows[i].cells[2].children[0].checked,
-				useSearch: 	sE.rows[i].cells[3].children[0].checked
-			};*/
-			
-			background.searchEngines.id = i;
-			background.searchEngines.name = sE.rows[i].cells[0].children[0].value;
-			background.searchEngines.url = sE.rows[i].cells[1].children[0].value;
-			background.searchEngines.active = sE.rows[i].cells[2].children[0].checked;
-			background.searchEngines.useSearch = sE.rows[i].cells[3].children[0].checked;
-			
-			
-			//background.searchEngines[i-1] = obj;			
-		}
-		background.saveSearchEngines();
-	});
 
-	function showPage()
-	{
-		if(!background) return;
-		
-		var str = "<table id='searchEngines'><tr><td style='width:70px'>Nazwa</td><td style='width:270px'>adres silnika wyszukiwania</td><td>Pokaż w menu</td><td>Użyj w wyszukiwarce</td></tr>";
-		
-		/*for (var i = 0; i < background.searchEngines.length ; i++)
-		{
-			str +=  "<tr><td><input type='text' value='"
-			+   background.searchEngines[i].name
-			+   "'/></td><td><input type='text' value='"
-			+   background.searchEngines[i].url 
-			+ "'></td><td><input type='checkbox'"
-			+   (background.searchEngines[i].active?"checked ":"")
-			+ "></td><td><input type='checkbox'"
-			+   (background.searchEngines[i].useSearch?"checked ":"")
-			+ "></td></tr>";
-		}
-		str += "</table>";*/
-		
-		
-			str +=  "<tr><td><input type='text' value='"
-			+   background.searchEngines.name
-			+   "'/></td><td><input type='text' value='"
-			+   background.searchEngines.url 
-			+ "'></td><td><input type='checkbox'"
-			+   (background.searchEngines.active?"checked ":"")
-			+ "></td><td><input type='checkbox'"
-			+   (background.searchEngines.useSearch?"checked ":"")
-			+ "></td></tr>";
-		
-		str += "</table>";
-		
-		document.getElementById("searchEnginesContainer").innerHTML = str;
-	}
 	
+	*/
 	
 
 	//  ms-browser-extension://OpenSearch_ktnqkx724ter0/searchoptions.html
-})();
+
