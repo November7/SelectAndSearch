@@ -3,7 +3,7 @@
   "name": "Open Search",
   "description": "Search selected text using e.g google",
   "version": "1.0.0",
-  "permissions": [ "contextMenus", "storage","notifications", "tabs","webRequest","activeTab","runtime","background"],
+  "permissions": [ "contextMenus", "storage","notifications", "tabs","background"],
 
   "background": {
     "persistent": true,

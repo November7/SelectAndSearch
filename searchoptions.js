@@ -6,22 +6,18 @@
 var background = browser.extension.getBackgroundPage();
 
 document.getElementById("saveOptions").addEventListener("click", function() {
-	background.searchEngines = [];
+	while(background.searchEngines.pop());
 	var sE = document.getElementById("searchEngines");
 	for(var i = 1 ; i < sE.rows.length ; i++)
-	{
-		var obj = {
-			id: 		i, 
-			name: 		sE.rows[i].cells[0].children[0].value, 
-			url: 		sE.rows[i].cells[1].children[0].value, 
-			active: 	sE.rows[i].cells[2].children[0].checked,
-			useSearch: 	sE.rows[i].cells[3].children[0].checked
-		};
+	{		
+		background.addSearchEngine( i,
+									sE.rows[i].cells[0].children[0].value,
+									sE.rows[i].cells[1].children[0].value,
+									sE.rows[i].cells[2].children[0].checked,
+									sE.rows[i].cells[3].children[0].checked );
 		
-		background.searchEngines.push(obj);	
-	}
-	background.saveOptions();
-	
+	}	
+	background.saveOptions();	
 });	
 
 

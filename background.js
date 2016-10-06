@@ -38,10 +38,18 @@ function loadDefault()
 	}];	
 }
 
+function addSearchEngine(id,name,url,active,useSearch)
+{
+	searchEngines.push({id: id, 
+						name: name,
+						url: url,
+						active: active,
+						useSearch: useSearch});
+}
+
 function saveOptions()
 {
 	console.log("Saving...");
-	
 	browser.storage.local.set({list: searchEngines});
 	console.log(searchEngines);
 	updateMenu();
@@ -51,7 +59,9 @@ function loadOptions()
 {
 	browser.storage.local.get(function (item)
 	{		
-		searchEngines = item.list;
+		for(var i in item.list)
+			searchEngines.push(item.list[i]);
+		
 		console.log("Loading...");
 		console.log(searchEngines);
 		if(searchEngines == undefined || searchEngines.length == 0)
