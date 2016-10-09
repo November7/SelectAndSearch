@@ -47,16 +47,16 @@ function addSearchEngine(id,name,url,active,useSearch)
 
 function saveOptions()
 {
-	console.log("Saving...");
+//	console.log("Saving...");
 	browser.storage.local.set({list: searchEngines});
-	console.log(searchEngines);
+//	console.log(searchEngines);
 	updateMenu();
 }
 
 function updateMenu()
 {
 	browser.contextMenus.removeAll();
-	var contexts = ["selection"];
+	var contexts = ["selection","link"];
 	var activeEngines = [];
 	for (var i = 0 ; i < searchEngines.length ; i++)
 	{
@@ -71,10 +71,30 @@ function updateMenu()
 	}
 	else
 	{
-		browser.contextMenus.create({ "title": "Szukaj w ... ", "id": "parent", "contexts": contexts });
+		//,
+		browser.contextMenus.create({"title": browser.i18n.getMessage("menuItemSearchWith"),
+									 "id": "parent", 
+									 "contexts": contexts 
+									});
+									
+		browser.contextMenus.create({"title": browser.i18n.getMessage("menuItemUseAll"),
+									 "id": "sCM0",
+									 "parentId": "parent",
+									 "contexts": contexts 
+									});
+									
+		browser.contextMenus.create({"type":"separator", 
+									 "parentId": "parent",
+									 "contexts": contexts 
+									});
+									
 		for (var i = 0 ; i < activeEngines.length ; i++)
 		{
-			browser.contextMenus.create({ "title": activeEngines[i].name, "id": "sCM"+activeEngines[i].id, "parentId": "parent", "contexts": contexts });
+			browser.contextMenus.create({"title": activeEngines[i].name,
+										 "id": "sCM"+activeEngines[i].id, 
+										 "parentId": "parent", 
+										 "contexts": contexts 
+										});
 		}
 	}	
 }
@@ -85,35 +105,52 @@ browser.storage.local.get(function (item)
 	for(var i in item.list)
 		searchEngines.push(item.list[i]);
 	
-	console.log("Loading...");
-	console.log(searchEngines);
+//	console.log("Loading...");
+//	console.log(searchEngines);
 	if(searchEngines == undefined || searchEngines.length == 0)
 	{
 		loadDefault();
-		console.log("Loading defaults");
-		console.log(searchEngines);
+//		console.log("Loading defaults");
+//		console.log(searchEngines);
 	}
 	
 	updateMenu();
 });
+/*
+browser.extension.onRequest.addListener(function(request, sender, sendResponse) {
+    if (request.method == "getSelection")
+      sendResponse({data: window.getSelection().toString()});
+    else
+      sendResponse({}); // snub them.
+});*/
 
 browser.contextMenus.onClicked.addListener(function (info, tab) {
+	//todo: search selected text in links ....
+	
+	
+	//console.log(window.getSelection().toString());
+	/*browser.tabs.executeScript( { code: "window.getSelection().toString();"}, function(selection) {
+		console.log(selection);
+	});*/
+	
 	var id = info.menuItemId.substr(3); //sCM
-	var url;
+	var url = [];
 
 	for (var i = 0 ; i < searchEngines.length ; i++)
 	{
-		if (searchEngines[i].id == id)
+		if ((searchEngines[i].id == id || id == 0) && searchEngines[i].active)
 		{
-			url = searchEngines[i].url + encodeURIComponent(info.selectionText);
-			break;
+			url.push(searchEngines[i].url + encodeURIComponent(info.selectionText));
+			if(id != 0) break;
 		}
-	}	    
-
+	}
+	
 	if (openInNewTab)
 	{
 		target = browser.tabs;
 	}
-	target.create({ url: url});
-
+	for(var i in url)
+	{
+		target.create({ url: url[i]});
+	}
 });

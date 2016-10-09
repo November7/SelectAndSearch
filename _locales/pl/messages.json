@@ -1,0 +1,16 @@
+{ 
+	"popupTitle": 
+	{ 
+		"message": "Szukaj"
+	},
+	"menuItemSearchWith":
+	{
+		"message": "Szukaj w ..."
+	},
+	"menuItemUseAll":
+	{
+		"message": "Użyj wszystkich"
+	}
+	
+
+}

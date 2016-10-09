@@ -1,0 +1,16 @@
+{ 
+	"popupTitle": 
+	{ 
+		"message": "Search"
+	},
+	"menuItemSearchWith":
+	{
+		"message": "Search with ..."
+	},
+	"menuItemUseAll":
+	{
+		"message": "Use all"
+	}
+
+
+}
