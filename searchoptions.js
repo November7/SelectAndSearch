@@ -20,6 +20,21 @@ document.getElementById("saveOptions").addEventListener("click", function() {
 	background.saveOptions();	
 });	
 
+document.getElementById("searchForm").onsubmit = function () {
+	var searchKey = document.getElementById("searchkey").value;
+	if (searchKey != "")
+	{
+		if (background.openInNewTab)
+		{
+			background.target = browser.tabs;
+		}
+		for (var i = 0 ; i < background.searchEngines.length ; i++)
+		{
+			if(background.searchEngines[i].useSearch) background.target.create({ url: background.searchEngines[i].url + searchKey })
+		}
+	}
+}
+
 
 var str = "<table id='searchEngines'><tr><td style='width:70px'>Nazwa</td><td style='width:270px'>adres silnika wyszukiwania</td><td>Pokaż w menu</td><td>Użyj w wyszukiwarce</td></tr>";
 		
@@ -39,6 +54,7 @@ str += "</table>";
 
 document.getElementById("searchEnginesContainer").innerHTML = str;
 	
+
 	
 	/*var background = null;
 	

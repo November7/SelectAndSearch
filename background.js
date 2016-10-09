@@ -71,12 +71,14 @@ function loadOptions()
 			console.log(searchEngines);
 		}
 		
+		updateMenu();
 	});
 	
 }
 
 function updateMenu()
 {
+	browser.contextMenus.removeAll();
 	var contexts = ["selection"];
 	var activeEngines = [];
 	for (var i = 0 ; i < searchEngines.length ; i++)
@@ -123,4 +125,3 @@ function updateMenu()
 }
 
 loadOptions();
-updateMenu();
