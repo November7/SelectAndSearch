@@ -79,44 +79,41 @@ function updateMenu()
 	}	
 }
 
-browser.runtime.onInstalled.addListener(function ()
-{
-	browser.storage.local.get(function (item)
-	{		
-		for(var i in item.list)
-			searchEngines.push(item.list[i]);
-		
-		console.log("Loading...");
+
+browser.storage.local.get(function (item)
+{		
+	for(var i in item.list)
+		searchEngines.push(item.list[i]);
+	
+	console.log("Loading...");
+	console.log(searchEngines);
+	if(searchEngines == undefined || searchEngines.length == 0)
+	{
+		loadDefault();
+		console.log("Loading defaults");
 		console.log(searchEngines);
-		if(searchEngines == undefined || searchEngines.length == 0)
+	}
+	
+	updateMenu();
+});
+
+browser.contextMenus.onClicked.addListener(function (info, tab) {
+	var id = info.menuItemId.substr(3); //sCM
+	var url;
+
+	for (var i = 0 ; i < searchEngines.length ; i++)
+	{
+		if (searchEngines[i].id == id)
 		{
-			loadDefault();
-			console.log("Loading defaults");
-			console.log(searchEngines);
+			url = searchEngines[i].url + encodeURIComponent(info.selectionText);
+			break;
 		}
-		
-		updateMenu();
-	});
+	}	    
 
-	browser.contextMenus.onClicked.addListener(function (info, tab) {
-		var id = info.menuItemId.substr(3); //sCM
-		var url;
+	if (openInNewTab)
+	{
+		target = browser.tabs;
+	}
+	target.create({ url: url});
 
-		for (var i = 0 ; i < searchEngines.length ; i++)
-		{
-			if (searchEngines[i].id == id)
-			{
-				url = searchEngines[i].url + encodeURIComponent(info.selectionText);
-				break;
-			}
-		}	    
-
-		if (openInNewTab)
-		{
-			target = browser.tabs;
-		}
-		target.create({ url: url});
-
-	});
-})
-
+});
