@@ -1,5 +1,3 @@
-
-
 var searchEngines = [];	
 var target = browser.windows;
 var openInNewTab = true;
@@ -55,27 +53,6 @@ function saveOptions()
 	updateMenu();
 }
 
-function loadOptions()
-{
-	browser.storage.local.get(function (item)
-	{		
-		for(var i in item.list)
-			searchEngines.push(item.list[i]);
-		
-		console.log("Loading...");
-		console.log(searchEngines);
-		if(searchEngines == undefined || searchEngines.length == 0)
-		{
-			loadDefault();
-			console.log("Loading defaults");
-			console.log(searchEngines);
-		}
-		
-		updateMenu();
-	});
-	
-}
-
 function updateMenu()
 {
 	browser.contextMenus.removeAll();
@@ -99,10 +76,29 @@ function updateMenu()
 		{
 			browser.contextMenus.create({ "title": activeEngines[i].name, "id": "sCM"+activeEngines[i].id, "parentId": "parent", "contexts": contexts });
 		}
-	}
-	
-	browser.contextMenus.onClicked.addListener(function(info, tab) {
+	}	
+}
 
+browser.runtime.onInstalled.addListener(function ()
+{
+	browser.storage.local.get(function (item)
+	{		
+		for(var i in item.list)
+			searchEngines.push(item.list[i]);
+		
+		console.log("Loading...");
+		console.log(searchEngines);
+		if(searchEngines == undefined || searchEngines.length == 0)
+		{
+			loadDefault();
+			console.log("Loading defaults");
+			console.log(searchEngines);
+		}
+		
+		updateMenu();
+	});
+
+	browser.contextMenus.onClicked.addListener(function (info, tab) {
 		var id = info.menuItemId.substr(3); //sCM
 		var url;
 
@@ -112,16 +108,15 @@ function updateMenu()
 			{
 				url = searchEngines[i].url + encodeURIComponent(info.selectionText);
 				break;
-			}	            
+			}
 		}	    
-	   
+
 		if (openInNewTab)
 		{
 			target = browser.tabs;
 		}
 		target.create({ url: url});
-		
-	});
-}
 
-loadOptions();
+	});
+})
+

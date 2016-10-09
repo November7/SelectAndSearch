@@ -56,33 +56,5 @@ document.getElementById("searchEnginesContainer").innerHTML = str;
 	
 
 	
-	/*var background = null;
-	
-	browser.runtime.getBackgroundPage( (bkg) => {background = bkg; showPage(); });
-		
-	document.getElementById("showOptions").addEventListener("click", function () {
-		document.getElementById("optionsContainer").style.display = "block"; 
-	});
-
-	document.getElementById("searchAll").addEventListener("click", function () {
-	    var searchKey = document.getElementById("searchkey").value;
-	    if (searchKey != "")
-	    {
-	        if (background.openInNewTab)
-	        {
-	            background.target = browser.tabs;
-	        }
-	        for (var i = 0 ; i < background.searchEngines.length ; i++)
-	        {
-	            if(background.searchEngines[i].useSearch) background.target.create({ url: background.searchEngines[i].url + searchKey })
-	        }
-	    }
-	});	
-
-
-	
-	*/
-	
-
-	//  ms-browser-extension://OpenSearch_ktnqkx724ter0/searchoptions.html
+//  ms-browser-extension://OpenSearch_ktnqkx724ter0/searchoptions.html
 
