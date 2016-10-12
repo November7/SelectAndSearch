@@ -56,7 +56,7 @@ function saveOptions()
 function updateMenu()
 {
 	browser.contextMenus.removeAll();
-	var contexts = ["selection","link"];
+	var contexts = ["selection","image"];
 	var activeEngines = [];
 	for (var i = 0 ; i < searchEngines.length ; i++)
 	{
@@ -128,29 +128,35 @@ browser.contextMenus.onClicked.addListener(function (info, tab) {
 	//todo: search selected text in links ....
 	
 	
-	//console.log(window.getSelection().toString());
-	/*browser.tabs.executeScript( { code: "window.getSelection().toString();"}, function(selection) {
-		console.log(selection);
-	});*/
-	
-	var id = info.menuItemId.substr(3); //sCM
-	var url = [];
-
-	for (var i = 0 ; i < searchEngines.length ; i++)
-	{
-		if ((searchEngines[i].id == id || id == 0) && searchEngines[i].active)
-		{
-			url.push(searchEngines[i].url + encodeURIComponent(info.selectionText));
-			if(id != 0) break;
-		}
-	}
+	console.log(info);
 	
 	if (openInNewTab)
 	{
 		target = browser.tabs;
 	}
-	for(var i in url)
+	
+	if(info.mediaType === "image") //temp...
 	{
-		target.create({ url: url[i]});
+		var url = "https://www.google.com/searchbyimage?&image_url="+info.srcUrl;
+		target.create({ url: url});
+	}
+	else
+	{		
+		var id = info.menuItemId.substr(3); //sCM
+		var url = [];
+
+		for (var i = 0 ; i < searchEngines.length ; i++)
+		{
+			if ((searchEngines[i].id == id || id == 0) && searchEngines[i].active)
+			{
+				url.push(searchEngines[i].url + encodeURIComponent(info.selectionText));
+				if(id != 0) break;
+			}
+		}		
+		
+		for(var i in url)
+		{
+			target.create({ url: url[i]});
+		}
 	}
 });
