@@ -56,7 +56,7 @@ function saveOptions()
 function updateMenu()
 {
 	browser.contextMenus.removeAll();
-	var contexts = ["selection","image"];
+	var contexts = ["selection"];
 	var activeEngines = [];
 	for (var i = 0 ; i < searchEngines.length ; i++)
 	{
@@ -67,7 +67,7 @@ function updateMenu()
 	if (!activeEngines.length) return;
 	else if (activeEngines.length == 1)
 	{            
-		browser.contextMenus.create({ "title": "Szukaj w " + activeEngines[0].name, "id": "sCM"+activeEngines[0].id, "contexts": contexts });
+		browser.contextMenus.create({ "title": browser.i18n.getMessage("menuItemSearchWith") + " " + activeEngines[0].name, "id": "sCM"+activeEngines[0].id, "contexts": contexts });
 	}
 	else
 	{
@@ -97,6 +97,7 @@ function updateMenu()
 										});
 		}
 	}	
+	browser.contextMenus.create({ "title": browser.i18n.getMessage("menuItemSearchGoogleImage"), "id": "parent2", "contexts": ["image"] });
 }
 
 
@@ -105,30 +106,19 @@ browser.storage.local.get(function (item)
 	for(var i in item.list)
 		searchEngines.push(item.list[i]);
 	
-//	console.log("Loading...");
-//	console.log(searchEngines);
 	if(searchEngines == undefined || searchEngines.length == 0)
 	{
 		loadDefault();
-//		console.log("Loading defaults");
-//		console.log(searchEngines);
 	}
 	
 	updateMenu();
 });
-/*
-browser.extension.onRequest.addListener(function(request, sender, sendResponse) {
-    if (request.method == "getSelection")
-      sendResponse({data: window.getSelection().toString()});
-    else
-      sendResponse({}); // snub them.
-});*/
+
 
 browser.contextMenus.onClicked.addListener(function (info, tab) {
 	//todo: search selected text in links ....
 	
-	
-	console.log(info);
+	var url = [];
 	
 	if (openInNewTab)
 	{
@@ -137,13 +127,11 @@ browser.contextMenus.onClicked.addListener(function (info, tab) {
 	
 	if(info.mediaType === "image") //temp...
 	{
-		var url = "https://www.google.com/searchbyimage?&image_url="+info.srcUrl;
-		target.create({ url: url});
+		url.push("https://www.google.com/searchbyimage?&image_url="+info.srcUrl);
 	}
 	else
 	{		
-		var id = info.menuItemId.substr(3); //sCM
-		var url = [];
+		var id = info.menuItemId.substr(3); //sCM		
 
 		for (var i = 0 ; i < searchEngines.length ; i++)
 		{
@@ -153,10 +141,11 @@ browser.contextMenus.onClicked.addListener(function (info, tab) {
 				if(id != 0) break;
 			}
 		}		
-		
-		for(var i in url)
-		{
-			target.create({ url: url[i]});
-		}
+	}
+	
+	for(var i in url)
+	{
+		console.log(url[i]);
+		target.create({ url: url[i]});
 	}
 });

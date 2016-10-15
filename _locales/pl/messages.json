@@ -5,7 +5,11 @@
 	},
 	"menuItemSearchWith":
 	{
-		"message": "Szukaj w ..."
+		"message": "Szukaj w"
+	},
+	"menuItemSearchGoogleImage":
+	{	
+		"message": "Szukaj obrazów w google.com"
 	},
 	"menuItemUseAll":
 	{
