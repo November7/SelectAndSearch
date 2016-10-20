@@ -145,7 +145,7 @@ browser.contextMenus.onClicked.addListener(function (info, tab) {
 	
 	for(var i in url)
 	{
-		console.log(url[i]);
+		//console.log(url[i]);
 		target.create({ url: url[i]});
 	}
 });
