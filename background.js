@@ -7,13 +7,15 @@ function loadDefault()
 	searchEngines = [
 	{
 		id: 		1, 
+		type:		0,
 		active: 	true,
 		useSearch: 	true,
 		name: 		"Google", 
 		url: 		"https://google.com/search?q="			
 	},
 	{
-		id: 		2, 
+		id: 		2,
+		type:		0,
 		active: 	false,
 		useSearch: 	true,
 		name: 		"Filmweb", 
@@ -21,13 +23,15 @@ function loadDefault()
 	},
 	{
 		id: 		3, 
+		type:		0,
 		active: 	false,
 		useSearch: 	true,
 		name: 		"Yahoo", 
 		url: 		"https://search.yahoo.com/search?p=", 			
 	},
 	{
-		id: 		4, 
+		id: 		4,
+		type:		0,		
 		active: 	false,
 		useSearch: 	true,
 		name: 		"Bing", 
@@ -36,13 +40,14 @@ function loadDefault()
 	}];	
 }
 
-function addSearchEngine(id,name,url,active,useSearch)
+function addSearchEngine(id,name,url,active,useSearch,type)
 {
 	searchEngines.push({id: id, 
 						name: name,
 						url: url,
 						active: active,
-						useSearch: useSearch});
+						useSearch: useSearch,
+						type: type});
 }
 
 function saveOptions()

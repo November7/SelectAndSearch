@@ -18,7 +18,9 @@
       "38": "ico/icon_38.png"
     },
     "default_title": "__MSG_popupTitle__",
-    "default_popup": "searchoptions.html"
+    "default_popup": "popup.html"
   },  
+  "options_page": "searchoptions.html",
+
   "default_locale": "en"
 }

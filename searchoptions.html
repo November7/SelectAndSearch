@@ -2,21 +2,33 @@
 <html>
 <head>
 	<meta charset="utf-8"/>
-	<title>Options</title>
-    <link href="searchoptions.css" rel="stylesheet" type="text/css" />
+	<title>OpenSearch</title>
+    <link href="searchoptions.css" rel="stylesheet" type="text/css" />	
 </head>
 <body>
-    <form id="searchForm">
-        <input size="50" id="searchkey" type="search" placeholder="search text..." autofocus/>
-    </form>
-    <hr />
-    <div id="showOptions"></div><br />
-    <div id="optionsContainer">
-        <div id="searchEnginesContainer"></div>
-        <input type="button" value="zapisz" id="saveOptions"/>
-		<div id="output"></div>
-		
-		
+	<div id="header">Open Search - MS Edge extensions</div>
+	<div id="body">	
+		<div id="menu">
+			<div class="menuItem" data-target="page1">Silniki wyszukiwania</div>
+			<div class="menuItem" data-target="page2">Kategorie</div>
+			<div class="menuItem" data-target="page3">Wszyukiwanie obrazów</div>
+		</div>
+		<div id="container">
+			<div id="page1" class="page">
+				<div class="title">Ustawienia</div>
+					<div id="searchEnginesContainer"></div>
+					<input type="button" value="zapisz" id="saveOptions"/>								
+			</div>
+			<div id="page2" class="page">
+				<div class="title">Kateogire (soon)</div>
+							
+			</div>
+			<div id="page3" class="page">
+				<div class="title">Wyszukiwanie obrazów (beta)</div>				
+								
+			</div>
+		</div>			
+	</div>	
     <script type="text/javascript" src="searchoptions.js"></script>
 </body>
 </html>
