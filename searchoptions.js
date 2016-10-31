@@ -1,66 +1,55 @@
+/****************************************************************/
+
+
+/****************************************************************/
+
 var background = browser.extension.getBackgroundPage();
 
 document.getElementById("saveOptions").addEventListener("click", function() {
 	while(background.searchEngines.pop());
-	var sEC = document.getElementById("searchEnginesContainer");		
-	for(var i = 1 ; i < sEC.childNodes.length; i++)	{					
-		background.addSearchEngine(i,sEC.childNodes[i]);		
-	}		
+	var sE = document.getElementById("searchEngines");
+	for(var i = 1 ; i < sE.rows.length ; i++)
+	{		
+		background.addSearchEngine( i,
+									sE.rows[i].cells[0].children[0].value,
+									sE.rows[i].cells[1].children[0].value,
+									sE.rows[i].cells[2].children[0].checked,
+									sE.rows[i].cells[3].children[0].checked,
+									(sE.rows[i].cells[4].children[0].value=="S"?0:1));
+		
+	}	
 	background.saveOptions();	
 });	
 
-document.getElementById("addNewSearchEngine").addEventListener("click", function() {
-	var name = document.getElementById("newSearchEngineName");
-	var url = document.getElementById("newSearchEngineUrl");
-	if(name.value != undefined && url.value != undefined && name.value.length>0 && url.value.length > 0) {
-		
-		addRow(document.getElementById("searchEnginesContainer"),[
-			"<input type='text' value='" + name.value + "'/>",
-			"<input type='text' value='" + url.value + "'/>",
-			"<input type='checkbox'/>",
-			"<input type='checkbox'/>"]);
-		name.value="";
-		url.value="";
+
+(function()
+{
+	var str = "<table id='searchEngines'><tr><td colspan=2 style='width:70px'>Nazwa</td><td style='width:270px'>adres silnika wyszukiwania</td><td>Pokaż w menu</td><td>Użyj w wyszukiwarce</td></tr>";
+			
+	for (var i = 0; i < background.searchEngines.length ; i++)
+	{
+		str +=  "<tr><td><input type='text' value='"
+		+   background.searchEngines[i].name
+		+   "'/></td><td>"
+		+	(background.searchEngines[i].type==0?"S":"G")
+		+	"</td><td><input type='text' value='"
+		+   background.searchEngines[i].url 
+		+ "'></td><td><input type='checkbox'"
+		+   (background.searchEngines[i].active?"checked ":"")
+		+ "></td><td><input type='checkbox'"
+		+   (background.searchEngines[i].useSearch?"checked ":"")
+		+ "></td></tr>";
 	}
-});
+	str += "</table>";
+	document.getElementById("searchEnginesContainer").innerHTML = str;
 
-function addRow(container,ceils,header) {
-	var row = document.createElement("div");
-	row.className = "row";
-	var ceil;
-	for(var i in ceils)	{
-		ceil = document.createElement("div");
-		ceil.innerHTML = ceils[i];
-		row.appendChild(ceil);
-	}
-	if(header == undefined || header == false) {
-		var btn = document.createElement("div");
-		btn.innerHTML = "delete";
-		btn.addEventListener("click", function() {
-			if(background.delConfirm || confirm("sure?")) container.removeChild(this.parentNode);
-		});
-		row.appendChild(btn);	
-	}	
-	container.appendChild(row);
-}
-
-(function() {
-	var sEC = document.getElementById("searchEnginesContainer");
-
-	addRow(sEC,["Nazwa","adres silnika","Pokaż w menu","Użyj w wyszukiwarce",""],true);
-	
-	for (var i = 0; i < background.searchEngines.length ; i++) {
-		addRow(sEC,[
-			"<input type='text' value='" + background.searchEngines[i].name + "'/>",
-			"<input type='text' value='" + background.searchEngines[i].url 	+ "'/>",
-			"<input type='checkbox'"	 + (background.searchEngines[i].active?"checked ":"") + "/>",
-			"<input type='checkbox'" 	 + (background.searchEngines[i].useSearch?"checked ":"") + "/>"]);
-	}		
 })();
 	
 /*****************************************************************************/
 
-function showPage(target) {
+
+function showPage(target)
+{
 	if(target == undefined || target == null) return;
 	var pages = document.getElementsByClassName("page");
 	for(var i=0; i < pages.length ; i++) {
@@ -78,3 +67,12 @@ function showPage(target) {
 		})
 	}
 })();
+
+
+/**/
+
+
+
+	
+//  ms-browser-extension://OpenSearch_ktnqkx724ter0/searchoptions.html
+

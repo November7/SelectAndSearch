@@ -59,37 +59,8 @@ table input {
     width: 100%;
 }
 
-#newSearchEngine, #searchEnginesContainer {
+#searchEnginesContainer table{
 	margin: 10px 0px 10px 0px;
-}
-
-#searchEnginesContainer div.row, #newSearchEngine {
-	display: flex;
-	width: 1200px;
-}
-
-#newSearchEngine div {
-	flex:1;
-	border: 1px solid black;
-}
-
-#newSearchEngine div:nth-child(1), div.row div:nth-child(1) {
-	flex-basis: 100px;
-}
-
-#newSearchEngine div:nth-child(2), div.row div:nth-child(2) {
-	flex-basis: 200px;
-}
-
-div.row div	{
-	border: 1px solid black;
-	padding: 3px;
-	flex:1;
-}
-
-div.row div input[type="text"], #newSearchEngine div input[type="text"] {
-	width: 100%;
-    border: none;    
 }
 
 #page2, #page3 {
