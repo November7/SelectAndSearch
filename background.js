@@ -2,6 +2,8 @@ var searchEngines = [];
 var target = browser.windows;
 var openInNewTab = true;
 
+//
+
 function loadDefault()
 {
 	searchEngines = [
