@@ -71,8 +71,5 @@ function showPage(target)
 
 /**/
 
-
-
-	
 //  ms-browser-extension://OpenSearch_ktnqkx724ter0/searchoptions.html
 

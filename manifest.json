@@ -4,7 +4,7 @@
   "description": "Search selected text using e.g google",
   "version": "1.0.0",
   "permissions": [ "contextMenus", "storage","activeTab","tabs","background"],
-
+  "content_security_policy": "default-src 'self'",
   "background": {
     "persistent": true,
     "scripts": [ "background.js" ]
