@@ -1,4 +1,5 @@
 var searchEngines = [];	
+var searchGroups = [];	
 var target = browser.windows;
 var openInNewTab = true;
 
@@ -7,62 +8,73 @@ var openInNewTab = true;
 function loadDefault()
 {
 	searchEngines = [
-	{
-		id: 		1, 
-		type:		0,
-		active: 	true,
-		useSearch: 	true,
-		name: 		"Google", 
-		url: 		"https://google.com/search?q="			
-	},
-	{
-		id: 		2,
-		type:		0,
-		active: 	false,
-		useSearch: 	true,
-		name: 		"Filmweb", 
-		url: 		"http://www.filmweb.pl/search?q="			
-	},
-	{
-		id: 		3, 
-		type:		0,
-		active: 	false,
-		useSearch: 	true,
-		name: 		"Yahoo", 
-		url: 		"https://search.yahoo.com/search?p=", 			
-	},
-	{
-		id: 		4,
-		type:		0,		
-		active: 	false,
-		useSearch: 	true,
-		name: 		"Bing", 
-		url: 		"http://www.bing.com/search?q="
-		
-	}];	
+		{
+			id: 		1, 
+			name: 		"Google", 
+			url: 		"https://google.com/search?q="			
+		},
+		{
+			id: 		2,
+			name: 		"Bing", 
+			url: 		"http://www.bing.com/search?q="		
+		},
+		{
+			id: 		3,
+			name: 		"Yahoo", 
+			url: 		"https://search.yahoo.com/search?p=", 			
+		},
+		{
+			id: 		4,		
+			name: 		"Filmweb", 
+			url: 		"http://www.filmweb.pl/search?q="		
+		}
+	];	
+
+	searchGroups = [
+		{
+			id: 		10001,
+			name:		"Films",
+			members:	[1,4]
+		},
+		{
+			id:			10002,
+			name:		"Global",
+			member:		[1,2,3]
+		}
+	]
 }
 
 function addSearchEngine(id,name,url,active,useSearch,type)
 {
 	searchEngines.push({id: id, 
 						name: name,
-						url: url,
-						active: active,
-						useSearch: useSearch,
-						type: type});
+						url: url});
 }
 
 function saveOptions()
 {
 //	console.log("Saving...");
-	browser.storage.local.set({list: searchEngines});
+	browser.storage.local.set({se: searchEngines});
 //	console.log(searchEngines);
 	updateMenu();
 }
 
+browser.storage.local.get(function (item)
+{		
+	/*for(var i in item.se)
+		searchEngines.push(item.se[i]);*/
+	
+	if(searchEngines == undefined || searchEngines.length == 0)
+	{
+		loadDefault();
+	}	
+	updateMenu();
+});
+
+
 function updateMenu()
 {
-	browser.contextMenus.removeAll();
+/*	browser.contextMenus.removeAll();
 	var contexts = ["selection"];
 	var activeEngines = [];
 	for (var i = 0 ; i < searchEngines.length ; i++)
@@ -105,22 +117,8 @@ function updateMenu()
 		}
 	}	
 	browser.contextMenus.create({ "title": browser.i18n.getMessage("menuItemSearchGoogleImage"), "id": "parent2", "contexts": ["image"] });
+	*/
 }
-
-
-browser.storage.local.get(function (item)
-{		
-	for(var i in item.list)
-		searchEngines.push(item.list[i]);
-	
-	if(searchEngines == undefined || searchEngines.length == 0)
-	{
-		loadDefault();
-	}
-	
-	updateMenu();
-});
-
 
 browser.contextMenus.onClicked.addListener(function (info, tab) {
 	//todo: search selected text in links ....

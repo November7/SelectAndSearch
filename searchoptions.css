@@ -1,3 +1,49 @@
+/*******************************************/
+
+/*******************************************/
+
+div.list-container {	
+	background-color: darkcyan;
+	width: 200px;
+	padding: 10px;
+}
+div.droppable-list {
+	min-height: 1.5em;
+	width: 200px;
+}
+
+div.draggable-item-list {
+	width: 200px;
+}
+
+.protect {
+	/*background-color: red;*/
+	cursor: not-allowed;
+}
+
+.placeholder {
+	height: 1px;
+	background-color: white;
+	width: 200px;
+}
+
+div.edit-engs {
+	display: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 body, input {
 	font-family: Segoe UI light;
 	color: #fff;
@@ -65,4 +111,4 @@ table input {
 
 #page2, #page3 {
 	display: none;
-}
+}*/

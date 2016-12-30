@@ -5,6 +5,9 @@
 
 var background = browser.extension.getBackgroundPage();
 
+
+/*****************************************************************
+
 document.getElementById("saveOptions").addEventListener("click", function() {
 	while(background.searchEngines.pop());
 	var sE = document.getElementById("searchEngines");
@@ -21,28 +24,31 @@ document.getElementById("saveOptions").addEventListener("click", function() {
 	background.saveOptions();	
 });	
 
-
+/**************************************************************************** */
 (function()
-{
-	var str = "<table id='searchEngines'><tr><td colspan=2 style='width:70px'>Nazwa</td><td style='width:270px'>adres silnika wyszukiwania</td><td>Pokaż w menu</td><td>Użyj w wyszukiwarce</td></tr>";
-			
+{				
 	for (var i = 0; i < background.searchEngines.length ; i++)
 	{
-		str +=  "<tr><td><input type='text' value='"
-		+   background.searchEngines[i].name
-		+   "'/></td><td>"
-		+	(background.searchEngines[i].type==0?"S":"G")
-		+	"</td><td><input type='text' value='"
-		+   background.searchEngines[i].url 
-		+ "'></td><td><input type='checkbox'"
-		+   (background.searchEngines[i].active?"checked ":"")
-		+ "></td><td><input type='checkbox'"
-		+   (background.searchEngines[i].useSearch?"checked ":"")
-		+ "></td></tr>";
+		var item = background.searchEngines[i];
+		$('#engs-cnt').append("<div class='draggable-item-list' data-uid='" + item.id +	"'>" + item.name + "<div><img src='ico/arrow_down_55.png' width='10px'/></div>"
+													+ "<div class='edit-engs'>"
+													+ "<input type='text' value='" + item.name + "'/><br/>"
+													+ "<input type='text' value='" + item.url + "'/>"
+													+ "</div></div>");
 	}
-	str += "</table>";
-	document.getElementById("searchEnginesContainer").innerHTML = str;
 
+	$('div.draggable-item-list img').click(function () {		
+		$(this).parent().parent().find('div.edit-engs').toggle(300);
+	})
+	$('#engs-cnt').append("<div class='draggable-item-list'> --------- separator --------- </div>");
+
+	for (var i = 0; i < background.searchGroups.length ; i++)
+	{
+		$('#engs-cnt').append("<div class='draggable-item-list' data-uid='"
+													+ background.searchEngines[i].id
+													+ "'>" + background.searchGroups[i].name
+													+ "</div>");
+	}
 })();
 	
 /*****************************************************************************/
@@ -68,8 +74,50 @@ function showPage(target)
 	}
 })();
 
+//////////////////////////////////
 
-/**/
+$(".droppable-list").sortable({
+  revert: 150,
+  placeholder: "placeholder",
+  receive: function (event, ui) {
+    var item = $(this).data().uiSortable.currentItem;
+	if(removeDuplicate($(this),item))  item.remove();
+  },
+  over: function ( event, ui ) 	{
+	  var item = $(this).data().uiSortable.currentItem;
+	 
+	if(removeDuplicate($(this),item)) 
+	{
+		item.addClass("protect");
+		$(".placeholder").hide();
+	}
+  }
+});
 
-//  ms-browser-extension://OpenSearch_ktnqkx724ter0/searchoptions.html
+function removeDuplicate(container, item)
+{
+  var duplicte = 0;
+  container.children().each(function() {
+    if(item.attr('data-uid') !== undefined && $(this).attr('data-uid') == item.attr('data-uid')) duplicte++;
+  });
+  if(duplicte > 1) return 1; //item.remove();
+  else return 0;
+}
 
+var __mouseStart = $.ui.draggable.prototype._mouseStart;
+$.ui.draggable.prototype._mouseStart = function (e, overrideHandle, nop) {
+    this._trigger("prestart", e, this._uiHash());
+    __mouseStart.apply(this, [e, overrideHandle, nop]);
+};
+
+$( ".draggable-item-list" ).draggable({
+	prestart: function()
+	{
+		$('div.edit-engs').hide();
+	},
+  connectToSortable: ".droppable-list",
+  helper: "clone",
+  revert: "false",
+  revertDuration: 0
+  
+});
