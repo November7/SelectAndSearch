@@ -30,16 +30,27 @@ document.getElementById("saveOptions").addEventListener("click", function() {
 	for (var i = 0; i < background.searchEngines.length ; i++)
 	{
 		var item = background.searchEngines[i];
-		$('#engs-cnt').append("<div class='draggable-item-list' data-uid='" + item.id +	"'>" + item.name + "<div><img src='ico/arrow_down_55.png' width='10px'/></div>"
-													+ "<div class='edit-engs'>"
+		$('#engs-cnt').append("<div class='draggable-item-list' data-uid='" + item.id +	"'>" + item.name 
+													+ "<img class='edit' src='ico/arrow_down_55.png' width='12px'/>"
+													
+													+ "<div class='edit-engs'><form>"
 													+ "<input type='text' value='" + item.name + "'/><br/>"
 													+ "<input type='text' value='" + item.url + "'/>"
+													+ "</form><img class='delete' src='ico/cross_55.png' width='12px'/>"
 													+ "</div></div>");
 	}
 
-	$('div.draggable-item-list img').click(function () {		
-		$(this).parent().parent().find('div.edit-engs').toggle(300);
-	})
+	$('div.draggable-item-list img.edit').click(function () {		
+		$(this).parent().find('div.edit-engs').toggle(300);
+	});
+	$('div.draggable-item-list img.delete').click(function () {		
+		$(this).parent().parent().remove();
+	});
+	$('div.draggable-item-list img.reset').click(function () {
+		$(this).parent().find('form')[0].reset();
+	});
+	
+
 	$('#engs-cnt').append("<div class='draggable-item-list'> --------- separator --------- </div>");
 
 	for (var i = 0; i < background.searchGroups.length ; i++)
@@ -82,6 +93,9 @@ $(".droppable-list").sortable({
   receive: function (event, ui) {
     var item = $(this).data().uiSortable.currentItem;
 	if(removeDuplicate($(this),item))  item.remove();
+	$('.droppable-list img.delete').click(function () {		
+		$(this).parent().remove();
+	});
   },
   over: function ( event, ui ) 	{
 	  var item = $(this).data().uiSortable.currentItem;
