@@ -2,19 +2,39 @@
 
 /*******************************************/
 
-div.list-container {	
+div.list-cnt {	
 	background-color: darkcyan;
-	width: 200px;
+	width: 300px;
 	padding: 10px;
+	cursor: pointer;
 }
-div.droppable-list {
+.droppable-list {
 	min-height: 1.5em;
+	width: 200px;	
+}
+
+.draggable-item-list {
+	width: 300px;
+	border: 1px solid rgba(200,200,200,.5);
+	background-color: rgba(128,128,128,.5);
+}
+
+.draggable-item-list p.title {
+	margin: 2px;
+	padding: 2px;
+	display: inline-block;
 	width: 200px;
 }
 
-div.draggable-item-list {
-	width: 200px;
+#engs-cnt .btn-delete {
+	display: none;
 }
+
+#menu-cnt .btn-edit {
+	display: none;
+}
+
+
 
 .protect {
 	/*background-color: red;*/
@@ -27,13 +47,9 @@ div.draggable-item-list {
 	width: 200px;
 }
 
-div.edit-engs {
+.edit-engs {
 	display: none;
 }
-
-
-
-
 
 
 

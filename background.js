@@ -32,12 +32,12 @@ function loadDefault()
 
 	searchGroups = [
 		{
-			id: 		10001,
+			id: 		-1,
 			name:		"Films",
 			members:	[1,4]
 		},
 		{
-			id:			10002,
+			id:			-2,
 			name:		"Global",
 			member:		[1,2,3]
 		}

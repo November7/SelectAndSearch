@@ -30,33 +30,33 @@ document.getElementById("saveOptions").addEventListener("click", function() {
 	for (var i = 0; i < background.searchEngines.length ; i++)
 	{
 		var item = background.searchEngines[i];
-		$('#engs-cnt').append("<div class='draggable-item-list' data-uid='" + item.id +	"'>" + item.name 
-													+ "<img class='edit' src='ico/arrow_down_55.png' width='12px'/>"
-													
+		$('#engs-cnt').append("<div class='draggable-item-list' data-uid='" + item.id +	"'><p class='title'>" + item.name + "</p>"
+													+ "<img class='btn-edit' src='ico/angle_down.png' width='12px'/>"
+													+" <img class='btn-delete' src='ico/minus_20.png' width='15px'/>"
 													+ "<div class='edit-engs'><form>"
 													+ "<input type='text' value='" + item.name + "'/><br/>"
 													+ "<input type='text' value='" + item.url + "'/>"
-													+ "</form><img class='delete' src='ico/cross_55.png' width='12px'/>"
+													+ "</form>"
 													+ "</div></div>");
 	}
 
-	$('div.draggable-item-list img.edit').click(function () {		
+	$('div.draggable-item-list .btn-edit').click(function () {		
 		$(this).parent().find('div.edit-engs').toggle(300);
 	});
-	$('div.draggable-item-list img.delete').click(function () {		
+	$('div.draggable-item-list .btn-delete').click(function () {		
 		$(this).parent().parent().remove();
 	});
-	$('div.draggable-item-list img.reset').click(function () {
+	$('div.draggable-item-list .reset').click(function () {
 		$(this).parent().find('form')[0].reset();
 	});
 	
 
-	$('#engs-cnt').append("<div class='draggable-item-list'> --------- separator --------- </div>");
+	$('#engs-cnt').append("<div class='draggable-item-list'> --------- separator --------- <img class='btn-delete' src='ico/minus_20.png' width='15px'/></div>");
 
 	for (var i = 0; i < background.searchGroups.length ; i++)
 	{
 		$('#engs-cnt').append("<div class='draggable-item-list' data-uid='"
-													+ background.searchEngines[i].id
+													+ background.searchGroups[i].id
 													+ "'>" + background.searchGroups[i].name
 													+ "</div>");
 	}
@@ -93,7 +93,7 @@ $(".droppable-list").sortable({
   receive: function (event, ui) {
     var item = $(this).data().uiSortable.currentItem;
 	if(removeDuplicate($(this),item))  item.remove();
-	$('.droppable-list img.delete').click(function () {		
+	$('.droppable-list img.btn-delete').click(function () {		
 		$(this).parent().remove();
 	});
   },
