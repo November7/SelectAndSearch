@@ -30,12 +30,12 @@ document.getElementById("saveOptions").addEventListener("click", function() {
 	for (var i = 0; i < background.searchEngines.length ; i++)
 	{
 		var item = background.searchEngines[i];
-		$('#engs-cnt').append("<div class='draggable-item-list' data-uid='" + item.id +	"'><p class='title'>" + item.name + "</p>"
-													+ "<img class='btn-edit' src='ico/angle_down.png' width='12px'/>"
-													+" <img class='btn-delete' src='ico/minus_20.png' width='15px'/>"
+		$('#engs-cnt').append("<div class='draggable-item-list' data-uid='" + item.id +	"'><p class='title'>" + item.name + "</p>"													
+													+ "<i class='material-icons ico-white ico btn-delete'>close</i>"
+													+ "<i class='material-icons ico-white ico btn-edit'>mode_edit</i>"
 													+ "<div class='edit-engs'><form>"
-													+ "<input type='text' value='" + item.name + "'/><br/>"
-													+ "<input type='text' value='" + item.url + "'/>"
+													+ "Name: <input class='eng-in' type='text' value='" + item.name + "'/><br/>"
+													+ "Url: <input class='eng-in' type='text' value='" + item.url + "'/>"
 													+ "</form>"
 													+ "</div></div>");
 	}
@@ -44,14 +44,14 @@ document.getElementById("saveOptions").addEventListener("click", function() {
 		$(this).parent().find('div.edit-engs').toggle(300);
 	});
 	$('div.draggable-item-list .btn-delete').click(function () {		
-		$(this).parent().parent().remove();
+		$(this).parent().remove();
 	});
 	$('div.draggable-item-list .reset').click(function () {
 		$(this).parent().find('form')[0].reset();
 	});
 	
 
-	$('#engs-cnt').append("<div class='draggable-item-list'> --------- separator --------- <img class='btn-delete' src='ico/minus_20.png' width='15px'/></div>");
+	$('#engs-cnt').append("<div class='draggable-item-list'>SEPARATOR<i class='material-icons ico-white ico btn-delete'>close</i></div>");
 
 	for (var i = 0; i < background.searchGroups.length ; i++)
 	{
@@ -93,7 +93,7 @@ $(".droppable-list").sortable({
   receive: function (event, ui) {
     var item = $(this).data().uiSortable.currentItem;
 	if(removeDuplicate($(this),item))  item.remove();
-	$('.droppable-list img.btn-delete').click(function () {		
+	$('.droppable-list .btn-delete').click(function () {		
 		$(this).parent().remove();
 	});
   },

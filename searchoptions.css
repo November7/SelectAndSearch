@@ -3,7 +3,7 @@
 /*******************************************/
 
 div.list-cnt {	
-	background-color: darkcyan;
+	background-color: #7d97a5 !important;
 	width: 300px;
 	padding: 10px;
 	cursor: pointer;
@@ -15,8 +15,10 @@ div.list-cnt {
 
 .draggable-item-list {
 	width: 300px;
-	border: 1px solid rgba(200,200,200,.5);
-	background-color: rgba(128,128,128,.5);
+	height: 30px;
+	border: 1px solid rgba(255,255,255,.5);
+	background-color: rgba(255,255,255,0.2);
+	margin: 2px;
 }
 
 .draggable-item-list p.title {
@@ -30,11 +32,27 @@ div.list-cnt {
 	display: none;
 }
 
+.draggable-item-list .ico {
+	display: none;
+}
+
+.draggable-item-list:hover .ico {
+	display: initial;
+}
+
 #menu-cnt .btn-edit {
 	display: none;
 }
 
-
+.ico {
+	float: right;
+	margin-top: 5px;
+	margin-right: 5px;
+}
+.ico-white {
+	color: white;
+	font-size: 18px !important;	
+}
 
 .protect {
 	/*background-color: red;*/
@@ -51,10 +69,19 @@ div.list-cnt {
 	display: none;
 }
 
+input.eng-in {
+	width: 200px;
+	background-color: rgba(255,255,255,0.2);
+	border: none;
+	color: white;
+}
 
 
 
 
+body {
+	background-color: #f5f7f8 !important;
+}
 
 
 
