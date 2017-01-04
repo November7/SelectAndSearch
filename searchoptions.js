@@ -25,42 +25,56 @@ document.getElementById("saveOptions").addEventListener("click", function() {
 });	
 
 /**************************************************************************** */
-(function()
-{				
-	for (var i = 0; i < background.searchEngines.length ; i++)
-	{
-		var item = background.searchEngines[i];
-		$('#engs-cnt').append("<div class='draggable-item-list' data-uid='" + item.id +	"'><p class='title'>" + item.name + "</p>"													
-													+ "<i class='material-icons ico-white ico btn-delete'>close</i>"
-													+ "<i class='material-icons ico-white ico btn-edit'>mode_edit</i>"
-													+ "<div class='edit-engs'><form>"
-													+ "Name: <input class='eng-in' type='text' value='" + item.name + "'/><br/>"
-													+ "Url: <input class='eng-in' type='text' value='" + item.url + "'/>"
-													+ "</form>"
-													+ "</div></div>");
-	}
 
+function addSearchEngine(eng)
+{
+	$('#engs-cnt').append("<div class='draggable-item-list' data-uid='" + eng.id +	"'><p class='title'>" + eng.name + "</p>"													
+							
+							+ "<i class='material-icons ico-white ico btn-delete'>close</i>"
+							+ "<i class='material-icons ico-white ico btn-edit'>mode_edit</i>"
+							
+							+ "<div class='edit-engs'><form>"
+							+ "Name: <input class='eng-in' type='text' value='" + eng.name + "'/><br/>"
+							+ "Url: <input class='eng-in' type='text' value='" + eng.url + "'/>"
+							+ "<br/><input value='save' type='button' /><input value='Default' type='reset'/>"
+							+ "</form>"
+							+ "</div></div>");
 	$('div.draggable-item-list .btn-edit').click(function () {		
-		$(this).parent().find('div.edit-engs').toggle(300);
-	});
-	$('div.draggable-item-list .btn-delete').click(function () {		
-		$(this).parent().remove();
-	});
-	$('div.draggable-item-list .reset').click(function () {
-		$(this).parent().find('form')[0].reset();
-	});
-	
+	$(this).parent().find('div.edit-engs').toggle(300);
+});
+$('div.draggable-item-list .btn-delete').click(function () {		
+	if(confirm("u sure?"))$(this).parent().remove();
+});
+$('div.draggable-item-list .reset').click(function () {
+	$(this).parent().find('form')[0].reset();
+});
+}
 
-	$('#engs-cnt').append("<div class='draggable-item-list'>SEPARATOR<i class='material-icons ico-white ico btn-delete'>close</i></div>");
 
-	for (var i = 0; i < background.searchGroups.length ; i++)
-	{
-		$('#engs-cnt').append("<div class='draggable-item-list' data-uid='"
-													+ background.searchGroups[i].id
-													+ "'>" + background.searchGroups[i].name
-													+ "</div>");
-	}
-})();
+for (var i = 0; i < background.searchEngines.length ; i++)
+{
+	addSearchEngine(background.searchEngines[i]);
+}
+
+
+
+$('.add-eng-btn').click(function () {		
+	//zabezpieczyć przed pustymi i nieprawidłowymi
+	addSearchEngine({id:22,name: $('.eng-name').val(), url: $('.eng-url').val()});
+	//wyczyscic formularz...
+});
+
+
+$('#engs-cnt').append("<div class='draggable-item-list separator'>SEPARATOR<i class='material-icons ico-white ico btn-delete'>close</i></div>");
+
+for (var i = 0; i < background.searchGroups.length ; i++)
+{
+	$('#engs-cnt').append("<div class='draggable-item-list' data-uid='"
+							+ background.searchGroups[i].id
+							+ "'>" + background.searchGroups[i].name
+							+ "</div>");
+}
+
 	
 /*****************************************************************************/
 
@@ -127,6 +141,8 @@ $.ui.draggable.prototype._mouseStart = function (e, overrideHandle, nop) {
 $( ".draggable-item-list" ).draggable({
 	prestart: function()
 	{
+
+		//przeciąganie ma zamykać tylko element przeciągany
 		$('div.edit-engs').hide();
 	},
   connectToSortable: ".droppable-list",

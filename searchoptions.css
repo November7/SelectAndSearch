@@ -15,7 +15,7 @@ div.list-cnt {
 
 .draggable-item-list {
 	width: 300px;
-	height: 30px;
+	min-height: 30px;
 	border: 1px solid rgba(255,255,255,.5);
 	background-color: rgba(255,255,255,0.2);
 	margin: 2px;
@@ -28,12 +28,17 @@ div.list-cnt {
 	width: 200px;
 }
 
-#engs-cnt .btn-delete {
-	display: none;
-}
-
 .draggable-item-list .ico {
 	display: none;
+	opacity: 0.6;
+	color: black;
+	float: right;
+	margin-top: 5px;
+	margin-right: 5px;
+}
+.draggable-item-list .ico:hover {
+	opacity: 1;	
+	color: white;
 }
 
 .draggable-item-list:hover .ico {
@@ -44,29 +49,29 @@ div.list-cnt {
 	display: none;
 }
 
-.ico {
-	float: right;
-	margin-top: 5px;
-	margin-right: 5px;
-}
 .ico-white {
 	color: white;
 	font-size: 18px !important;	
 }
 
+#engs-cnt .separator .ico {
+	display: none;
+}
+
 .protect {
-	/*background-color: red;*/
 	cursor: not-allowed;
 }
 
 .placeholder {
-	height: 1px;
-	background-color: white;
-	width: 200px;
+	margin: 4px 0px 4px 0px;
+	height: 1px;	
+	width: 300px;
+	background-color: rgba(255,255,255,0.5);
 }
 
 .edit-engs {
 	display: none;
+	margin: 5px 5px 5px 5px;
 }
 
 input.eng-in {
