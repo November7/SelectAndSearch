@@ -48,8 +48,23 @@ $('div.draggable-item-list .btn-delete').click(function () {
 $('div.draggable-item-list .reset').click(function () {
 	$(this).parent().find('form')[0].reset();
 });
-}
 
+$( ".draggable-item-list" ).draggable({
+	prestart: function()
+	{
+
+		//przeciąganie ma zamykać tylko element przeciągany
+		$('div.edit-engs').hide();
+	},
+  connectToSortable: ".droppable-list",
+  helper: "clone",
+  revert: "false",
+  revertDuration: 0
+  
+});
+
+}
+// Przerobić dodawanie grup i silników na jedną uniwersalną funkcję!!!
 
 for (var i = 0; i < background.searchEngines.length ; i++)
 {
@@ -138,16 +153,4 @@ $.ui.draggable.prototype._mouseStart = function (e, overrideHandle, nop) {
     __mouseStart.apply(this, [e, overrideHandle, nop]);
 };
 
-$( ".draggable-item-list" ).draggable({
-	prestart: function()
-	{
 
-		//przeciąganie ma zamykać tylko element przeciągany
-		$('div.edit-engs').hide();
-	},
-  connectToSortable: ".droppable-list",
-  helper: "clone",
-  revert: "false",
-  revertDuration: 0
-  
-});
