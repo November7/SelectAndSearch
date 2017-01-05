@@ -1,1 +1,1 @@
-Open Search
+MultiSearch
