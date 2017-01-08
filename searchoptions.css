@@ -3,7 +3,7 @@
 /*******************************************/
 
 div.list-cnt {	
-	background-color: #7d97a5 !important;
+	background-color: seagreen !important;
 	width: 300px;
 	padding: 10px;
 	cursor: pointer;
@@ -12,13 +12,27 @@ div.list-cnt {
 	min-height: 1.5em;
 	width: 200px;	
 }
-
 .draggable-item-list {
 	width: 300px;
+	margin: 2px;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	color: white;
+	font-size: 10pt;
+}
+
+.draggable-item-list.item {	
 	min-height: 30px;
 	border: 1px solid rgba(255,255,255,.5);
-	background-color: rgba(255,255,255,0.2);
-	margin: 2px;
+	background-color: rgba(255,255,255,.2);	
+}
+
+.draggable-item-list.separator {	
+	height: 20px;
+	border: 1px solid rgba(255,255,255,.7);
+	background-color: rgba(255,255,255,.5);	
+	font-size: 7pt;
+	color: grey;
+	text-align: center;
 }
 
 .draggable-item-list p.title {
@@ -41,12 +55,18 @@ div.list-cnt {
 	color: white;
 }
 
-.draggable-item-list:hover .ico {
+#menu-cnt .draggable-item-list:hover .ico.btn-delete,
+#engs-cnt .draggable-item-list:hover .ico {
 	display: initial;
 }
 
-#menu-cnt .btn-edit {
+#grps-cnt .draggable-item-list:hover .ico {
 	display: none;
+}
+
+
+#menu-cnt .btn-edit {
+	display: none ;
 }
 
 .ico-white {
@@ -55,7 +75,8 @@ div.list-cnt {
 }
 
 #engs-cnt .separator .ico {
-	display: none;
+	display: none !important;
+	
 }
 
 .protect {

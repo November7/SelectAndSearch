@@ -3,32 +3,48 @@
 
 var background = browser.extension.getBackgroundPage();
 
-function addSearchEngine(eng)
+function addSearchObj(obj,parent)
 {
-	var item = $("<div class='draggable-item-list' data-uid='" + eng.id +	"'><p class='title'>" + eng.name + "</p>"							
-				+ "<i class='material-icons ico-white ico btn-delete'>close</i>"
-				+ "<i class='material-icons ico-white ico btn-edit'>mode_edit</i>"
-				
+	var strItem = "<div class='draggable-item-list";
+	if(obj.id) {
+		strItem += " item' data-uid='" + obj.id +"'>";
+	}	
+	else {
+		strItem += " separator'>";
+	}
+
+	
+	strItem += 	"<p class='title'>" + obj.name + "</p><i class='material-icons ico-white ico btn-delete'>close</i>";
+
+	if(obj.url != undefined) {
+		strItem +="<i class='material-icons ico-white ico btn-edit'>mode_edit</i>"								
 				+ "<div class='edit-engs'><form>"
-				+ "Name: <input class='eng-in' type='text' value='" + eng.name + "'/><br/>"
-				+ "Url: <input class='eng-in' type='text' value='" + eng.url + "'/>"
+				+ "Name: <input class='eng-in' type='text' value='" + obj.name + "'/><br/>"
+				+ "Url: <input class='eng-in' type='text' value='" + obj.url + "'/>"
 				+ "<br/><input value='save' type='button' /><input value='Default' type='reset'/>"
-				+ "</form>"
-				+ "</div></div>");
-	$('#engs-cnt').append(item);
-							
-	item.find('.btn-edit').click(function () {		
-		$(this).parent().find('div.edit-engs').toggle(300);
-	});
+				+ "</form></div>";
+	}
+	
+	strItem	+= "</div>";
 
-	item.find('.btn-delete').click(function () {		
-		if(confirm("u sure?"))$(this).parent().remove();
-	});
+	var item = $(strItem);
 
-	///????
-	item.find('.reset').click(function () {
-		$(this).parent().find('form')[0].reset();
-	});
+	$(parent).append(item);
+
+	if(obj.url != undefined) {						
+		item.find('.btn-edit').click(function () {		
+			$(this).parent().find('div.edit-engs').toggle(300);
+		});
+
+		item.find('.btn-delete').click(function () {		
+			if(confirm("u sure?"))$(this).parent().remove();
+		});
+
+		///????
+		item.find('.reset').click(function () {
+			$(this).parent().find('form')[0].reset();
+		});
+	}
 
 	item.draggable({
 		prestart: function()
@@ -46,31 +62,26 @@ function addSearchEngine(eng)
 }
 
 
-
 // Przerobić dodawanie grup i silników na jedną uniwersalną funkcję!!!
 
 for (var i = 0; i < background.searchEngines.length ; i++)
 {
-	addSearchEngine(background.searchEngines[i]);
+	addSearchObj(background.searchEngines[i],'#engs-cnt');
 }
 
 
 
 $('.add-eng-btn').click(function () {		
 	//zabezpieczyć przed pustymi i nieprawidłowymi
-	addSearchEngine({id:22,name: $('.eng-name').val(), url: $('.eng-url').val()});
+	addSearchObj({id:22,name: $('.eng-name').val(), url: $('.eng-url').val()},'#engs-cnt');
 	//wyczyscic formularz...
 });
 
-
-$('#engs-cnt').append("<div class='draggable-item-list separator'>SEPARATOR<i class='material-icons ico-white ico btn-delete'>close</i></div>");
+addSearchObj({id:0, name: "DELIMITER"}, '#engs-cnt');
 
 for (var i = 0; i < background.searchGroups.length ; i++)
 {
-	$('#engs-cnt').append("<div class='draggable-item-list' data-uid='"
-							+ background.searchGroups[i].id
-							+ "'>" + background.searchGroups[i].name
-							+ "</div>");
+	addSearchObj(background.searchGroups[i],'#grps-cnt');
 }
 
 $(".droppable-list").sortable({
