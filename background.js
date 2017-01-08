@@ -1,5 +1,6 @@
-var searchEngines = [];	
-var searchGroups = [];	
+var searchEngines 	= [];	
+var searchGroups 	= [];
+var searchMenu		= [];
 var target = browser.windows;
 var openInNewTab = true;
 
@@ -44,7 +45,7 @@ function loadDefault()
 	]
 }
 
-function addSearchEngine(id,name,url,active,useSearch,type)
+function addSearchEngine(id,name,url)
 {
 	searchEngines.push({id: id, 
 						name: name,
@@ -53,16 +54,24 @@ function addSearchEngine(id,name,url,active,useSearch,type)
 
 function saveOptions()
 {
-//	console.log("Saving...");
-	browser.storage.local.set({se: searchEngines});
-//	console.log(searchEngines);
+	console.log("Saving...");
+
+	browser.storage.local.set({
+		se: searchEngines,
+		sg: searchGroups,
+		sm: searchMenu
+	});
+	console.log(searchEngines);
 	updateMenu();
 }
 
 browser.storage.local.get(function (item)
 {		
-	/*for(var i in item.se)
-		searchEngines.push(item.se[i]);*/
+	for(var i in item.se)
+		searchEngines.push(item.se[i]);
+
+	for(var i in item.sg)
+		searchGroups.push(item.sg[i]);
 	
 	if(searchEngines == undefined || searchEngines.length == 0)
 	{

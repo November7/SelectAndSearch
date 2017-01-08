@@ -3,32 +3,39 @@
 
 var background = browser.extension.getBackgroundPage();
 
+function saveSearchEngines()
+{
+	background.searchEngines = [];
+	$('#engs-cnt').find('.item').each(function() {
+		background.searchEngines.push({
+			id: $(this).attr('data-id'),
+			name: $(this).find('.eng-name').val(),
+			url: $(this).find('.eng-url').val()
+		});
+	});
+	background.saveOptions();
+}
+
 function addSearchObj(obj,parent)
 {
 	var strItem = "<div class='draggable-item-list";
-	if(obj.id) {
-		strItem += " item' data-uid='" + obj.id +"'>";
+	if(obj.id != undefined) {
+		strItem += " item' data-id='" + obj.id +"'>";
 	}	
 	else {
 		strItem += " separator'>";
-	}
-
-	
+	}	
 	strItem += 	"<p class='title'>" + obj.name + "</p><i class='material-icons ico-white ico btn-delete'>close</i>";
-
 	if(obj.url != undefined) {
 		strItem +="<i class='material-icons ico-white ico btn-edit'>mode_edit</i>"								
 				+ "<div class='edit-engs'><form>"
-				+ "Name: <input class='eng-in' type='text' value='" + obj.name + "'/><br/>"
-				+ "Url: <input class='eng-in' type='text' value='" + obj.url + "'/>"
-				+ "<br/><input value='save' type='button' /><input value='Default' type='reset'/>"
+				+ "Name: <input class='eng-in eng-name' type='text' value='" + obj.name + "'/><br/>"
+				+ "Url: <input class='eng-in eng-url' type='text' value='" + obj.url + "'/>"
+				+ "<br/><input class='btn-se-save' value='save' type='button' /><input value='Default' type='reset'/>"
 				+ "</form></div>";
-	}
-	
+	}	
 	strItem	+= "</div>";
-
 	var item = $(strItem);
-
 	$(parent).append(item);
 
 	if(obj.url != undefined) {						
@@ -38,20 +45,23 @@ function addSearchObj(obj,parent)
 
 		item.find('.btn-delete').click(function () {		
 			if(confirm("u sure?"))$(this).parent().remove();
+			saveSearchEngines();
 		});
 
+		item.find('.btn-se-save').click(function () {
+			saveSearchEngines();
+		});
 		///????
 		item.find('.reset').click(function () {
 			$(this).parent().find('form')[0].reset();
 		});
+
 	}
 
 	item.draggable({
 		prestart: function()
 		{
-
-			//przeciąganie ma zamykać tylko element przeciągany
-			$('div.edit-engs').hide();
+			$(this).find('div.edit-engs').hide();
 		},
 		connectToSortable: ".droppable-list",
 		helper: "clone",
@@ -61,23 +71,27 @@ function addSearchObj(obj,parent)
 	});
 }
 
-
-// Przerobić dodawanie grup i silników na jedną uniwersalną funkcję!!!
-
 for (var i = 0; i < background.searchEngines.length ; i++)
 {
 	addSearchObj(background.searchEngines[i],'#engs-cnt');
 }
 
-
-
 $('.add-eng-btn').click(function () {		
 	//zabezpieczyć przed pustymi i nieprawidłowymi
-	addSearchObj({id:22,name: $('.eng-name').val(), url: $('.eng-url').val()},'#engs-cnt');
-	//wyczyscic formularz...
+	var gid = 1;
+	for (var i = 0; i < background.searchEngines.length ; i++)
+	{
+		if(gid == background.searchEngines[i].id) gid++;
+		else break;
+	}
+	console.log(gid);
+	addSearchObj({id:gid,name: $('#add-eng-frm .eng-name').val(), url: $('#add-eng-frm .eng-url').val()},'#engs-cnt');
+
+//	$('#add-eng-frm').reset();  ocb????
+	saveSearchEngines();
 });
 
-addSearchObj({id:0, name: "DELIMITER"}, '#engs-cnt');
+addSearchObj({name: "DELIMITER"}, '#engs-cnt');
 
 for (var i = 0; i < background.searchGroups.length ; i++)
 {
@@ -109,7 +123,7 @@ function removeDuplicate(container, item)
 {
   var duplicte = 0;
   container.children().each(function() {
-    if(item.attr('data-uid') !== undefined && $(this).attr('data-uid') == item.attr('data-uid')) duplicte++;
+    if(item.attr('data-id') !== undefined && $(this).attr('data-id') == item.attr('data-id')) duplicte++;
   });
   if(duplicte > 1) return 1; //item.remove();
   else return 0;
@@ -120,5 +134,3 @@ $.ui.draggable.prototype._mouseStart = function (e, overrideHandle, nop) {
     this._trigger("prestart", e, this._uiHash());
     __mouseStart.apply(this, [e, overrideHandle, nop]);
 };
-
-
