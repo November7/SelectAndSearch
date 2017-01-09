@@ -40,7 +40,7 @@ function loadDefault()
 		{
 			id:			-2,
 			name:		"Global",
-			members:		[1,2,3]
+			members:	[1,2,3]
 		}
 	]
 }

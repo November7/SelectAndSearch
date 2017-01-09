@@ -13,6 +13,17 @@ function saveSearchEngines()
 			url: $(this).find('.eng-url').val()
 		});
 	});
+
+	background.searchGroups = [];
+	$('#grps-cnt').find('.item').each(function() {
+		background.searchGroups.push({
+			id: $(this).attr('data-id'),
+			name: $(this).find('.eng-name').val(),
+			members: $(this).find("input:checkbox:checked").map(function() {
+								return parseInt($(this).attr('data-eid')); }).get() 
+		});
+	});
+
 	background.saveOptions();
 	genEngs();
 }
@@ -32,9 +43,10 @@ function addSearchObj(obj,parent)
 		for (var i = 0; i < background.searchEngines.length ; i++)
 		{
 			var checked = "";
-			
-			if(obj.members.indexOf(background.searchEngines[i].id) != -1) checked="checked";
-			strItemEdit += "<label><input type='checkbox' " + checked + " />"+background.searchEngines[i].name+"</label><br>";
+			var eid = background.searchEngines[i].id;
+			if(obj.members.indexOf(parseInt(eid)) != -1) checked="checked";
+		
+			strItemEdit += "<label><input class='eng-chk' type='checkbox' " + checked + " data-eid='" +eid+ "'/>"+background.searchEngines[i].name+"</label><br>";
 		}
 
 					
