@@ -37,42 +37,49 @@ div.list-cnt {
 
 .draggable-item-list p.title {
 	margin: 2px;
-	padding: 2px;
+	padding: 4px 2px 2px 2px;
+	
 	display: inline-block;
 	width: 200px;
 }
+.draggable-item-list p.title i {
+	margin-top: 0px;
+}
 
-.draggable-item-list .ico {
-	display: none;
-	opacity: 0.6;
-	color: black;
+.ico-right {
 	float: right;
+}
+.ico-left {
+	float: left;
+}
+
+.ico {	
+	color: white;
+	opacity: 0.6;
+	font-size: 18px !important;		
 	margin-top: 5px;
 	margin-right: 5px;
 }
-.draggable-item-list .ico:hover {
-	opacity: 1;	
-	color: white;
-}
 
-#menu-cnt .draggable-item-list:hover .ico.btn-delete,
-#engs-cnt .draggable-item-list:hover .ico {
-	display: initial;
-}
-
-#grps-cnt .draggable-item-list:hover .ico {
+.draggable-item-list .btn-edit, 
+.draggable-item-list .btn-delete {
 	display: none;
 }
 
+.draggable-item-list .btn-delete:hover, 
+.draggable-item-list .btn-edit:hover {
+	opacity: 1;
+}
+
+.draggable-item-list:hover .btn-delete,
+.draggable-item-list:hover .btn-edit {
+	display: initial;
+}
 
 #menu-cnt .btn-edit {
 	display: none ;
 }
 
-.ico-white {
-	color: white;
-	font-size: 18px !important;	
-}
 
 #engs-cnt .separator .ico {
 	display: none !important;

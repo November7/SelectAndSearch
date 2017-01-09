@@ -14,31 +14,54 @@ function saveSearchEngines()
 		});
 	});
 	background.saveOptions();
+	genEngs();
 }
 
 function addSearchObj(obj,parent)
 {
-	var strItem = "<div class='draggable-item-list";
-	if(obj.id != undefined) {
-		strItem += " item' data-id='" + obj.id +"'>";
-	}	
+	
+	var strItemAttr = "item' data-id='" + obj.id;
+	var strItemEdit = "<i class='material-icons ico ico-right btn-edit'>mode_edit</i>";
+	var strItemDisplayName = obj.name;
+
+	if(obj.id < 0)	{
+		strItemDisplayName = "<i class='material-icons ico-left ico'>group</i> " + strItemDisplayName;
+		strItemEdit += "<div class='edit-engs'><form>"
+					+  "Name: <input class='eng-in eng-name' type='text' value='" + obj.name + "'/><br/>";
+
+		for (var i = 0; i < background.searchEngines.length ; i++)
+		{
+			
+			strItemEdit += "<input type='checkbox' >"+background.searchEngines[i].name+"</input>";
+		}
+
+					
+		strItemEdit += "<br/><input class='btn-se-save' value='save' type='button' /><input value='Default' type='reset'/>"
+		 			+  "</form></div>";
+	}
+	else if(obj.id > 0) {
+		strItemEdit += "<div class='edit-engs'><form>"
+					+  "Name: <input class='eng-in eng-name' type='text' value='" + obj.name + "'/><br/>"
+					+  "Url: <input class='eng-in eng-url' type='text' value='" + obj.url + "'/>"
+					+  "<br/><input class='btn-se-save' value='save' type='button' /><input value='Default' type='reset'/>"
+					+  "</form></div>";
+	}
 	else {
-		strItem += " separator'>";
-	}	
-	strItem += 	"<p class='title'>" + obj.name + "</p><i class='material-icons ico-white ico btn-delete'>close</i>";
-	if(obj.url != undefined) {
-		strItem +="<i class='material-icons ico-white ico btn-edit'>mode_edit</i>"								
-				+ "<div class='edit-engs'><form>"
-				+ "Name: <input class='eng-in eng-name' type='text' value='" + obj.name + "'/><br/>"
-				+ "Url: <input class='eng-in eng-url' type='text' value='" + obj.url + "'/>"
-				+ "<br/><input class='btn-se-save' value='save' type='button' /><input value='Default' type='reset'/>"
-				+ "</form></div>";
-	}	
-	strItem	+= "</div>";
+		strItemAttr = "separator";
+		strItemEdit = "";
+	}
+
+	var strItem = "<div class='draggable-item-list ";
+	strItem += strItemAttr + "'>";	
+	strItem += "<p class='title'>" + strItemDisplayName + "</p><i class='material-icons ico ico-right btn-delete'>close</i>";
+	strItem += strItemEdit + "</div>";
+
 	var item = $(strItem);
+
 	$(parent).append(item);
 
-	if(obj.url != undefined) {						
+	if(obj.id)
+	{
 		item.find('.btn-edit').click(function () {		
 			$(this).parent().find('div.edit-engs').toggle(300);
 		});
@@ -55,8 +78,10 @@ function addSearchObj(obj,parent)
 		item.find('.reset').click(function () {
 			$(this).parent().find('form')[0].reset();
 		});
+	}				
+		
 
-	}
+	
 
 	item.draggable({
 		prestart: function()
@@ -71,32 +96,40 @@ function addSearchObj(obj,parent)
 	});
 }
 
-for (var i = 0; i < background.searchEngines.length ; i++)
+function genEngs()
 {
-	addSearchObj(background.searchEngines[i],'#engs-cnt');
-}
+	$('#engs-cnt').empty();
+	$('#grps-cnt').empty();
 
-$('.add-eng-btn').click(function () {		
-	//zabezpieczyć przed pustymi i nieprawidłowymi
-	var gid = 1;
 	for (var i = 0; i < background.searchEngines.length ; i++)
 	{
-		if(gid == background.searchEngines[i].id) gid++;
-		else break;
+		addSearchObj(background.searchEngines[i],'#engs-cnt');
+	}	
+
+	addSearchObj({name: "DELIMITER", id: 0}, '#engs-cnt');
+
+	for (var i = 0; i < background.searchGroups.length ; i++)
+	{
+		addSearchObj(background.searchGroups[i],'#grps-cnt');
 	}
-	console.log(gid);
-	addSearchObj({id:gid,name: $('#add-eng-frm .eng-name').val(), url: $('#add-eng-frm .eng-url').val()},'#engs-cnt');
-
-//	$('#add-eng-frm').reset();  ocb????
-	saveSearchEngines();
-});
-
-addSearchObj({name: "DELIMITER"}, '#engs-cnt');
-
-for (var i = 0; i < background.searchGroups.length ; i++)
-{
-	addSearchObj(background.searchGroups[i],'#grps-cnt');
 }
+
+genEngs();
+
+$('.add-eng-btn').click(function () {		
+		//zabezpieczyć przed pustymi i nieprawidłowymi
+		var gid = 1;
+		for (var i = 0; i < background.searchEngines.length ; i++)
+		{
+			if(gid == background.searchEngines[i].id) gid++;
+			else break;
+		}
+		console.log(gid);
+		addSearchObj({id:gid,name: $('#add-eng-frm .eng-name').val(), url: $('#add-eng-frm .eng-url').val()},'#engs-cnt');
+
+	//	$('#add-eng-frm').reset();  ocb????
+		saveSearchEngines();
+	});
 
 $(".droppable-list").sortable({
   revert: 150,
