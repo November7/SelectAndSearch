@@ -28,11 +28,13 @@ function addSearchObj(obj,parent)
 		strItemDisplayName = "<i class='material-icons ico-left ico'>group</i> " + strItemDisplayName;
 		strItemEdit += "<div class='edit-engs'><form>"
 					+  "Name: <input class='eng-in eng-name' type='text' value='" + obj.name + "'/><br/>";
-
+console.log(obj.members);
 		for (var i = 0; i < background.searchEngines.length ; i++)
 		{
+			var checked = "";
 			
-			strItemEdit += "<input type='checkbox' >"+background.searchEngines[i].name+"</input>";
+			if(obj.members.indexOf(background.searchEngines[i].id) != -1) checked="checked";
+			strItemEdit += "<label><input type='checkbox' " + checked + " />"+background.searchEngines[i].name+"</label><br>";
 		}
 
 					
