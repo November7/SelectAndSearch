@@ -83,7 +83,7 @@ browser.storage.local.get(function (item)
 	for(var i in item.sg)
 		searchGroups.push(item.sg[i]);
 	
-//	if(searchEngines == undefined || searchEngines.length == 0)
+	if(searchEngines == undefined || searchEngines.length == 0)
 	{
 		loadDefault();
 	}	
