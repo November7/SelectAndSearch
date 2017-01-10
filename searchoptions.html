@@ -10,26 +10,32 @@
   <script src="jq/jquery-ui.min.js"></script>  
 </head>
 <body>
+  <div class="container">
+    <div class="panel left">
+      <div id="engs-cnt" class="list-cnt">
+        <div class="header">Silniki wyszukiwania</div>
+      </div>
 
-<div id="engs-cnt" class="list-cnt">
-	<div class="header">Silniki wyszukiwania</div>
-</div>
-<div id="grps-cnt" class="list-cnt">
-	<div class="header">Grupy</div>
-</div>
+      Add engine...<br/>
+      <form id="add-eng-frm">
+      Name: <input class='eng-name' type="text"><br />
+      Url: <input class='eng-url' type="text">
+      <i class='material-icons add-eng-btn'>add_circle_outline</i>
+      </form>
+    </div>
+    <div class="panel right">
+      <div id="grps-cnt" class="list-cnt">
+        <div class="header">Grupy</div>
+      </div>
 
-<div>
-
-  <!--PRzerobić na formularz-->
-
-  Add engine...<br/>
-  <form id="add-eng-frm">
-  Name: <input class='eng-name' type="text">
-  Url: <input class='eng-url' type="text">
-  <i class='material-icons add-eng-btn'>mode_edit</i>
-  </form>
-</div>
-<hr>
+      Add grouo...<br/>
+      <form id="add-grp-frm">
+      Name: <input class='grp-name' type="text"><br />
+      Url: <input class='eng-url' type="text">
+      <i class='material-icons add-grp-btn'>add_circle_outline</i>
+      </form>
+    </div>
+  </div>
 
 <div id="menu-cnt" class="list-cnt">
 	<div class="header">Context menu</div>

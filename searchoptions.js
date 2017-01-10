@@ -15,12 +15,26 @@ function saveSearchEngines()
 	});
 
 	background.searchGroups = [];
+
+	
+
 	$('#grps-cnt').find('.item').each(function() {
+		var mm = [];
+		/*$(this).find("input:checkbox:checked").map(function() {
+								return parseInt($(this).attr('data-eid')); 
+							}).get(); */
+
+		$(this).find("input:checkbox:checked").each(function()
+		{
+			//console.log("??"+$(this).attr('data-eid'));
+			mm.push(parseInt($(this).attr('data-eid')));
+		});
 		background.searchGroups.push({
 			id: $(this).attr('data-id'),
 			name: $(this).find('.eng-name').val(),
 			members: $(this).find("input:checkbox:checked").map(function() {
-								return parseInt($(this).attr('data-eid')); }).get() 
+								return parseInt($(this).attr('data-eid')); 
+							}).get()
 		});
 	});
 
@@ -44,6 +58,7 @@ function addSearchObj(obj,parent)
 		{
 			var checked = "";
 			var eid = background.searchEngines[i].id;
+			
 			if(obj.members.indexOf(parseInt(eid)) != -1) checked="checked";
 		
 			strItemEdit += "<label><input class='eng-chk' type='checkbox' " + checked + " data-eid='" +eid+ "'/>"+background.searchEngines[i].name+"</label><br>";
