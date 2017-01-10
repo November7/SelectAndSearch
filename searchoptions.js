@@ -1,45 +1,29 @@
 /****************************************************************/
-/****************************************************************/
 
 var background = browser.extension.getBackgroundPage();
 
 function saveSearchEngines()
 {
-	background.searchEngines = [];
+	background.removeEngines();
 	$('#engs-cnt').find('.item').each(function() {
-		background.searchEngines.push({
-			id: $(this).attr('data-id'),
-			name: $(this).find('.eng-name').val(),
-			url: $(this).find('.eng-url').val()
-		});
+
+		background.addSearchEngine(	$(this).attr('data-id'), 
+									$(this).find('.eng-name').val(), 
+									$(this).find('.eng-url').val());
+		
 	});
-
-	background.searchGroups = [];
-
 	
 
 	$('#grps-cnt').find('.item').each(function() {
-		var mm = [];
-		/*$(this).find("input:checkbox:checked").map(function() {
-								return parseInt($(this).attr('data-eid')); 
-							}).get(); */
-
-		$(this).find("input:checkbox:checked").each(function()
-		{
-			//console.log("??"+$(this).attr('data-eid'));
-			mm.push(parseInt($(this).attr('data-eid')));
-		});
-		background.searchGroups.push({
-			id: $(this).attr('data-id'),
-			name: $(this).find('.eng-name').val(),
-			members: $(this).find("input:checkbox:checked").map(function() {
-								return parseInt($(this).attr('data-eid')); 
-							}).get()
-		});
+				
+		background.addSearchGroup(	$(this).attr('data-id'),
+									$(this).find('.eng-name').val(),
+									$(this).find("input:checkbox:checked").map(function() {
+									  return parseInt($(this).attr('data-eid')); }).get().toString());
 	});
 
 	background.saveOptions();
-	genEngs();
+	displayEngines();
 }
 
 function addSearchObj(obj,parent)
@@ -53,18 +37,15 @@ function addSearchObj(obj,parent)
 		strItemDisplayName = "<i class='material-icons ico-left ico'>group</i> " + strItemDisplayName;
 		strItemEdit += "<div class='edit-engs'><form>"
 					+  "Name: <input class='eng-in eng-name' type='text' value='" + obj.name + "'/><br/>";
-
 		for (var i = 0; i < background.searchEngines.length ; i++)
 		{
 			var checked = "";
 			var eid = background.searchEngines[i].id;
-			
 			if(obj.members.indexOf(parseInt(eid)) != -1) checked="checked";
 		
 			strItemEdit += "<label><input class='eng-chk' type='checkbox' " + checked + " data-eid='" +eid+ "'/>"+background.searchEngines[i].name+"</label><br>";
 		}
-
-					
+	
 		strItemEdit += "<br/><input class='btn-se-save' value='save' type='button' /><input value='Default' type='reset'/>"
 		 			+  "</form></div>";
 	}
@@ -103,15 +84,12 @@ function addSearchObj(obj,parent)
 		item.find('.btn-se-save').click(function () {
 			saveSearchEngines();
 		});
-		///????
+
 		item.find('.reset').click(function () {
 			$(this).parent().find('form')[0].reset();
 		});
 	}				
 		
-
-	
-
 	item.draggable({
 		prestart: function()
 		{
@@ -125,40 +103,27 @@ function addSearchObj(obj,parent)
 	});
 }
 
-function genEngs()
+function displayEngines()
 {
 	$('#engs-cnt').empty();
 	$('#grps-cnt').empty();
+	$('#eng-frm .eng-frm-engs').empty();
 
-	for (var i = 0; i < background.searchEngines.length ; i++)
-	{
+	for (var i = 0; i < background.searchEngines.length ; i++) {
 		addSearchObj(background.searchEngines[i],'#engs-cnt');
-	}	
+		$('#eng-frm .eng-frm-engs').append("<label><input class='eng-chk' type='checkbox' data-eid='" 
+											+ background.searchEngines[i].id
+											+ "'/>"+background.searchEngines[i].name+"</label><br>");
+
+	}
 
 	addSearchObj({name: "DELIMITER", id: 0}, '#engs-cnt');
 
-	for (var i = 0; i < background.searchGroups.length ; i++)
-	{
+	for (var i = 0; i < background.searchGroups.length ; i++) 
 		addSearchObj(background.searchGroups[i],'#grps-cnt');
-	}
 }
 
-genEngs();
-
-$('.add-eng-btn').click(function () {		
-		//zabezpieczyć przed pustymi i nieprawidłowymi
-		var gid = 1;
-		for (var i = 0; i < background.searchEngines.length ; i++)
-		{
-			if(gid == background.searchEngines[i].id) gid++;
-			else break;
-		}
-		console.log(gid);
-		addSearchObj({id:gid,name: $('#add-eng-frm .eng-name').val(), url: $('#add-eng-frm .eng-url').val()},'#engs-cnt');
-
-	//	$('#add-eng-frm').reset();  ocb????
-		saveSearchEngines();
-	});
+displayEngines();
 
 $(".droppable-list").sortable({
   revert: 150,
@@ -196,3 +161,33 @@ $.ui.draggable.prototype._mouseStart = function (e, overrideHandle, nop) {
     this._trigger("prestart", e, this._uiHash());
     __mouseStart.apply(this, [e, overrideHandle, nop]);
 };
+
+$('.eng-frm-type').change(function () {
+	if($(this).find('option:selected').val() > 0) {
+		$('#eng-frm .eng-frm-url').show();
+		$('#eng-frm .eng-frm-engs').hide();
+	}
+	else {
+		$('#eng-frm .eng-frm-url').hide();
+		$('#eng-frm .eng-frm-engs').show();
+	}
+
+});
+
+$('.add-eng-btn').click(function () {		
+		//zabezpieczyć przed pustymi i nieprawidłowymi
+		var gid = 1;
+		for (var i = 0; i < background.searchEngines.length ; i++)
+		{
+			if(gid == background.searchEngines[i].id) gid++;
+			else break;
+		}
+		console.log(gid);
+		addSearchObj({id:gid,name: $('#add-eng-frm .eng-name').val(), url: $('#add-eng-frm .eng-url').val()},'#engs-cnt');
+
+	//	$('#add-eng-frm').reset();  ocb????
+		saveSearchEngines();
+	});
+
+	
+/****************************************************************/

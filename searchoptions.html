@@ -11,27 +11,24 @@
 </head>
 <body>
   <div class="container">
-    <div class="panel left">
+    <div class="panel">
       <div id="engs-cnt" class="list-cnt">
         <div class="header">Silniki wyszukiwania</div>
       </div>
-
-      Add engine...<br/>
-      <form id="add-eng-frm">
-      Name: <input class='eng-name' type="text"><br />
-      Url: <input class='eng-url' type="text">
-      <i class='material-icons add-eng-btn'>add_circle_outline</i>
-      </form>
     </div>
-    <div class="panel right">
+    <div class="panel">
       <div id="grps-cnt" class="list-cnt">
         <div class="header">Grupy</div>
-      </div>
-
-      Add grouo...<br/>
-      <form id="add-grp-frm">
+      </div>      
+    </div>
+    <div class = "panel">
+      
+      <form id="eng-frm">
+       Add item:<select class="eng-frm-type"><option value="1">engine</option><option value="-1">group</option></select><br/>
       Name: <input class='grp-name' type="text"><br />
-      Url: <input class='eng-url' type="text">
+      <div class="eng-frm-url">Url: <input class='eng-url' type="text"></div>
+      <div class="eng-frm-engs">        
+      </div>
       <i class='material-icons add-grp-btn'>add_circle_outline</i>
       </form>
     </div>

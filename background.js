@@ -35,21 +35,31 @@ function loadDefault()
 		{
 			id: 		-1,
 			name:		"Films",
-			members:	[1,4]
+			members:	"1,4"
 		},
 		{
 			id:			-2,
 			name:		"Global",
-			members:	[1,2,3]
+			members:	"1,2,3"
 		}
 	]
 }
 
+function removeEngines()
+{
+	searchEngines = [];
+	searchGroups = [];
+	searchMenu = [];
+}
+
 function addSearchEngine(id,name,url)
 {
-	searchEngines.push({id: id, 
-						name: name,
-						url: url});
+	searchEngines.push({id: id, name: name, url: url});
+}
+
+function addSearchGroup(id,name,members)
+{
+	searchGroups.push({id: id, name: name, members: members});
 }
 
 function saveOptions()
@@ -73,7 +83,7 @@ browser.storage.local.get(function (item)
 	for(var i in item.sg)
 		searchGroups.push(item.sg[i]);
 	
-	if(searchEngines == undefined || searchEngines.length == 0)
+//	if(searchEngines == undefined || searchEngines.length == 0)
 	{
 		loadDefault();
 	}	
