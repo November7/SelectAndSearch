@@ -162,32 +162,74 @@ $.ui.draggable.prototype._mouseStart = function (e, overrideHandle, nop) {
     __mouseStart.apply(this, [e, overrideHandle, nop]);
 };
 
-$('.eng-frm-type').change(function () {
-	if($(this).find('option:selected').val() > 0) {
-		$('#eng-frm .eng-frm-url').show();
-		$('#eng-frm .eng-frm-engs').hide();
-	}
-	else {
-		$('#eng-frm .eng-frm-url').hide();
-		$('#eng-frm .eng-frm-engs').show();
-	}
+/****************************************************************/
 
-});
+(function()
+{
+	var frmType = 1;
+	$('.eng-frm-type').change(function () {		
+		if($(this).find('option:selected').val() > 0) {
+			$('#eng-frm .eng-frm-url').show();
+			$('#eng-frm .eng-frm-engs').hide();
+			frmType = 1;
+		}
+		else {
+			$('#eng-frm .eng-frm-url').hide();
+			$('#eng-frm .eng-frm-engs').show();
+			frmType = -1;
+		}
 
-$('.add-eng-btn').click(function () {		
-		//zabezpieczyć przed pustymi i nieprawidłowymi
-		var gid = 1;
-		for (var i = 0; i < background.searchEngines.length ; i++)
+	});
+
+	$('#eng-frm .add-eng-btn').click(function () {		
+		
+		var gid = parseInt($('#eng-frm option:selected').val());		
+		var stp, obj;
+		
+		if(!/\S/.test($('#eng-frm .eng-name').val())) {
+			$('#eng-frm .eng-name').addClass('required');
+			return;
+		}
+		if($('#eng-frm option:selected').val() > 0) {
+			stp = 1;
+			obj = background.searchEngines;
+		}
+		else {
+			stp = -1;
+			obj = background.searchGroups;
+		}
+		
+		for (var i = 0; i < obj.length ; i++)
 		{
-			if(gid == background.searchEngines[i].id) gid++;
+			if(gid == obj[i].id) gid+=stp;
 			else break;
 		}
-		console.log(gid);
-		addSearchObj({id:gid,name: $('#add-eng-frm .eng-name').val(), url: $('#add-eng-frm .eng-url').val()},'#engs-cnt');
+		
+		if(stp>0) {
+			addSearchObj({	id:gid,
+							name: $('#eng-frm .eng-name').val(), 
+							url: $('#eng-frm .eng-url').val()
+						 },'#engs-cnt');
+		}			
+		else {
+			console.log($("#eng-frm input:checkbox:checked").map(function() {
+								return parseInt($(this).attr('data-eid')); 
+							}).get().toString());
+			addSearchObj({	id:gid,
+							name: $('#eng-frm .eng-name').val(), 
+							members: $("#eng-frm input:checkbox:checked").map(function() {
+								return parseInt($(this).attr('data-eid')); 
+							}).get().toString()
+						 },'#grps-cnt');
+		}
 
-	//	$('#add-eng-frm').reset();  ocb????
+		$('#eng-frm .eng-name').removeClass('required');
+		$('#eng-frm')[0].reset();
 		saveSearchEngines();
 	});
+})();
+
+
 
 	
 /****************************************************************/

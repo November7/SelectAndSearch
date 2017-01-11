@@ -127,3 +127,7 @@ input.eng-in {
 #eng-frm .eng-frm-engs {
 	display: none;
 }
+
+#eng-frm input.required {
+	background-color: red;
+}
