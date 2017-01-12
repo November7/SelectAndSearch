@@ -22,14 +22,22 @@ function saveSearchEngines()
 									  return parseInt($(this).attr('data-eid')); }).get().toString());
 	});
 
+
+	$('#menu-cnt .droppable-list').children().each(function() {
+				
+		background.addSearchMenu($(this).attr('data-id'));
+		console.log($(this).attr('data-id'))
+
+	});
+
+	console.log(background.searchMenu);
 	background.saveOptions();
 	displayEngines();
 }
 
 function addSearchObj(obj,parent)
-{
-	
-	var strItemAttr = "item' data-id='" + obj.id;
+{	
+	var strItemAttr = "item list-eng-item' data-id='" + obj.id;
 	var strItemEdit = "<i class='material-icons ico ico-right btn-edit'>mode_edit</i>";
 	var strItemDisplayName = obj.name;
 
@@ -37,6 +45,7 @@ function addSearchObj(obj,parent)
 		strItemDisplayName = "<i class='material-icons ico-left ico'>group</i> " + strItemDisplayName;
 		strItemEdit += "<div class='edit-engs'><form>"
 					+  "Name: <input class='eng-in eng-name' type='text' value='" + obj.name + "'/><br/>";
+
 		for (var i = 0; i < background.searchEngines.length ; i++)
 		{
 			var checked = "";
@@ -103,10 +112,54 @@ function addSearchObj(obj,parent)
 	});
 }
 
+function addMenuItem (id) 
+{
+//	console.log(id);
+	var strItemAttr = "item' data-id='" + id;
+	var strItemDisplayName;
+	
+	var sE = background.searchEngines.concat(background.searchGroups);
+
+	for(var i=0;i<sE.length;i++) {
+		
+		if(sE[i].id == id) {
+			//console.log(sE[i].id,sE[i].name)	
+			strItemDisplayName = sE[i].name;
+			break;
+		}
+	}
+
+	if(id < 0) {
+
+	}
+	else if (id > 0) {
+
+	}
+	else {
+		strItemDisplayName = "separator";
+	}
+
+
+	var strItem = "<div class='draggable-item-list ";
+	strItem += strItemAttr + "'>";	
+	strItem += "<p class='title'>" + strItemDisplayName + "</p><i class='material-icons ico ico-right btn-delete'>close</i>";
+	strItem += "</div>";
+
+	var item = $(strItem);
+
+	$('#menu-cnt .droppable-list').append(item);
+item.find('.btn-delete').click(function () {		
+			if(confirm("u sure?"))$(this).parent().remove();
+			saveSearchEngines();
+		});
+}
+
+
 function displayEngines()
 {
 	$('#engs-cnt').empty();
 	$('#grps-cnt').empty();
+	$('#menu-cnt .droppable-list').empty();
 	$('#eng-frm .eng-frm-engs').empty();
 
 	for (var i = 0; i < background.searchEngines.length ; i++) {
@@ -121,6 +174,13 @@ function displayEngines()
 
 	for (var i = 0; i < background.searchGroups.length ; i++) 
 		addSearchObj(background.searchGroups[i],'#grps-cnt');
+
+	//console.log(background.searchMenu);
+	for(var i = 0; i < background.searchMenu.length ; i++) 
+	{
+		addMenuItem(background.searchMenu[i]);
+	}
+		
 }
 
 displayEngines();
@@ -134,6 +194,7 @@ $(".droppable-list").sortable({
 	$('.droppable-list .btn-delete').click(function () {		
 		$(this).parent().remove();
 	});
+	saveSearchEngines();
   },
   over: function ( event, ui ) 	{
 	  var item = $(this).data().uiSortable.currentItem;
@@ -211,10 +272,7 @@ $.ui.draggable.prototype._mouseStart = function (e, overrideHandle, nop) {
 							url: $('#eng-frm .eng-url').val()
 						 },'#engs-cnt');
 		}			
-		else {
-			console.log($("#eng-frm input:checkbox:checked").map(function() {
-								return parseInt($(this).attr('data-eid')); 
-							}).get().toString());
+		else {		
 			addSearchObj({	id:gid,
 							name: $('#eng-frm .eng-name').val(), 
 							members: $("#eng-frm input:checkbox:checked").map(function() {

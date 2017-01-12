@@ -62,6 +62,11 @@ function addSearchGroup(id,name,members)
 	searchGroups.push({id: id, name: name, members: members});
 }
 
+function addSearchMenu(id)
+{
+	searchMenu.push(id);
+}
+
 function saveOptions()
 {
 	console.log("Saving...");
@@ -79,9 +84,13 @@ browser.storage.local.get(function (item)
 {		
 	for(var i in item.se)
 		searchEngines.push(item.se[i]);
-
+	
 	for(var i in item.sg)
 		searchGroups.push(item.sg[i]);
+	
+	for(var i in item.sm)
+		searchMenu.push(item.sm[i]);
+	
 	
 	if(searchEngines == undefined || searchEngines.length == 0)
 	{
