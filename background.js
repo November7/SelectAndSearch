@@ -99,10 +99,25 @@ browser.storage.local.get(function (item)
 	updateMenu();
 });
 
+function getEngine(id)
+{
+	//var sE = searchEngines.concat(searc)
+}
+
 
 function updateMenu()
 {
-/*	browser.contextMenus.removeAll();
+	browser.contextMenus.removeAll();
+	if(searchMenu.length == 1) {
+		browser.contextMenus.create({ "title": browser.i18n.getMessage("menuItemSearchWith") + " " + activeEngines[0].name, "id": "sCM"+activeEngines[0].id, "contexts": contexts });
+	}
+	else if( searchMenu.length > 1) {
+
+	}
+	else return;
+
+
+/*	
 	var contexts = ["selection"];
 	var activeEngines = [];
 	for (var i = 0 ; i < searchEngines.length ; i++)
@@ -114,7 +129,7 @@ function updateMenu()
 	if (!activeEngines.length) return;
 	else if (activeEngines.length == 1)
 	{            
-		browser.contextMenus.create({ "title": browser.i18n.getMessage("menuItemSearchWith") + " " + activeEngines[0].name, "id": "sCM"+activeEngines[0].id, "contexts": contexts });
+		
 	}
 	else
 	{

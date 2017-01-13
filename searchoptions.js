@@ -123,20 +123,20 @@ function addMenuItem (id)
 	for(var i=0;i<sE.length;i++) {
 		
 		if(sE[i].id == id) {
-			//console.log(sE[i].id,sE[i].name)	
 			strItemDisplayName = sE[i].name;
 			break;
 		}
 	}
 
 	if(id < 0) {
-
+		strItemDisplayName = "<i class='material-icons ico-left ico'>group</i> " + strItemDisplayName;
 	}
 	else if (id > 0) {
 
 	}
 	else {
-		strItemDisplayName = "separator";
+		strItemAttr = "separator";
+		strItemDisplayName = "DELIMITER";
 	}
 
 
@@ -148,9 +148,8 @@ function addMenuItem (id)
 	var item = $(strItem);
 
 	$('#menu-cnt .droppable-list').append(item);
-item.find('.btn-delete').click(function () {		
-			if(confirm("u sure?"))$(this).parent().remove();
-			saveSearchEngines();
+	item.find('.btn-delete').click(function () {		
+			$(this).parent().remove();			
 		});
 }
 
@@ -194,7 +193,7 @@ $(".droppable-list").sortable({
 	$('.droppable-list .btn-delete').click(function () {		
 		$(this).parent().remove();
 	});
-	saveSearchEngines();
+	
   },
   over: function ( event, ui ) 	{
 	  var item = $(this).data().uiSortable.currentItem;
@@ -206,6 +205,10 @@ $(".droppable-list").sortable({
 	}
   }
 });
+
+$('#menu-sv-btn').click(function () {
+	saveSearchEngines();
+})
 
 function removeDuplicate(container, item)
 {
