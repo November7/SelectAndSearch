@@ -2,6 +2,7 @@ var searchEngines 	= [];
 var searchMenu		= [];
 var target = browser.windows;
 var openInNewTab = true;
+var fileVer = "1.1";
 
 //
 
@@ -70,7 +71,8 @@ function saveOptions()
 
 	browser.storage.local.set({
 		se: searchEngines,
-		sm: searchMenu
+		sm: searchMenu,
+		fv: fileVer
 	});
 	console.log(searchEngines);
 	updateMenu();
@@ -84,8 +86,9 @@ browser.storage.local.get(function (item)
 	for(var i in item.sm)
 		searchMenu.push(item.sm[i]);
 	
-	
-	if(searchEngines == undefined || searchEngines.length == 0)
+	console.log("File version: ", item.fv);
+
+	if(searchEngines == undefined || searchEngines.length == 0 || item.fv != fileVer)
 	{
 		loadDefault();
 	}	
