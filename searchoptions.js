@@ -16,7 +16,7 @@ function saveSearchEngines()
 
 	$('#grps-cnt').find('.item').each(function() {
 				
-		background.addSearchGroup(	$(this).attr('data-id'),
+		background.addSearchEngine(	$(this).attr('data-id'),
 									$(this).find('.eng-name').val(),
 									$(this).find("input:checkbox:checked").map(function() {
 									  return parseInt($(this).attr('data-eid')); }).get().toString());
@@ -35,13 +35,15 @@ function saveSearchEngines()
 	displayEngines();
 }
 
-function addSearchObj(obj,parent)
+function addSearchObj(obj)
 {	
+	var parent = '#engs-cnt';
 	var strItemAttr = "item list-eng-item' data-id='" + obj.id;
 	var strItemEdit = "<i class='material-icons ico ico-right btn-edit'>mode_edit</i>";
 	var strItemDisplayName = obj.name;
 
 	if(obj.id < 0)	{
+		parent = '#grps-cnt';
 		strItemDisplayName = "<i class='material-icons ico-left ico'>group</i> " + strItemDisplayName;
 		strItemEdit += "<div class='edit-engs'><form>"
 					+  "Name: <input class='eng-in eng-name' type='text' value='" + obj.name + "'/><br/>";
@@ -59,6 +61,7 @@ function addSearchObj(obj,parent)
 		 			+  "</form></div>";
 	}
 	else if(obj.id > 0) {
+		
 		strItemEdit += "<div class='edit-engs'><form>"
 					+  "Name: <input class='eng-in eng-name' type='text' value='" + obj.name + "'/><br/>"
 					+  "Url: <input class='eng-in eng-url' type='text' value='" + obj.url + "'/>"
@@ -118,12 +121,12 @@ function addMenuItem (id)
 	var strItemAttr = "item' data-id='" + id;
 	var strItemDisplayName;
 	
-	var sE = background.searchEngines.concat(background.searchGroups);
+//	var sE = background.searchEngines.concat(background.searchGroups);
 
-	for(var i=0;i<sE.length;i++) {
+	for(var i=0;i<background.searchEngines.length;i++) {
 		
-		if(sE[i].id == id) {
-			strItemDisplayName = sE[i].name;
+		if(background.searchEngines[i].id == id) {
+			strItemDisplayName = background.searchEngines[i].name;
 			break;
 		}
 	}
@@ -162,19 +165,16 @@ function displayEngines()
 	$('#eng-frm .eng-frm-engs').empty();
 
 	for (var i = 0; i < background.searchEngines.length ; i++) {
-		addSearchObj(background.searchEngines[i],'#engs-cnt');
-		$('#eng-frm .eng-frm-engs').append("<label><input class='eng-chk' type='checkbox' data-eid='" 
-											+ background.searchEngines[i].id
-											+ "'/>"+background.searchEngines[i].name+"</label><br>");
-
+		addSearchObj(background.searchEngines[i]);
+		if(background.searchEngines[i].id > 0) {			
+			$('#eng-frm .eng-frm-engs').append("<label><input class='eng-chk' type='checkbox' data-eid='" 
+												+ background.searchEngines[i].id
+												+ "'/>"+background.searchEngines[i].name+"</label><br>");
+		}
 	}
 
-	addSearchObj({name: "DELIMITER", id: 0}, '#engs-cnt');
+	addSearchObj({name: "DELIMITER", id: 0});
 
-	for (var i = 0; i < background.searchGroups.length ; i++) 
-		addSearchObj(background.searchGroups[i],'#grps-cnt');
-
-	//console.log(background.searchMenu);
 	for(var i = 0; i < background.searchMenu.length ; i++) 
 	{
 		addMenuItem(background.searchMenu[i]);
@@ -248,7 +248,7 @@ $.ui.draggable.prototype._mouseStart = function (e, overrideHandle, nop) {
 	$('#eng-frm .add-eng-btn').click(function () {		
 		
 		var gid = parseInt($('#eng-frm option:selected').val());		
-		var stp, obj;
+		var stp;
 		
 		if(!/\S/.test($('#eng-frm .eng-name').val())) {
 			$('#eng-frm .eng-name').addClass('required');
@@ -256,16 +256,14 @@ $.ui.draggable.prototype._mouseStart = function (e, overrideHandle, nop) {
 		}
 		if($('#eng-frm option:selected').val() > 0) {
 			stp = 1;
-			obj = background.searchEngines;
 		}
 		else {
 			stp = -1;
-			obj = background.searchGroups;
 		}
 		
-		for (var i = 0; i < obj.length ; i++)
+		for (var i = 0; i < background.searchEngines.length ; i++)
 		{
-			if(gid == obj[i].id) gid+=stp;
+			if(gid == background.searchEngines[i].id) gid+=stp;
 			else break;
 		}
 		

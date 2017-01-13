@@ -1,5 +1,4 @@
-var searchEngines 	= [];	
-var searchGroups 	= [];
+var searchEngines 	= [];
 var searchMenu		= [];
 var target = browser.windows;
 var openInNewTab = true;
@@ -28,10 +27,7 @@ function loadDefault()
 			id: 		4,		
 			name: 		"Filmweb", 
 			url: 		"http://www.filmweb.pl/search?q="		
-		}
-	];	
-
-	searchGroups = [
+		},
 		{
 			id: 		-1,
 			name:		"Films",
@@ -48,18 +44,19 @@ function loadDefault()
 function removeEngines()
 {
 	searchEngines = [];
-	searchGroups = [];
 	searchMenu = [];
 }
 
-function addSearchEngine(id,name,url)
+function addSearchEngine(id,name,param)
 {
-	searchEngines.push({id: id, name: name, url: url});
-}
+	var obj = {id: id, name: name};
 
-function addSearchGroup(id,name,members)
-{
-	searchGroups.push({id: id, name: name, members: members});
+	if(id<0)
+		obj.members = param;
+	else
+		obj.url = param;
+	searchEngines.push(obj); 
+
 }
 
 function addSearchMenu(id)
@@ -73,7 +70,6 @@ function saveOptions()
 
 	browser.storage.local.set({
 		se: searchEngines,
-		sg: searchGroups,
 		sm: searchMenu
 	});
 	console.log(searchEngines);
@@ -84,9 +80,6 @@ browser.storage.local.get(function (item)
 {		
 	for(var i in item.se)
 		searchEngines.push(item.se[i]);
-	
-	for(var i in item.sg)
-		searchGroups.push(item.sg[i]);
 	
 	for(var i in item.sm)
 		searchMenu.push(item.sm[i]);
@@ -101,15 +94,22 @@ browser.storage.local.get(function (item)
 
 function getEngine(id)
 {
-	//var sE = searchEngines.concat(searc)
+	for(var i=0;i<searchEngines.length;i++)
+	{
+		if(searchEngines[i].id == id) return searchEngines[i];
+	}
 }
 
 
 function updateMenu()
 {
 	browser.contextMenus.removeAll();
+	var contexts = ["selection"];
+	
+
 	if(searchMenu.length == 1) {
-		browser.contextMenus.create({ "title": browser.i18n.getMessage("menuItemSearchWith") + " " + activeEngines[0].name, "id": "sCM"+activeEngines[0].id, "contexts": contexts });
+		var obj = getEngine(searchMenu[0]);
+		browser.contextMenus.create({ "title": browser.i18n.getMessage("menuItemSearchWith") + " " + obj.name, "id": "sCM"+obj.id, "contexts": contexts });
 	}
 	else if( searchMenu.length > 1) {
 
@@ -118,7 +118,7 @@ function updateMenu()
 
 
 /*	
-	var contexts = ["selection"];
+	
 	var activeEngines = [];
 	for (var i = 0 ; i < searchEngines.length ; i++)
 	{
