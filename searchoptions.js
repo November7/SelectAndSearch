@@ -50,11 +50,12 @@ function addSearchObj(obj)
 
 		for (var i = 0; i < background.searchEngines.length ; i++)
 		{
-			var checked = "";
-			var eid = background.searchEngines[i].id;
-			if(obj.members.indexOf(parseInt(eid)) != -1) checked="checked";
-		
-			strItemEdit += "<label><input class='eng-chk' type='checkbox' " + checked + " data-eid='" +eid+ "'/>"+background.searchEngines[i].name+"</label><br>";
+			if(background.searchEngines[i].id>0) {
+				var checked = "";
+				var eid = background.searchEngines[i].id;
+				if(obj.members.indexOf(parseInt(eid)) != -1) checked="checked";			
+				strItemEdit += "<label><input class='eng-chk' type='checkbox' " + checked + " data-eid='" +eid+ "'/>"+background.searchEngines[i].name+"</label><br>";
+			}			
 		}
 	
 		strItemEdit += "<br/><input class='btn-se-save' value='save' type='button' /><input value='Default' type='reset'/>"

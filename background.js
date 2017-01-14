@@ -3,6 +3,7 @@ var searchMenu		= [];
 var target = browser.windows;
 var openInNewTab = true;
 var fileVer = "1.1";
+var menuIdPrefix = "openSMI"; //openSearchMenuItem
 
 //
 
@@ -104,30 +105,55 @@ function getEngine(id)
 }
 
 
+function createMenu(title, id, contexts, parentId) 
+{
+	var gid = menuIdPrefix+":"+id; 
+	if(parentId) gid = parentId+":"+id; 
+	if(id<0) {
+		
+		browser.contextMenus.create({ "title": title, "id": gid, "contexts": contexts, parentId: parentId}); 
+		browser.contextMenus.create({ "title": browser.i18n.getMessage("menuItemUseAll"), "id": menuIdPrefix+"G:"+id, "contexts": contexts, parentId: gid }); 		
+		browser.contextMenus.create({ "type": "separator", "contexts": contexts, parentId: gid }); 
+		var members = getEngine(id).members.split(",");
+		for(var i=0;i<members.length;i++) {
+			var obj = getEngine(members[i]);
+			createMenu(obj.name,obj.id,contexts, gid);	
+		}
+
+	}		
+	else if(id > 0) {
+		browser.contextMenus.create({ "title": title, "id": gid, "contexts": contexts, parentId: parentId }); //openSeachEngine - Menu
+	}
+	/*
+	else {
+		browser.contextMenus.create({"type":"separator", "parentId": parentId, "contexts": contexts});
+	}*/
+}
+
 function updateMenu()
 {
 	browser.contextMenus.removeAll();
-	var contexts = ["selection"];
-
+	var contexts = ["selection","browser_action"];
 	/** Experimental !! */
-	browser.contextMenus.create({ "title": browser.i18n.getMessage("menuItemSearchGoogleImage"), "id": "parent2", "contexts": ["image"] });
+	browser.contextMenus.create({ "title": browser.i18n.getMessage("menuItemSearchGoogleImage"), "id": menuIdPrefix + ":img", "contexts": ["image"] });
+	
 	/** */
 
 	if(searchMenu.length == 1) {
 		var obj = getEngine(searchMenu[0]);
-		browser.contextMenus.create({ "title": browser.i18n.getMessage("menuItemSearchWith") + " " + obj.name, "id": "sCM"+obj.id, "contexts": contexts });
+		createMenu(browser.i18n.getMessage("menuItemSearchWith") + " " + obj.name, obj.id, contexts);
 	}
 	else if( searchMenu.length > 1) {
-		browser.contextMenus.create({"title": browser.i18n.getMessage("menuItemSearchWith"),"id": "parent", "contexts": contexts });
+		browser.contextMenus.create({"title": browser.i18n.getMessage("menuItemSearchWith"),"id": menuIdPrefix, "contexts": contexts });
 		for (var i = 0 ; i < searchMenu.length ; i++)
 		{
 			if(searchMenu[i]) {
 				var obj = getEngine(searchMenu[i]);
-				browser.contextMenus.create({"title": obj.name,"id": "sCM"+obj.id, "parentId": "parent", "contexts": contexts });
+				createMenu(obj.name, obj.id, contexts, menuIdPrefix);
 			}
-			else browser.contextMenus.create({"type":"separator", "parentId": "parent", "contexts": contexts});
-		}
+			else browser.contextMenus.create({"type":"separator", "parentId": menuIdPrefix, "contexts": contexts});
 	}
+}
 	else return;
 }
 
@@ -147,21 +173,21 @@ browser.contextMenus.onClicked.addListener(function (info, tab) {
 	}
 	else
 	{		
-		var id = info.menuItemId.substr(3); //sCM		
-
-		for (var i = 0 ; i < searchEngines.length ; i++)
-		{
-			if ((searchEngines[i].id == id || id == 0) && searchEngines[i].active)
-			{
-				url.push(searchEngines[i].url + encodeURIComponent(info.selectionText));
-				if(id != 0) break;
-			}
-		}		
+		
+		var id = info.menuItemId.substr(info.menuItemId.lastIndexOf(":")+1); //get real item id
+		
+		if( id > 0) {
+			url.push(getEngine(id).url + encodeURIComponent(info.selectionText));
+		}
+		else {
+			getEngine(id).members.split(",").forEach(function (item, index) {
+				url.push(getEngine(item).url + encodeURIComponent(info.selectionText));
+			});
+		}
 	}
 	
 	for(var i in url)
 	{
-		//console.log(url[i]);
 		target.create({ url: url[i]});
 	}
 });
