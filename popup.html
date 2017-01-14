@@ -4,13 +4,18 @@
 	<meta charset="utf-8"/>
 	<title>Options</title>
     <link href="popup.css" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="jq/jquery-3.1.1.min.js"></script>
+    <script src="jq/jquery-ui.min.js"></script>   
 </head>
 <body>
     <form id="searchForm">
-        <input size="70" id="searchkey" type="search" placeholder="search text..." autofocus/>
-		<select disabled><option>all selected</option></select>
-    </form>    
-	<div id="optionsLink">opcje</div>
+        <div>
+            <input size="65" id="searchKey" type="search" placeholder="search text..." autofocus/>
+            <select id="searchGrp"></select><br />
+        </div>
+        <div id="optionsLink">Ustawienia</div>
+    </form>   
     <script type="text/javascript" src="popup.js"></script>
 </body>
 </html>

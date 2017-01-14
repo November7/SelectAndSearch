@@ -1,25 +1,39 @@
 /****************************************************************/
 
-
-/****************************************************************/
-
 var background = browser.extension.getBackgroundPage();
 
-document.getElementById("searchForm").onsubmit = function () {
-	var searchKey = document.getElementById("searchkey").value;
+$("#searchGrp").hide();
+
+background.searchEngines.forEach(function(item,index) {
+	if(item.id <0) {
+		$("#searchGrp").append($('<option>', {
+			value: item.members,
+			text: item.name
+		} ));
+		$("#searchGrp").show();
+	}
+});
+
+
+$("#searchForm").submit(function () {
+	var searchKey = $("#searchKey").val();
+	var target = browser.windows;
 	if (searchKey != "")
 	{
 		if (background.openInNewTab)
 		{
-			background.target = browser.tabs;
+			target = browser.tabs;
 		}
-		for (var i = 0 ; i < background.searchEngines.length ; i++)
-		{
-			if(background.searchEngines[i].useSearch) background.target.create({ url: background.searchEngines[i].url + searchKey })
-		}
-	}
-}
 
-document.getElementById("optionsLink").onclick = function() {
+		$("#searchGrp").find(":selected").val().split(",").forEach(function(item,index) {
+			
+			target.create({ url: background.getEngine(item).url + encodeURIComponent(searchKey)});
+		});
+	}
+});
+
+$("#optionsLink").click(function() {
 	browser.tabs.create({'url': "/searchoptions.html" } )
-}
+});
+
+/****************************************************************/

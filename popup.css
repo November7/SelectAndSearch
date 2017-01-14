@@ -1,4 +1,22 @@
 
 #searchForm ::-webkit-input-placeholder {
-	color: #c0f0c0;
+	color: #aaa;
+}
+
+
+#optionsLink {
+	margin-top: 5px;
+	cursor: pointer;
+	display: inline-block;
+}
+
+#optionsLink:hover {
+	color: red;
+}
+
+body {
+	padding: 5px;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	font-size: 10pt;	
+	min-width: 500px;
 }

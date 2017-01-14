@@ -9,10 +9,8 @@ function saveSearchEngines()
 
 		background.addSearchEngine(	$(this).attr('data-id'), 
 									$(this).find('.eng-name').val(), 
-									$(this).find('.eng-url').val());
-		
-	});
-	
+									$(this).find('.eng-url').val());		
+	});	
 
 	$('#grps-cnt').find('.item').each(function() {
 				
@@ -22,15 +20,11 @@ function saveSearchEngines()
 									  return parseInt($(this).attr('data-eid')); }).get().toString());
 	});
 
-
 	$('#menu-cnt .droppable-list').children().each(function() {
 				
 		background.addSearchMenu($(this).attr('data-id'));
-		console.log($(this).attr('data-id'))
-
 	});
 
-	console.log(background.searchMenu);
 	background.saveOptions();
 	displayEngines();
 }
@@ -122,8 +116,6 @@ function addMenuItem (id)
 	var strItemAttr = "item' data-id='" + id;
 	var strItemDisplayName;
 	
-//	var sE = background.searchEngines.concat(background.searchGroups);
-
 	for(var i=0;i<background.searchEngines.length;i++) {
 		
 		if(background.searchEngines[i].id == id) {
@@ -232,15 +224,16 @@ $.ui.draggable.prototype._mouseStart = function (e, overrideHandle, nop) {
 (function()
 {
 	var frmType = 1;
+	var t = 300;
 	$('.eng-frm-type').change(function () {		
 		if($(this).find('option:selected').val() > 0) {
-			$('#eng-frm .eng-frm-url').show();
-			$('#eng-frm .eng-frm-engs').hide();
+			$('#eng-frm .eng-frm-url').show(t);
+			$('#eng-frm .eng-frm-engs').hide(t);
 			frmType = 1;
 		}
 		else {
-			$('#eng-frm .eng-frm-url').hide();
-			$('#eng-frm .eng-frm-engs').show();
+			$('#eng-frm .eng-frm-url').hide(t);
+			$('#eng-frm .eng-frm-engs').show(t);
 			frmType = -1;
 		}
 
@@ -249,24 +242,20 @@ $.ui.draggable.prototype._mouseStart = function (e, overrideHandle, nop) {
 	$('#eng-frm .add-eng-btn').click(function () {		
 		
 		var gid = parseInt($('#eng-frm option:selected').val());		
-		var stp;
+		var stp = gid;
 		
 		if(!/\S/.test($('#eng-frm .eng-name').val())) {
 			$('#eng-frm .eng-name').addClass('required');
 			return;
 		}
-		if($('#eng-frm option:selected').val() > 0) {
-			stp = 1;
-		}
-		else {
-			stp = -1;
-		}
-		
+	
 		for (var i = 0; i < background.searchEngines.length ; i++)
 		{
-			if(gid == background.searchEngines[i].id) gid+=stp;
-			else break;
-		}
+			if( background.searchEngines[i].id * stp > 0) {
+				if( background.searchEngines[i].id == gid) gid += stp;
+				else break;
+			} 
+		}		
 		
 		if(stp>0) {
 			addSearchObj({	id:gid,
@@ -287,9 +276,5 @@ $.ui.draggable.prototype._mouseStart = function (e, overrideHandle, nop) {
 		$('#eng-frm')[0].reset();
 		saveSearchEngines();
 	});
-})();
-
-
-
-	
+})();	
 /****************************************************************/

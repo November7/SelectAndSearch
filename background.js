@@ -2,7 +2,7 @@ var searchEngines 	= [];
 var searchMenu		= [];
 var target = browser.windows;
 var openInNewTab = true;
-var fileVer = "1.1";
+var fileVer = "1.2";
 var menuIdPrefix = "openSMI"; //openSearchMenuItem
 
 //
@@ -73,7 +73,8 @@ function saveOptions()
 	browser.storage.local.set({
 		se: searchEngines,
 		sm: searchMenu,
-		fv: fileVer
+		fv: fileVer,
+		oNT: openInNewTab
 	});
 	console.log(searchEngines);
 	updateMenu();
@@ -88,6 +89,9 @@ browser.storage.local.get(function (item)
 		searchMenu.push(item.sm[i]);
 	
 	//console.log("File version: ", item.fv);
+
+
+	openInNewTab = item.oNT;
 
 	if(searchEngines == undefined || searchEngines.length == 0 || item.fv != fileVer)
 	{
