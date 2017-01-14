@@ -1,6 +1,6 @@
 var searchEngines 	= [];
 var searchMenu		= [];
-var target = browser.windows;
+var target = browser.tabs;
 var openInNewTab = true;
 var fileVer = "1.2";
 var menuIdPrefix = "openSMI"; //openSearchMenuItem
@@ -69,12 +69,12 @@ function addSearchMenu(id)
 function saveOptions()
 {
 	console.log("Saving...");
-
+	//alert(fileVer);
 	browser.storage.local.set({
-		se: searchEngines,
-		sm: searchMenu,
 		fv: fileVer,
-		oNT: openInNewTab
+		oNT: openInNewTab,
+		se: searchEngines,
+		sm: searchMenu
 	});
 	console.log(searchEngines);
 	updateMenu();
@@ -90,10 +90,10 @@ browser.storage.local.get(function (item)
 	
 	//console.log("File version: ", item.fv);
 
-
+	//alert(item.sm);
 	openInNewTab = item.oNT;
 
-	if(searchEngines == undefined || searchEngines.length == 0 || item.fv != fileVer)
+	//if(searchEngines == undefined || searchEngines.length == 0 /*|| item.fv != fileVer*/)
 	{
 		loadDefault();
 	}	
@@ -137,7 +137,7 @@ function createMenu(title, id, contexts, parentId)
 function updateMenu()
 {
 	browser.contextMenus.removeAll();
-	var contexts = ["selection","browser_action"];
+	var contexts = ["selection"];
 	/** Experimental !! */
 	browser.contextMenus.create({ "title": browser.i18n.getMessage("menuItemSearchGoogleImage"), "id": menuIdPrefix + ":img", "contexts": ["image"] });
 	

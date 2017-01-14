@@ -17,18 +17,14 @@ background.searchEngines.forEach(function(item,index) {
 
 $("#searchForm").submit(function () {
 	var searchKey = $("#searchKey").val();
-	var target = browser.windows;
+	var target = browser.tabs;
 	if (searchKey != "")
 	{
-		if (background.openInNewTab)
-		{
-			target = browser.tabs;
-		}
-
 		$("#searchGrp").find(":selected").val().split(",").forEach(function(item,index) {
 			
 			target.create({ url: background.getEngine(item).url + encodeURIComponent(searchKey)});
 		});
+		window.close();
 	}
 });
 
