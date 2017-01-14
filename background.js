@@ -86,7 +86,7 @@ browser.storage.local.get(function (item)
 	for(var i in item.sm)
 		searchMenu.push(item.sm[i]);
 	
-	console.log("File version: ", item.fv);
+	//console.log("File version: ", item.fv);
 
 	if(searchEngines == undefined || searchEngines.length == 0 || item.fv != fileVer)
 	{
@@ -108,62 +108,27 @@ function updateMenu()
 {
 	browser.contextMenus.removeAll();
 	var contexts = ["selection"];
-	
+
+	/** Experimental !! */
+	browser.contextMenus.create({ "title": browser.i18n.getMessage("menuItemSearchGoogleImage"), "id": "parent2", "contexts": ["image"] });
+	/** */
 
 	if(searchMenu.length == 1) {
 		var obj = getEngine(searchMenu[0]);
 		browser.contextMenus.create({ "title": browser.i18n.getMessage("menuItemSearchWith") + " " + obj.name, "id": "sCM"+obj.id, "contexts": contexts });
 	}
 	else if( searchMenu.length > 1) {
-
+		browser.contextMenus.create({"title": browser.i18n.getMessage("menuItemSearchWith"),"id": "parent", "contexts": contexts });
+		for (var i = 0 ; i < searchMenu.length ; i++)
+		{
+			if(searchMenu[i]) {
+				var obj = getEngine(searchMenu[i]);
+				browser.contextMenus.create({"title": obj.name,"id": "sCM"+obj.id, "parentId": "parent", "contexts": contexts });
+			}
+			else browser.contextMenus.create({"type":"separator", "parentId": "parent", "contexts": contexts});
+		}
 	}
 	else return;
-
-
-/*	
-	
-	var activeEngines = [];
-	for (var i = 0 ; i < searchEngines.length ; i++)
-	{
-		if(searchEngines[i].active) 
-			activeEngines.push({id: searchEngines[i].id, name: searchEngines[i].name, url: searchEngines[i].url});
-	}
-
-	if (!activeEngines.length) return;
-	else if (activeEngines.length == 1)
-	{            
-		
-	}
-	else
-	{
-		//,
-		browser.contextMenus.create({"title": browser.i18n.getMessage("menuItemSearchWith"),
-									 "id": "parent", 
-									 "contexts": contexts 
-									});
-									
-		browser.contextMenus.create({"title": browser.i18n.getMessage("menuItemUseAll"),
-									 "id": "sCM0",
-									 "parentId": "parent",
-									 "contexts": contexts 
-									});
-									
-		browser.contextMenus.create({"type":"separator", 
-									 "parentId": "parent",
-									 "contexts": contexts 
-									});
-									
-		for (var i = 0 ; i < activeEngines.length ; i++)
-		{
-			browser.contextMenus.create({"title": activeEngines[i].name,
-										 "id": "sCM"+activeEngines[i].id, 
-										 "parentId": "parent", 
-										 "contexts": contexts 
-										});
-		}
-	}	
-	browser.contextMenus.create({ "title": browser.i18n.getMessage("menuItemSearchGoogleImage"), "id": "parent2", "contexts": ["image"] });
-	*/
 }
 
 browser.contextMenus.onClicked.addListener(function (info, tab) {
