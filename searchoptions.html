@@ -10,19 +10,26 @@
   <script src="jq/jquery-ui.min.js"></script>  
 </head>
 <body>
+  <h2>Ustawienia</h2>
   <div class="container">
     <div class="panel">
-      <div id="engs-cnt" class="list-cnt">
-        <div class="header">Silniki wyszukiwania</div>
+      <div class="header">Silniki wyszukiwania</div>
+      <div id="engs-cnt" class="list-cnt"></div>
+    </div>
+    <div class = "panel">
+      <div class="header">Context menu (drag & drop items)</div>
+      <div id="menu-cnt" class="list-cnt">
+        <div class="droppable-list"></div>
+        <input id="menu-sv-btn" type="button" class='material-icons add-eng-btn' value="save" />
       </div>
     </div>
     <div class="panel">
-      <div id="grps-cnt" class="list-cnt">
-        <div class="header">Grupy</div>
-      </div>      
-    </div>
-    <div class = "panel">
-      
+      <div class="header">Grupy</div>
+      <div id="grps-cnt" class="list-cnt"></div>      
+    </div>    
+  </div>
+ <div class = "panel">
+      <div class="header">Dodaj silnik wyszukiwania lub grupę</div>
       <form id="eng-frm">
        Add item:<select class="eng-frm-type"><option value="1">engine</option><option value="-1">group</option></select><br/>
       Name: <input class='eng-name' type="text"><br />
@@ -32,14 +39,6 @@
       <i class='material-icons add-eng-btn'>add_circle_outline</i>
       </form>
     </div>
-  </div>
-
-<div id="menu-cnt" class="list-cnt">
-	<div class="header">Context menu</div>
-	<div class="droppable-list"></div>
-  <input id="menu-sv-btn" type="button" class='material-icons add-eng-btn' value="save" />
-</div>
-
 
 <script type="text/javascript" src="searchoptions.js"></script> 
 </body>

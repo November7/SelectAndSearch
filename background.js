@@ -137,12 +137,14 @@ function updateMenu()
 	
 	/** */
 
+	var title = browser.i18n.getMessage("menuItemSearchWith"," \"%.15s ... \" ");
+
 	if(searchMenu.length == 1) {
 		var obj = getEngine(searchMenu[0]);
-		createMenu(browser.i18n.getMessage("menuItemSearchWith") + " " + obj.name, obj.id, contexts);
+		createMenu(title + obj.name, obj.id, contexts);
 	}
 	else if( searchMenu.length > 1) {
-		browser.contextMenus.create({"title": browser.i18n.getMessage("menuItemSearchWith"),"id": menuIdPrefix, "contexts": contexts });
+		browser.contextMenus.create({"title": title,"id": menuIdPrefix, "contexts": contexts });
 		for (var i = 0 ; i < searchMenu.length ; i++)
 		{
 			if(searchMenu[i]) {

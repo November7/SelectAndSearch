@@ -30,6 +30,7 @@ $("#searchForm").submit(function () {
 
 $("#optionsLink").click(function() {
 	browser.tabs.create({'url': "/searchoptions.html" } )
+	window.close();
 });
 
 /****************************************************************/
