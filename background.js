@@ -71,10 +71,9 @@ function saveOptions()
 	console.log("Saving...");
 	//alert(fileVer);
 	browser.storage.local.set({
-		fv: fileVer,
-		oNT: openInNewTab,
 		se: searchEngines,
-		sm: searchMenu
+		sm: searchMenu,
+		fv: fileVer
 	});
 	console.log(searchEngines);
 	updateMenu();
@@ -87,13 +86,8 @@ browser.storage.local.get(function (item)
 	
 	for(var i in item.sm)
 		searchMenu.push(item.sm[i]);
-	
-	//console.log("File version: ", item.fv);
 
-	//alert(item.sm);
-	openInNewTab = item.oNT;
-
-	//if(searchEngines == undefined || searchEngines.length == 0 /*|| item.fv != fileVer*/)
+	if(searchEngines == undefined || searchEngines.length == 0 || item.fv != fileVer)
 	{
 		loadDefault();
 	}	
