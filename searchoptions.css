@@ -1,5 +1,10 @@
 /*******************************************/
 
+svg use {
+	pointer-events: none;
+}
+
+
 body {
 	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 	background-color: #ccc;
@@ -57,8 +62,8 @@ div.list-cnt {
 
 .draggable-item-list.separator {	
 	height: 20px;
-	border: 1px solid rgba(255,255,255,.7);
-	background-color: rgba(255,255,255,.5);	
+	border: 1px solid rgba(255,255,255,.5);
+	background-color: rgba(255,255,255,.2);	
 	font-size: 7pt;
 	color: grey;
 	text-align: center;
@@ -88,6 +93,7 @@ div.list-cnt {
 	font-size: 18px !important;		
 	margin-top: 5px;
 	margin-right: 5px;
+	fill: white;	
 }
 
 .draggable-item-list .btn-edit, 
@@ -161,6 +167,7 @@ input.eng-in {
     padding: 0 !important;
     position: absolute;
     top: 0;
+	z-index: 1000 !important;
 }
 
 .ui-widget.add-dlg {
@@ -195,3 +202,18 @@ input.eng-in {
     position: relative;
     font-size: 1em;
 }
+
+ui-front {
+	z-index: 1000 !important;
+}
+
+.ui-widget-overlay {
+	background-color: rgba(0,0,0,0.5);
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+}
+
+/*************************************/

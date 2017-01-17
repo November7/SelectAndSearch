@@ -33,12 +33,12 @@ function addSearchObj(obj)
 {	
 	var parent = '#engs-cnt';
 	var strItemAttr = "item list-eng-item' data-id='" + obj.id;
-	var strItemEdit = "<i class='material-icons ico ico-right btn-edit'>mode_edit</i>";
+	var strItemEdit = "<svg width='20px' height='20px' class='ico ico-right btn-edit'><use xlink:href='ico/icons.svg#edit'></use></svg>";
 	var strItemDisplayName = obj.name;
 
 	if(obj.id < 0)	{
 		parent = '#grps-cnt';
-		strItemDisplayName = "<i class='material-icons ico-left ico'>group</i> " + strItemDisplayName;
+		strItemDisplayName = "<svg width='18px' height='18px' class='ico ico-left'><use xlink:href='ico/icons.svg#multi'></use></svg>" + strItemDisplayName;
 		strItemEdit += "<div class='edit-engs'><form>"
 					+  "Name: <input class='eng-in eng-name' type='text' value='" + obj.name + "'/><br/>";
 
@@ -70,7 +70,7 @@ function addSearchObj(obj)
 
 	var strItem = "<div class='draggable-item-list ";
 	strItem += strItemAttr + "'>";	
-	strItem += "<p class='title'>" + strItemDisplayName + "</p><i class='material-icons ico ico-right btn-delete'>close</i>";
+	strItem += "<p class='title'>" + strItemDisplayName + "</p><svg width='18px' height='18px' class='ico ico-right btn-delete'><use xlink:href='ico/icons.svg#close'></use></svg>";
 	strItem += strItemEdit + "</div>";
 
 	var item = $(strItem);
@@ -125,20 +125,20 @@ function addMenuItem (id)
 	}
 
 	if(id < 0) {
-		strItemDisplayName = "<i class='material-icons ico-left ico'>group</i> " + strItemDisplayName;
+		strItemDisplayName = "<svg width='18px' height='18px' class='ico ico-left'><use xlink:href='ico/icons.svg#multi'></use></svg>" + strItemDisplayName;
 	}
 	else if (id > 0) {
 
 	}
 	else {
 		strItemAttr = "separator";
-		strItemDisplayName = "DELIMITER";
+		strItemDisplayName = "<hr />";
 	}
 
 
 	var strItem = "<div class='draggable-item-list ";
 	strItem += strItemAttr + "'>";	
-	strItem += "<p class='title'>" + strItemDisplayName + "</p><i class='material-icons ico ico-right btn-delete'>close</i>";
+	strItem += "<p class='title'>" + strItemDisplayName + "</p><svg width='18px' height='18px' class='ico ico-right btn-delete'><use xlink:href='ico/icons.svg#close'></use></svg>";
 	strItem += "</div>";
 
 	var item = $(strItem);
