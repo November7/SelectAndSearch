@@ -284,10 +284,16 @@ $.ui.draggable.prototype._mouseStart = function (e, overrideHandle, nop) {
 			dialogClass: 'add-dlg',
 			closeOnEscape: true,
 
-			buttons: [ { id:"test","data-test":"data test", text: "Ok", click:    function() {alert($('#test').data('test')); $( this ).dialog( "close" ); } } ] 
-
+			buttons: [ { 
+							id:"test",
+							text: "Ok", 
+							click: function() { 
+								$( this ).dialog( "close" ); 
+							} 
+						} 
+					] 
 		});
 	})
 })();	
-/****************************************************************/
 
+/****************************************************************/
