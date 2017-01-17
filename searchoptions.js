@@ -276,5 +276,18 @@ $.ui.draggable.prototype._mouseStart = function (e, overrideHandle, nop) {
 		$('#eng-frm')[0].reset();
 		saveSearchEngines();
 	});
+
+	$('#show-eng-dlg').click(function() {
+		$('#add-eng-dlg').dialog({
+			modal: true,
+			resizable: false,
+			dialogClass: 'add-dlg',
+			closeOnEscape: true,
+
+			buttons: [ { id:"test","data-test":"data test", text: "Ok", click:    function() {alert($('#test').data('test')); $( this ).dialog( "close" ); } } ] 
+
+		});
+	})
 })();	
 /****************************************************************/
+

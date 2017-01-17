@@ -15,12 +15,13 @@
     <div class="panel">
       <div class="header">Silniki wyszukiwania</div>
       <div id="engs-cnt" class="list-cnt"></div>
+      <div class="footer"><i id="show-eng-dlg" class='material-icons'>add_circle_outline</i></div>
     </div>
     <div class = "panel">
       <div class="header">Context menu (drag & drop items)</div>
       <div id="menu-cnt" class="list-cnt">
         <div class="droppable-list"></div>
-        <input id="menu-sv-btn" type="button" class='material-icons add-eng-btn' value="save" />
+        <input id="menu-sv-btn" type="button" class='material-icons' value="save" />
       </div>
     </div>
     <div class="panel">
@@ -28,8 +29,7 @@
       <div id="grps-cnt" class="list-cnt"></div>      
     </div>    
   </div>
- <div class = "panel">
-      <div class="header">Dodaj silnik wyszukiwania lub grupę</div>
+ <div title="dodaj silnik" id="add-eng-dlg" style="display: none">
       <form id="eng-frm">
        Add item:<select class="eng-frm-type"><option value="1">engine</option><option value="-1">group</option></select><br/>
       Name: <input class='eng-name' type="text"><br />

@@ -149,3 +149,49 @@ input.eng-in {
 #eng-frm input.required {
 	background-color: red;
 }
+
+
+/*********** add dlg *************/
+
+.ui-dialog.add-dlg {
+    font-family: Verdana,Arial,sans-serif;
+    font-size: .8em;
+	left: 0;
+    outline: 0 none;
+    padding: 0 !important;
+    position: absolute;
+    top: 0;
+}
+
+.ui-widget.add-dlg {
+    font-family: Verdana,Arial,sans-serif;
+    font-size: .8em;
+}
+
+.ui-widget-content.add-dlg {
+    background: #F9F9F9;
+    border: 1px solid #333;
+    color: #222222;
+}
+
+.ui-dialog.add-dlg .ui-dialog-content {
+    background: none repeat scroll 0 0 transparent;
+    border: 0 none;
+    overflow: auto;
+    position: relative;
+    padding: 0 !important;
+    margin: 0;
+}
+
+.ui-dialog.add-dlg .ui-widget-header {
+    background: #666;
+    border: 0;
+    color: #fff;
+    font-weight: normal;
+}
+
+.ui-dialog.add-dlg .ui-dialog-titlebar {
+    padding: 0.1em .5em;
+    position: relative;
+    font-size: 1em;
+}
