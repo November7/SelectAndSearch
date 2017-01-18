@@ -31,19 +31,15 @@ div.panel .header {
 	padding: 5px 10px;
 }
 
-
-
 div.list-cnt {	
-	padding: 10px 5px 10px 5px;
-	min-width: 300px;
-	
-	
+	margin: 10px 5px 10px 5px;
+	min-width: 300px;	
 }
-.droppable-list {
-	min-height: 1.5em;
-	/*width: 200px;	*/
 
+.droppable-list {
+	min-height: 250px;
 }
+
 .draggable-item-list {
 	width: 300px;
 	margin: 2px;	
@@ -51,50 +47,62 @@ div.list-cnt {
 	font-size: 10pt;
 	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 	cursor: pointer;
+	position: relative;
 }
 
 .draggable-item-list.item {	
 	min-height: 30px;
 	border: 1px solid rgba(255,255,255,.5);
 	background-color: rgba(255,255,255,.2);	
-	
 }
 
-.draggable-item-list.separator {	
+.separator {	
 	height: 20px;
 	border: 1px solid rgba(255,255,255,.5);
 	background-color: rgba(255,255,255,.2);	
-	font-size: 7pt;
-	color: grey;
-	text-align: center;
+	font-size: 7pt;	
 }
 
 .draggable-item-list p.title {
 	margin: 2px;
-	padding: 4px 2px 2px 2px;
-	
+	padding: 4px 2px 2px 2px;	
 	display: inline-block;
-	width: 200px;
-}
-.draggable-item-list p.title i {
-	margin-top: 0px;
+	width: 220px;
 }
 
-.ico-right {
-	float: right;
+.separator p.title {	
+	padding: 3px 2px 2px 2px;
+	text-align: center;
+	width: 100%;
 }
-.ico-left {
+
+/*.draggable-item-list p.title i {
+	margin-top: 0px;
+}*/
+
+.separator .ico-right {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+}
+
+.item .ico-right {
+	float: right;	
+}
+.item .ico-left {
 	float: left;
 }
 
 .ico {	
 	color: white;
 	opacity: 0.6;
-	/*font-size: 18px !important;		*/
-	margin-top: 5px;
-	margin-right: 5px;
-	/*fill: white;	*/
+	margin-left: 5px;
+	margin-top: 6px;
+	width: 18px;
+	height: 18px;		
 }
+
+
 
 .draggable-item-list .btn-edit, 
 .draggable-item-list .btn-delete {
@@ -116,8 +124,11 @@ div.list-cnt {
 }
 
 #engs-cnt .separator .ico {
-	display: none !important;
-	
+	display: none !important;	
+}
+
+#menu-cnt .separator .ico {
+	margin-top: 1px !important;
 }
 
 .protect {

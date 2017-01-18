@@ -15,6 +15,10 @@
 	{
 		"message": "Użyj wszystkich"
 	},
+	"strDelimiterDisplayName":
+	{
+		"message": " --- DELIMITER --- "
+	},
 	"example": {
 		"message": "lorem $1 , $USER$. ipsum $OUR_SITE$ dolor!",
     	"description": "Say goodbye to the user",

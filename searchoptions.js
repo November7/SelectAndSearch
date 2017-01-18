@@ -34,11 +34,11 @@ function addSearchObj(obj)
 	var parent = '#engs-cnt';
 	var strItemAttr = "item list-eng-item' data-id='" + obj.id;
 	var strItemEdit = "<svg width='20px' height='20px' class='ico ico-right btn-edit'><use xlink:href='ico/icons.svg#edit'></use></svg>";
-	var strItemDisplayName = obj.name;
+	var strItemDisplayName = "<p class='title'>" + obj.name + "</p>";
 
 	if(obj.id < 0)	{
 		parent = '#grps-cnt';
-		strItemDisplayName = "<svg width='18px' height='18px' class='ico ico-left'><use xlink:href='ico/icons.svg#multi'></use></svg>" + strItemDisplayName;
+		strItemDisplayName = "<svg class='ico ico-left'><use xlink:href='ico/icons.svg#multi'></use></svg>" + strItemDisplayName;
 		strItemEdit += "<div class='edit-engs'><form>"
 					+  "Name: <input class='eng-in eng-name' type='text' value='" + obj.name + "'/><br/>";
 
@@ -70,7 +70,7 @@ function addSearchObj(obj)
 
 	var strItem = "<div class='draggable-item-list ";
 	strItem += strItemAttr + "'>";	
-	strItem += "<p class='title'>" + strItemDisplayName + "</p><svg width='18px' height='18px' class='ico ico-right btn-delete'><use xlink:href='ico/icons.svg#close'></use></svg>";
+	strItem += strItemDisplayName + "<svg class='ico ico-right btn-delete'><use xlink:href='ico/icons.svg#close'></use></svg>";
 	strItem += strItemEdit + "</div>";
 
 	var item = $(strItem);
@@ -119,26 +119,26 @@ function addMenuItem (id)
 	for(var i=0;i<background.searchEngines.length;i++) {
 		
 		if(background.searchEngines[i].id == id) {
-			strItemDisplayName = background.searchEngines[i].name;
+			strItemDisplayName = "<p class='title'>" + background.searchEngines[i].name + "</p>";
 			break;
 		}
 	}
 
 	if(id < 0) {
-		strItemDisplayName = "<svg width='18px' height='18px' class='ico ico-left'><use xlink:href='ico/icons.svg#multi'></use></svg>" + strItemDisplayName;
+		strItemDisplayName = "<svg class='ico ico-left'><use xlink:href='ico/icons.svg#multi'></use></svg>" + strItemDisplayName;
 	}
 	else if (id > 0) {
 
 	}
 	else {
 		strItemAttr = "separator";
-		strItemDisplayName = "DELIMITER";
+		strItemDisplayName = "<p class='title'>" + browser.i18n.getMessage("strDelimiterDisplayName") + "</p>";
 	}
 
 
 	var strItem = "<div class='draggable-item-list ";
 	strItem += strItemAttr + "'>";	
-	strItem += "<p class='title'>" + strItemDisplayName + "</p><svg width='18px' height='18px' class='ico ico-right btn-delete'><use xlink:href='ico/icons.svg#close'></use></svg>";
+	strItem += strItemDisplayName + "<svg class='ico ico-right btn-delete'><use xlink:href='ico/icons.svg#close'></use></svg>";
 	strItem += "</div>";
 
 	var item = $(strItem);
@@ -166,7 +166,7 @@ function displayEngines()
 		}
 	}
 
-	addSearchObj({name: "DELIMITER", id: 0});
+	addSearchObj({name: browser.i18n.getMessage("strDelimiterDisplayName"), id: 0});
 
 	for(var i = 0; i < background.searchMenu.length ; i++) 
 	{
