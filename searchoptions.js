@@ -188,6 +188,13 @@ $(".droppable-list").sortable({
 	});
 	
   },
+  stop: function(e,data) {
+	var useTag = data.item.find("use")[0];
+	if (useTag.href && useTag.href.baseVal) {
+    	useTag.href.baseVal = useTag.href.baseVal; //fix "dissapearing svg with use xlink" bug 
+	}
+  },
+
   over: function ( event, ui ) 	{
 	  var item = $(this).data().uiSortable.currentItem;
 	 
