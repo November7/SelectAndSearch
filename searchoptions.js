@@ -132,7 +132,7 @@ function addMenuItem (id)
 	}
 	else {
 		strItemAttr = "separator";
-		strItemDisplayName = "<hr />";
+		strItemDisplayName = "DELIMITER";
 	}
 
 
