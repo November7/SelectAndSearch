@@ -58,9 +58,9 @@ function addSearchObj(obj)
 	else if(obj.id > 0) {
 		
 		strItemEdit += "<div class='edit-engs'><form>"
-					+  "Name: <input class='eng-in eng-name' type='text' value='" + obj.name + "'/><br/>"
-					+  "Url: <input class='eng-in eng-url' type='text' value='" + obj.url + "'/>"
-					+  "<br/><input class='btn-se-save' value='save' type='button' /><input value='Default' type='reset'/>"
+					+  "<input class='eng-in eng-name' type='text' value='" + obj.name + "' placeholder='Name'/><br/>"
+					+  "<input class='eng-in eng-url' type='text' value='" + obj.url + "' placeholder='Engine url'/>"
+					+  "<br/><input class='btn-se-save' value='Save' type='button' /><input value='Default' type='reset'/>"
 					+  "</form></div>";
 	}
 	else {
