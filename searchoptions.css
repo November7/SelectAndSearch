@@ -1,65 +1,87 @@
-/*******************************************/
+/****************************************************************************************/
+/*
+/*	OpenSearch - Marcin Kowalski
+/*
+/****************************************************************************************/
+
+/****************************************************************************************/
+/*	Main css
+/****************************************************************************************/
 
 svg use {
 	pointer-events: none;
 }
 
-
 body {
 	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-	background-color: #ccc;
+	background-color: #ffffff;
 }
 
 div.container {
 	display: flex;
 }
 
+/****************************************************************************************/
+/*  Panel
+/****************************************************************************************/
+
 div.panel {
 	
-	background-color: #333 !important;
-	
-	box-shadow: 2px 2px 2px rgba(0,0,0,0.24);
+	font-size: 10pt;
+	box-shadow: 0px 0px 15px rgba(0,0,0,0.3);
 	margin: 20px;
-	border-radius: 10px;
+	min-height: 300px;
+	display: flex;
+	background-color: #444;
+	flex-direction: column;
 }
 
 div.panel .header {
-	background-color: rgba(255,255,255,.1);
+	font-size: 12pt;
+	background-color: #60a817;
+	
+	padding: 5px 5px 5px 5px;
+	color: white;
+	height: 1.5em;
+}
+
+div.panel .footer p {
+	color: #aaa;
+	text-align: right;	
 	padding: 5px;
-	color: white;	
-	text-shadow:  1px 1px 0px #000;
-	padding: 5px 10px;
+	margin: 0px;
+	border-top: 1px solid #333;
+}
+div.panel .footer p:hover {
+	color: #60a817;
+	cursor: pointer;
 }
 
-div.list-cnt {	
-	margin: 10px 5px 10px 5px;
-	min-width: 300px;	
+div.panel .list-cnt {	
+	padding: 10px 5px 10px 5px;	
+	flex: 1;
 }
 
-.droppable-list {
-	min-height: 250px;
-}
+/****************************************************************************************/
+/*  Lists
+/****************************************************************************************/
 
 .draggable-item-list {
 	width: 300px;
 	margin: 2px;	
-	color: rgb(200,200,200);
-	font-size: 10pt;
-	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+	color: white;
+	border: 1px solid rgba(255,255,255,.5);
+	background-color: rgba(255,255,255,.2);	
 	cursor: pointer;
-	position: relative;
 }
 
 .draggable-item-list.item {	
 	min-height: 30px;
-	border: 1px solid rgba(255,255,255,.5);
-	background-color: rgba(255,255,255,.2);	
 }
 
-.separator {	
+.draggable-item-list.separator {	
 	height: 20px;
-	border: 1px solid rgba(255,255,255,.5);
-	background-color: rgba(255,255,255,.2);	
+	
 	font-size: 7pt;	
 }
 
@@ -76,9 +98,21 @@ div.list-cnt {
 	width: 100%;
 }
 
-/*.draggable-item-list p.title i {
-	margin-top: 0px;
-}*/
+.protect {
+	cursor: not-allowed;
+}
+
+.placeholder {
+	margin: 10px 3px 10px 3px;
+	height: 1px;	
+	width: 300px;
+	background-color: rgba(255,255,255,0.5);
+}
+
+
+/****************************************************************************************/
+/*  icons
+/****************************************************************************************/
 
 .separator .ico-right {
 	position: absolute;
@@ -101,8 +135,6 @@ div.list-cnt {
 	width: 18px;
 	height: 18px;		
 }
-
-
 
 .draggable-item-list .btn-edit, 
 .draggable-item-list .btn-delete {
@@ -131,16 +163,9 @@ div.list-cnt {
 	margin-top: 1px !important;
 }
 
-.protect {
-	cursor: not-allowed;
-}
-
-.placeholder {
-	margin: 10px 3px 10px 3px;
-	height: 1px;	
-	width: 300px;
-	background-color: rgba(255,255,255,0.5);
-}
+/****************************************************************************************/
+/*  Editor
+/****************************************************************************************/
 
 .edit-engs {
 	display: none;
@@ -154,83 +179,39 @@ input.eng-in {
 	color: white;
 	width: 100%;
 	padding: 5px 5px 5px 5px;
-	border-radius: 2px;
 	margin-top: 5px;
 	margin-bottom: 5px;
 	box-sizing: border-box;
 }
 
-input[type=button], input[type=reset] {
-
-
-	border: 1px solid #000;
-	padding: 5px 5px 5px 5px;
-	margin: 5px 5px 5px 5px;
-	background-color: #333;
-}
 
 input.eng-in::-webkit-input-placeholder {
 	color: #ababab;
 }
 
-#eng-frm *{
-	margin: 3px;
-	
-}
-
-#eng-frm .eng-frm-engs {
-	display: none;
-}
-
-#eng-frm input.required {
-	background-color: red;
-}
 
 
-/*********** add dlg *************/
+/****************************************************************************************/
+/*  Editor
+/****************************************************************************************/
 
 .ui-dialog.add-dlg {
-    font-family: Verdana,Arial,sans-serif;
-    font-size: .8em;
-	left: 0;
-    outline: 0 none;
-    padding: 0 !important;
-    position: absolute;
-    top: 0;
-	z-index: 1000 !important;
+	border: none !important;
+	background-color: white;
+	box-shadow: 0px 0px 15px rgba(0,0,0,.3);
+	font-size: 12pt;   
+	z-index: 1000 !important;	
 }
 
-.ui-widget.add-dlg {
-    font-family: Verdana,Arial,sans-serif;
-    font-size: .8em;
-}
-
-.ui-widget-content.add-dlg {
-    background: #F9F9F9;
-    border: 1px solid #333;
-    color: #222222;
-}
-
-.ui-dialog.add-dlg .ui-dialog-content {
-    background: none repeat scroll 0 0 transparent;
-    border: 0 none;
-    overflow: auto;
-    position: relative;
-    padding: 0 !important;
-    margin: 0;
+.ui-dialog .ui-dialog-titlebar-close
+{
+    display:none;
 }
 
 .ui-dialog.add-dlg .ui-widget-header {
-    background: #666;
-    border: 0;
+    background: #60a817;    
     color: #fff;
-    font-weight: normal;
-}
-
-.ui-dialog.add-dlg .ui-dialog-titlebar {
-    padding: 0.1em .5em;
-    position: relative;
-    font-size: 1em;
+	padding: 5px;    
 }
 
 ui-front {
@@ -246,4 +227,45 @@ ui-front {
 	top: 0px;
 }
 
-/*************************************/
+.ui-dialog-content {
+	padding: 5px 5px 5px 5px;
+}
+
+.ui-dialog-content input[type=text] {
+	width: 100%;
+	box-sizing: border-box;
+	padding: 5px;
+	margin-bottom: 10px;
+	margin-top: 5px;
+}
+
+
+.ui-dialog-content input::-webkit-input-placeholder {
+	font-style: italic;
+	color: #999;
+}
+
+.ui-dialog-buttonpane {
+	padding-bottom: 5px;
+}
+
+.ui-dialog-buttonpane button {
+	margin: 5px;
+}
+
+.ui-dialog-buttonpane .btn-save {
+	float: right;
+}
+
+.ui-dialog-content label {
+	font-size: 10pt;
+	color: #333;
+}
+
+.ui-dialog-content input.required::-webkit-input-placeholder  {
+	color: #ce352c;
+}
+
+.ui-dialog-content input.required {
+	border-color:  #ce352c;
+}

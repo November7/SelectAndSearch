@@ -31,13 +31,13 @@ function saveSearchEngines()
 
 function addSearchObj(obj)
 {	
-	var parent = '#engs-cnt';
+	var parent = '#engs-cnt .draggable-list';
 	var strItemAttr = "item list-eng-item' data-id='" + obj.id;
 	var strItemEdit = "<svg width='20px' height='20px' class='ico ico-right btn-edit'><use xlink:href='ico/icons.svg#edit'></use></svg>";
 	var strItemDisplayName = "<p class='title'>" + obj.name + "</p>";
 
 	if(obj.id < 0)	{
-		parent = '#grps-cnt';
+		parent = '#grps-cnt .draggable-list';
 		strItemDisplayName = "<svg class='ico ico-left'><use xlink:href='ico/icons.svg#multi'></use></svg>" + strItemDisplayName;
 		strItemEdit += "<div class='edit-engs'><form>"
 					+  "Name: <input class='eng-in eng-name' type='text' value='" + obj.name + "'/><br/>";
@@ -152,18 +152,12 @@ function addMenuItem (id)
 
 function displayEngines()
 {
-	$('#engs-cnt').empty();
-	$('#grps-cnt').empty();
+	$('#engs-cnt .draggable-list').empty();
+	$('#grps-cnt .draggable-list').empty();
 	$('#menu-cnt .droppable-list').empty();
-	$('#eng-frm .eng-frm-engs').empty();
 
 	for (var i = 0; i < background.searchEngines.length ; i++) {
-		addSearchObj(background.searchEngines[i]);
-		if(background.searchEngines[i].id > 0) {			
-			$('#eng-frm .eng-frm-engs').append("<label><input class='eng-chk' type='checkbox' data-eid='" 
-												+ background.searchEngines[i].id
-												+ "'/>"+background.searchEngines[i].name+"</label><br>");
-		}
+		addSearchObj(background.searchEngines[i]);	
 	}
 
 	addSearchObj({name: browser.i18n.getMessage("strDelimiterDisplayName"), id: 0});
@@ -226,81 +220,107 @@ $.ui.draggable.prototype._mouseStart = function (e, overrideHandle, nop) {
     __mouseStart.apply(this, [e, overrideHandle, nop]);
 };
 
-/****************************************************************/
 
-(function()
+function getNextId(stp)
 {
-	var frmType = 1;
-	var t = 300;
-	$('.eng-frm-type').change(function () {		
-		if($(this).find('option:selected').val() > 0) {
-			$('#eng-frm .eng-frm-url').show(t);
-			$('#eng-frm .eng-frm-engs').hide(t);
-			frmType = 1;
-		}
-		else {
-			$('#eng-frm .eng-frm-url').hide(t);
-			$('#eng-frm .eng-frm-engs').show(t);
-			frmType = -1;
-		}
+	var gid = stp;
+	for (var i = 0; i < background.searchEngines.length ; i++)
+	{
+		if( background.searchEngines[i].id * stp > 0) {
+			if( background.searchEngines[i].id == gid) gid += stp;
+			else break;
+		} 
+	}
+	return gid;
+}
 
-	});
-
-	$('#eng-frm .add-eng-btn').click(function () {		
-		
-		var gid = parseInt($('#eng-frm option:selected').val());		
-		var stp = gid;
-		
-		if(!/\S/.test($('#eng-frm .eng-name').val())) {
-			$('#eng-frm .eng-name').addClass('required');
-			return;
-		}
-	
-		for (var i = 0; i < background.searchEngines.length ; i++)
-		{
-			if( background.searchEngines[i].id * stp > 0) {
-				if( background.searchEngines[i].id == gid) gid += stp;
-				else break;
-			} 
-		}		
-		
-		if(stp>0) {
-			addSearchObj({	id:gid,
-							name: $('#eng-frm .eng-name').val(), 
-							url: $('#eng-frm .eng-url').val()
-						 },'#engs-cnt');
-		}			
-		else {		
-			addSearchObj({	id:gid,
-							name: $('#eng-frm .eng-name').val(), 
-							members: $("#eng-frm input:checkbox:checked").map(function() {
-								return parseInt($(this).attr('data-eid')); 
-							}).get().toString()
-						 },'#grps-cnt');
-		}
-
-		$('#eng-frm .eng-name').removeClass('required');
-		$('#eng-frm')[0].reset();
-		saveSearchEngines();
-	});
-
-	$('#show-eng-dlg').click(function() {
+$('#show-eng-dlg').click(function() {
 		$('#add-eng-dlg').dialog({
 			modal: true,
 			resizable: false,
 			dialogClass: 'add-dlg',
 			closeOnEscape: true,
-
-			buttons: [ { 
-							id:"test",
-							text: "Ok", 
+			open: function(event,ui) {
+				$('#eng-frm')[0].reset();	
+			},
+			buttons: [ 
+						{
+							class: "btn-cancel",							
+							text: "Anuluj", 
 							click: function() { 
+								$('#eng-frm .eng-name').removeClass('required');
 								$( this ).dialog( "close" ); 
 							} 
-						} 
+						},
+						{
+							class: "btn-save",							
+							text: "Zapisz", 
+							click: function() { 
+								if(!/\S/.test($('#eng-frm .eng-name').val())) {
+									$('#eng-frm .eng-name').addClass('required');
+									return;
+								}
+								else {
+									addSearchObj({id:getNextId(1), name: $('#eng-frm .eng-name').val(), url: $('#eng-frm .eng-url').val()},'#engs-cnt');
+									$('#eng-frm .eng-name').removeClass('required');
+									saveSearchEngines();
+									$( this ).dialog( "close" ); 
+								}
+								
+							} 
+						}
 					] 
 		});
-	})
-})();	
+	});
 
-/****************************************************************/
+	$('#show-grp-dlg').click(function() {
+		$('#add-grp-dlg').dialog({
+			modal: true,
+			resizable: false,
+			dialogClass: 'add-dlg',
+			closeOnEscape: true,
+			open: function(event, ui) {
+				$('#grp-frm')[0].reset();
+				$('#grp-frm .eng-frm-engs').empty();
+				for (var i = 0; i < background.searchEngines.length ; i++) {
+					if(background.searchEngines[i].id > 0) {			
+						$('#grp-frm .eng-frm-engs').append("<label><input class='eng-chk' type='checkbox' data-eid='" 
+															+ background.searchEngines[i].id
+															+ "'/>"+background.searchEngines[i].name+"</label><br>");
+					}
+				}
+			},
+
+			buttons: [ 
+						{
+							class: "btn-cancel",							
+							text: "Anuluj", 
+							click: function() { 
+								$('#grp-frm .grp-name').removeClass('required');
+								$( this ).dialog( "close" ); 
+							} 
+						},
+						{
+							class: "btn-save",							
+							text: "Zapisz", 
+							click: function() { 
+								if(!/\S/.test($('#grp-frm .grp-name').val())) {
+									$('#grp-frm .grp-name').addClass('required');
+									return;
+								}
+								else {
+									addSearchObj({	id:getNextId(-1),name: $('#grp-frm .grp-name').val(), 
+										members: $("#grp-frm input:checkbox:checked").map(function() {
+														return parseInt($(this).attr('data-eid')); 
+													}).get().toString()},'#grps-cnt');
+									
+									$('#grp-frm .grp-name').removeClass('required');
+									saveSearchEngines();
+									$( this ).dialog( "close" ); 
+								}
+								
+							} 
+						}
+					] 
+		});
+	});

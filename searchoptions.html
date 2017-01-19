@@ -13,31 +13,44 @@
   <div class="container">
     <div class="panel">
       <div class="header">Silniki wyszukiwania</div>
-      <div id="engs-cnt" class="list-cnt"></div>
-      <div class="footer"><i id="show-eng-dlg" >Add</i></div>
+      <div id="engs-cnt" class="list-cnt">
+        <div class="draggable-list"></div>
+      </div>
+      <div class="footer"><p id="show-eng-dlg">Dodaj silnik wyszukiwania</p></div>
     </div>
     <div class = "panel">
       <div class="header">Context menu (drag & drop items)</div>
       <div id="menu-cnt" class="list-cnt">
-        <div class="droppable-list"></div>
-        <input id="menu-sv-btn" type="button" value="save" />
+        <div class="droppable-list"></div>        
       </div>
+      <div class="footer"><p id="menu-sv-btn">Zapisz układ menu</p></div>
     </div>
     <div class="panel">
       <div class="header">Grupy</div>
-      <div id="grps-cnt" class="list-cnt"></div>      
+      <div id="grps-cnt" class="list-cnt">
+        <div class="draggable-list"></div>
+      </div>
+      <div class="footer"><p id="show-grp-dlg">Dodaj nową grupę</p></div>      
     </div>    
   </div>
- <div title="dodaj silnik" id="add-eng-dlg" style="display: none">
-      <form id="eng-frm">
-       Add item:<select class="eng-frm-type"><option value="1">engine</option><option value="-1">group</option></select><br/>
-      Name: <input class='eng-name' type="text"><br />
-      <div class="eng-frm-url">Url: <input class='eng-url' type="text"></div>
-      <div class="eng-frm-engs">        
-      </div>
-      <i class='material-icons add-eng-btn'>add_circle_outline</i>
-      </form>
-    </div>
+  <div title="Nowy silnik wyszukiwania" id="add-eng-dlg" style="display: none">
+    <form id="eng-frm">       
+      <label>Podaj nazwę silnika wyszukiwania:</label>
+      <input class='eng-name' type="text" placeholder="Example: My favorite search provider">
+      <label>Podaj adres wyszukiwania:</label>
+      <input class='eng-url' type="text" placeholder="Example: http://www.bing.com/search?q=">
+   </form>      
+  </div>
+
+  <div title="Nowy grupa " id="add-grp-dlg" style="display: none">
+    <form id="grp-frm">       
+      <label>Podaj nazwę grupy:</label>
+      <input class='grp-name' type="text" placeholder="Example: My new group">
+      <label>Wbyierz silniki:</label>
+      <div class="eng-frm-engs"></div>
+   </form>      
+  </div>
+
 <script type="text/javascript" src="searchoptions.js"></script> 
 </body>
 </html>
