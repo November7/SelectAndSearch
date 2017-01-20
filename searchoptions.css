@@ -81,7 +81,7 @@ div.panel .list-cnt {
 
 .draggable-item-list.separator {	
 	height: 20px;
-	
+	position: relative;
 	font-size: 7pt;	
 }
 
