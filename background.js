@@ -117,7 +117,6 @@ function createMenu(title, id, contexts, parentId)
 			var obj = getEngine(members[i]);
 			createMenu(obj.name,obj.id,contexts, gid);	
 		}
-
 	}		
 	else if(id > 0) {
 		browser.contextMenus.create({ "title": title, "id": gid, "contexts": contexts, parentId: parentId }); //openSeachEngine - Menu
@@ -131,13 +130,14 @@ function createMenu(title, id, contexts, parentId)
 function updateMenu()
 {
 	browser.contextMenus.removeAll();
-	var contexts = ["selection"];
+	var contexts = ["selection","link"];
 	/** Experimental !! */
 	browser.contextMenus.create({ "title": browser.i18n.getMessage("menuItemSearchGoogleImage"), "id": menuIdPrefix + ":img", "contexts": ["image"] });
 	
 	/** */
 
-	var title = browser.i18n.getMessage("menuItemSearchWith"," \"%.15s ... \" ");
+	var title = browser.i18n.getMessage("menuItemSearchWith","%.40s");
+	
 
 	if(searchMenu.length == 1) {
 		var obj = getEngine(searchMenu[0]);
@@ -152,42 +152,49 @@ function updateMenu()
 				createMenu(obj.name, obj.id, contexts, menuIdPrefix);
 			}
 			else browser.contextMenus.create({"type":"separator", "parentId": menuIdPrefix, "contexts": contexts});
+		}
 	}
-}
 	else return;
 }
 
-browser.contextMenus.onClicked.addListener(function (info, tab) {
-	//todo: search selected text in links ....
-	
+function searchText(id, selText) {
 	var url = [];
-	
-	if (openInNewTab)
-	{
-		target = browser.tabs;
-	}
-	
-	if(info.mediaType === "image") //temp...
-	{
-		url.push("https://www.google.com/searchbyimage?&image_url="+info.srcUrl);
-	}
-	else
-	{		
-		
-		var id = info.menuItemId.substr(info.menuItemId.lastIndexOf(":")+1); //get real item id
-		
-		if( id > 0) {
-			url.push(getEngine(id).url + encodeURIComponent(info.selectionText));
+	if( id > 0) {
+			url.push(getEngine(id).url + encodeURIComponent(selText));
 		}
-		else {
-			getEngine(id).members.split(",").forEach(function (item, index) {
-				url.push(getEngine(item).url + encodeURIComponent(info.selectionText));
-			});
-		}
+	else {
+		getEngine(id).members.split(",").forEach(function (item, index) {
+			url.push(getEngine(item).url + encodeURIComponent(selText));
+		});
 	}
 	
 	for(var i in url)
 	{
 		target.create({ url: url[i]});
 	}
+}
+
+
+browser.contextMenus.onClicked.addListener(function (info, tab) {
+
+	if (openInNewTab) {
+		target = browser.tabs;
+	}
+	
+	if(info.mediaType === "image") {
+		url.push("https://www.google.com/searchbyimage?&image_url="+info.srcUrl);
+	}
+	else {		
+		var id = info.menuItemId.substr(info.menuItemId.lastIndexOf(":")+1); //get real item id
+		
+		if(info.selectionText == undefined) {
+			browser.tabs.sendMessage(tab.id, {method: "getSelText"}, function(response) {searchText(id,response.data);}); 
+		}
+		else {
+			searchText(id, info.selectionText);
+		} 		
+	}
+	
 });
+
+

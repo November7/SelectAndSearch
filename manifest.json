@@ -3,7 +3,12 @@
   "name": "Open Search",
   "description": "Search selected text using e.g google",
   "version": "1.0.0",
-  "permissions": [ "contextMenus", "storage","activeTab","tabs","background"],
+  "permissions": [ "contextMenus", "storage","tabs","background", "activeTab"],
+
+"content_scripts": [{
+            "matches": ["<all_urls>"],
+            "js":["getseltext.js"]
+        }],
   "background": {
     "persistent": true,
     "scripts": [ "background.js" ]

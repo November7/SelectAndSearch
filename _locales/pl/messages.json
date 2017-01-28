@@ -5,7 +5,7 @@
 	},
 	"menuItemSearchWith":
 	{
-		"message": "Szukaj $1 w"
+		"message": "Szukaj \"$1 [...]\" "
 	},
 	"menuItemSearchGoogleImage":
 	{	

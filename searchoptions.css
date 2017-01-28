@@ -66,6 +66,11 @@ div.panel .list-cnt {
 /*  Lists
 /****************************************************************************************/
 
+.droppable-list {
+	width: 314px;
+	min-height: 100px;
+}
+
 .draggable-item-list {
 	width: 300px;
 	margin: 2px;	
