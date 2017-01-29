@@ -5,31 +5,19 @@
 	},
 	"menuItemSearchWith":
 	{
-		"message": "Szukaj \"$1 [...]\" "
+		"message": "Szukaj \"$PATTERN$ [...]\" w ",
+		"placeholders": {
+			"pattern": {
+				"content": "%.30s"
+			}
+		}
 	},
 	"menuItemSearchGoogleImage":
 	{	
-		"message": "Szukaj obrazów w google.com"
-	},
-	"menuItemUseAll":
-	{
-		"message": "Użyj wszystkich"
+		"message": "Szukaj obrazów w Google.com"
 	},
 	"strDelimiterDisplayName":
 	{
 		"message": " --- DELIMITER --- "
-	},
-	"example": {
-		"message": "lorem $1 , $USER$. ipsum $OUR_SITE$ dolor!",
-    	"description": "Say goodbye to the user",
-    	"placeholders": {
-				"our_site": {
-				"content": "test.com"
-				},
-      	"user": {
-        		"content": "$1"
-      		}
-   	 	}
-	}	
-
+	}
 }

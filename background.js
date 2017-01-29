@@ -68,14 +68,13 @@ function addSearchMenu(id)
 
 function saveOptions()
 {
-	console.log("Saving...");
-	//alert(fileVer);
+	// console.log("Saving...");	
 	browser.storage.local.set({
 		se: searchEngines,
 		sm: searchMenu,
 		fv: fileVer
 	});
-	console.log(searchEngines);
+	// console.log(searchEngines);
 	updateMenu();
 }
 
@@ -136,7 +135,7 @@ function updateMenu()
 	
 	/** */
 
-	var title = browser.i18n.getMessage("menuItemSearchWith","%.40s");
+	var title = browser.i18n.getMessage("menuItemSearchWith","%.30s");
 	
 
 	if(searchMenu.length == 1) {
@@ -144,6 +143,7 @@ function updateMenu()
 		createMenu(title + obj.name, obj.id, contexts);
 	}
 	else if( searchMenu.length > 1) {
+		title = browser.i18n.getMessage("menuItemSearchWith","%.40s");
 		browser.contextMenus.create({"title": title,"id": menuIdPrefix, "contexts": contexts });
 		for (var i = 0 ; i < searchMenu.length ; i++)
 		{
@@ -167,7 +167,6 @@ function searchText(id, selText) {
 			url.push(getEngine(item).url + encodeURIComponent(selText));
 		});
 	}
-	
 	for(var i in url)
 	{
 		target.create({ url: url[i]});
@@ -196,5 +195,3 @@ browser.contextMenus.onClicked.addListener(function (info, tab) {
 	}
 	
 });
-
-
