@@ -192,6 +192,5 @@ browser.contextMenus.onClicked.addListener(function (info, tab) {
 		else {
 			searchText(id, info.selectionText);
 		} 		
-	}
-	
+	}	
 });
