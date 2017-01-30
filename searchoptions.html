@@ -3,13 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>OpenSearch</title>
+  <title class='i18n'>__MSG_openSearchOptionPageTitle__</title>
   <link href="searchoptions.css" rel="stylesheet" type="text/css" />
   <script src="jq/jquery-3.1.1.min.js"></script>
   <script src="jq/jquery-ui.min.js"></script>  
+  <script src="i18n.js"></script> 
 </head>
 <body>
-  <h2>Ustawienia</h2>
+  <h2 class='i18n'>__MSG_settingsMessage__</h2>
   <div class="container">
     <div class="panel">
       <div class="header">Silniki wyszukiwania</div>
@@ -36,9 +37,9 @@
   <div title="Nowy silnik wyszukiwania" id="add-eng-dlg" style="display: none">
     <form id="eng-frm">       
       <label>Podaj nazwę silnika wyszukiwania:</label>
-      <input class='eng-name' type="text" placeholder="Example: My favorite search provider">
+      <input class='eng-name i18n' type="text" placeholder=__MSG_placeholderEngName__>
       <label>Podaj adres wyszukiwania:</label>
-      <input class='eng-url' type="text" placeholder="Example: http://www.bing.com/search?q=">
+      <input class='eng-url i18n' type="text" placeholder=__MSG_placeholderEngUrl__>
    </form>      
   </div>
 

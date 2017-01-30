@@ -1,4 +1,28 @@
 { 
+	"extensionName":
+	{
+		"message": "Open Search"
+	}, 
+	"extensionDescription":
+	{
+		"message": "Szukaj zaznaczonego tekstu za pomocą wybranej wyszukiwarki"
+	},
+	"openSearchOptionPageTitle":
+	{
+		"message": "Open Search - opcje"
+	},
+	"placeholderEngName":
+	{
+		"message": "Example: My favorite search provider"
+	},
+	"placeholderEngUrl":
+	{
+		"message": "Example: http://www.bing.com/search?q="
+	},
+	"settingsMessage":
+	{
+		"message": "Ustawienia"
+	},
 	"popupTitle": 
 	{ 
 		"message": "Szukaj"

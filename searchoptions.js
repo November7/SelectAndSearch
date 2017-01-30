@@ -324,3 +324,5 @@ $('#show-eng-dlg').click(function() {
 					] 
 		});
 	});
+
+	localizePage();

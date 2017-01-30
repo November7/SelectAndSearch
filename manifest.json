@@ -1,8 +1,8 @@
 {
   "author": "Marcin Kowalski",
-  "name": "Open Search",
-  "description": "Search selected text using e.g google",
-  "version": "1.0.0",
+  "name": "__MSG_extensionName__",
+  "description": "__MSG_extensionDescription__",
+  "version": "1.0.0.1",
   "permissions": [ "contextMenus", "storage","tabs","background", "activeTab"],
 
 "content_scripts": [{
