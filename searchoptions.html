@@ -3,51 +3,51 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title class='i18n'>__MSG_openSearchOptionPageTitle__</title>
+  <title class='i18n'>__MSG_titleOptionsPage__</title>
   <link href="searchoptions.css" rel="stylesheet" type="text/css" />
   <script src="jq/jquery-3.1.1.min.js"></script>
   <script src="jq/jquery-ui.min.js"></script>  
   <script src="i18n.js"></script> 
 </head>
 <body>
-  <h2 class='i18n'>__MSG_settingsMessage__</h2>
+  <h2 class='i18n'>__MSG_stringSetting__</h2>
   <div class="container">
     <div class="panel">
-      <div class="header">Silniki wyszukiwania</div>
+      <div class="header i18n">__MSG_labelSearchEngineHeader__</div>
       <div id="engs-cnt" class="list-cnt">
         <div class="draggable-list"></div>
       </div>
-      <div class="footer"><p id="show-eng-dlg">Dodaj silnik wyszukiwania</p></div>
+      <div class="footer"><p id="show-eng-dlg" class="i18n">__MSG_labelAddEngineBtn__</p></div>
     </div>
     <div class = "panel">
-      <div class="header">Context menu (drag & drop items)</div>
+      <div class="header i18n">__MSG_labelSearchMenuHeader__</div>
       <div id="menu-cnt" class="list-cnt">
         <div class="droppable-list"></div>        
       </div>
-      <div class="footer"><p id="menu-sv-btn">Zapisz układ menu</p></div>
+      <div class="footer"><p id="menu-sv-btn" class="i18n">__MSG_labelSaveMenuBtn__</p></div>
     </div>
     <div class="panel">
-      <div class="header">Grupy</div>
+      <div class="header i18n">__MSG_labelSearchGroupHeader__</div>
       <div id="grps-cnt" class="list-cnt">
         <div class="draggable-list"></div>
       </div>
-      <div class="footer"><p id="show-grp-dlg">Dodaj nową grupę</p></div>      
+      <div class="footer"><p id="show-grp-dlg" class="i18n">__MSG_labelAddGroupBtn__</p></div>      
     </div>    
   </div>
-  <div title="Nowy silnik wyszukiwania" id="add-eng-dlg" style="display: none">
+  <div class="i18n" title="__MSG_titleNewEngineDialog__" id="add-eng-dlg" style="display: none">
     <form id="eng-frm">       
-      <label>Podaj nazwę silnika wyszukiwania:</label>
-      <input class='eng-name i18n' type="text" placeholder=__MSG_placeholderEngName__>
-      <label>Podaj adres wyszukiwania:</label>
-      <input class='eng-url i18n' type="text" placeholder=__MSG_placeholderEngUrl__>
+      <label class="i18n">__MSG_stringEnterEngName__</label>
+      <input class='eng-name i18n' type="text" placeholder="__MSG_placeholderEngName__">
+      <label class="i18n">__MSG_stringEnterEngUrl__</label>
+      <input class='eng-url i18n' type="text" placeholder="__MSG_placeholderEngUrl__">
    </form>      
   </div>
 
-  <div title="Nowy grupa " id="add-grp-dlg" style="display: none">
+  <div class="i18n" title="__MSG_titleNewGroupDialog__" id="add-grp-dlg" style="display: none">
     <form id="grp-frm">       
-      <label>Podaj nazwę grupy:</label>
-      <input class='grp-name' type="text" placeholder="Example: My new group">
-      <label>Wbyierz silniki:</label>
+      <label class="i18n">__MSG_stringEnterGroupName__</label>
+      <input class="grp-name i18n" type="text" placeholder="__MSG_placeholderGroupName__">
+      <label class="i18n">__MSG_stringSelectEngines__</label>
       <div class="eng-frm-engs"></div>
    </form>      
   </div>

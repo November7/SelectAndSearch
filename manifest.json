@@ -1,14 +1,14 @@
 {
   "author": "Marcin Kowalski",
-  "name": "__MSG_extensionName__",
-  "description": "__MSG_extensionDescription__",
+  "name": "__MSG_stringExtensionName__",
+  "description": "__MSG_stringExtensionDescription__",
   "version": "1.0.0.1",
-  "permissions": [ "contextMenus", "storage","tabs","background", "activeTab"],
+  "permissions": [ "contextMenus", "storage","tabs","background"],
 
-"content_scripts": [{
-            "matches": ["<all_urls>"],
-            "js":["getseltext.js"]
-        }],
+  "content_scripts": [{
+    "matches": ["<all_urls>"],
+    "js":["getseltext.js"]
+  }],
   "background": {
     "persistent": true,
     "scripts": [ "background.js" ]
@@ -21,10 +21,9 @@
     "default_icon": {
       "38": "ico/icon_38.png"
     },
-    "default_title": "__MSG_popupTitle__",
+    "default_title": "__MSG_titlePopupPage__",
     "default_popup": "popup.html"
   },  
   "options_page": "searchoptions.html",
-
   "default_locale": "en"
 }

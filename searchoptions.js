@@ -1,5 +1,5 @@
 /****************************************************************/
-
+localizePage();
 var background = browser.extension.getBackgroundPage();
 
 function saveSearchEngines()
@@ -132,7 +132,7 @@ function addMenuItem (id)
 	}
 	else {
 		strItemAttr = "separator";
-		strItemDisplayName = "<p class='title'>" + browser.i18n.getMessage("strDelimiterDisplayName") + "</p>";
+		strItemDisplayName = "<p class='title'>" + browser.i18n.getMessage("stringMenuDelimiter") + "</p>";
 	}
 
 
@@ -160,7 +160,7 @@ function displayEngines()
 		addSearchObj(background.searchEngines[i]);	
 	}
 
-	addSearchObj({name: browser.i18n.getMessage("strDelimiterDisplayName"), id: 0});
+	addSearchObj({name: browser.i18n.getMessage("stringMenuDelimiter"), id: 0});
 
 	for(var i = 0; i < background.searchMenu.length ; i++) 
 	{
@@ -274,6 +274,7 @@ $('#show-eng-dlg').click(function() {
 	});
 
 	$('#show-grp-dlg').click(function() {
+		console.log("dziala")
 		$('#add-grp-dlg').dialog({
 			modal: true,
 			resizable: false,
@@ -325,4 +326,5 @@ $('#show-eng-dlg').click(function() {
 		});
 	});
 
-	localizePage();
+	
+	/****************************************************************/

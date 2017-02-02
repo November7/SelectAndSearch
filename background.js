@@ -131,11 +131,11 @@ function updateMenu()
 	browser.contextMenus.removeAll();
 	var contexts = ["selection","link"];
 	/** Experimental !! */
-	browser.contextMenus.create({ "title": browser.i18n.getMessage("menuItemSearchGoogleImage"), "id": menuIdPrefix + ":img", "contexts": ["image"] });
+	browser.contextMenus.create({ "title": browser.i18n.getMessage("labelSearchImageMenu"), "id": menuIdPrefix + ":img", "contexts": ["image"] });
 	
 	/** */
 
-	var title = browser.i18n.getMessage("menuItemSearchWith","%.30s");
+	var title = browser.i18n.getMessage("labelSearchTextMenu");
 	
 
 	if(searchMenu.length == 1) {
@@ -143,7 +143,7 @@ function updateMenu()
 		createMenu(title + obj.name, obj.id, contexts);
 	}
 	else if( searchMenu.length > 1) {
-		title = browser.i18n.getMessage("menuItemSearchWith","%.40s");
+		title = browser.i18n.getMessage("labelSearchTextMenu");
 		browser.contextMenus.create({"title": title,"id": menuIdPrefix, "contexts": contexts });
 		for (var i = 0 ; i < searchMenu.length ; i++)
 		{

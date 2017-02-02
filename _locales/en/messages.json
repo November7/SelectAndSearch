@@ -1,20 +1,113 @@
 { 
-	"popupTitle": 
+	"stringExtensionName":
+	{
+		"message": "Open Search"
+	}, 
+	"stringExtensionDescription":
+	{
+		"message": "Search selected text with your favourite search provider"
+	},
+	"titleOptionsPage": 
+	{
+		"message": "Open Search - options"
+	},
+	"labelSearchEngineHeader":
+	{
+		"message": "Search providers"
+	},
+	"labelSearchMenuHeader":
+	{
+		"message": "Context menu (drag & drop)"
+	},
+	"labelSearchGroupHeader":
+	{
+		"message": "Groups"
+	},
+	"labelAddEngineBtn":
+	{
+		"message": "Add new search provider"
+	},	
+	"labelAddGroupBtn":
+	{
+		"message": "Add new group"
+	},
+	"labelSaveMenuBtn":
+	{
+		"message": "Save context menu"
+	},
+	"titleNewEngineDialog":
+	{
+		"message": "New search provider"
+	},
+	
+	"stringEnterEngName":  
+	{
+		"message": "Enter search provider name:"
+	},
+	"stringEnterEngUrl":
+	{
+		"message": "Enter search porovider url:"
+	},
+	"placeholderEngName":
+	{
+		"message": "Example: my favourite search provider"
+	},
+	"placeholderEngUrl":
+	{
+		"message": "Example: $URL$",
+		"placecholder": {
+			"url": {
+				"content": "http://www.bing.com/search?q="
+			}
+		}
+	},	
+	"labelSearchTextMenu":
+	{
+		"message": "search \"$PATTERN$ [...]\" with ",
+		"placeholders": {
+			"pattern": {
+				"content": "%.30s"
+			}
+		}
+	},
+	"titleNewGroupDialog":
+	{
+		"message": "New group"
+	},
+	"stringEnterGroupName":
+	{
+		"message": "Enter group name:"
+	},
+	"stringSelectEngines":
+	{
+		"message": "Choose search providers:"
+	},
+	"placeholderGroupName":
+	{
+		"message": "Example: my favourite group"
+	},
+	"labelSearchImageMenu":
+	{	
+		"message": "Search image with Google.com"
+	},
+	"stringMenuDelimiter":
+	{
+		"message": " --- Delimiter (horizontal line) --- "
+	},
+	"placeholderSearchLabel":
+	{
+		"message": "enter text..."
+	},
+	"stringSetting":
+	{
+		"message": "Settings"
+	},
+	"labelSettingsBtn":
+	{
+		"message": "Settings"
+	},
+	"titlePopupPage": 
 	{ 
 		"message": "Search"
-	},
-	"menuItemSearchWith":
-	{
-		"message": "Search with"
-	},
-	"menuItemSearchGoogleImage":
-	{	
-		"message": "Search image in google.com"
-	},
-	"menuItemUseAll":
-	{
-		"message": "Use all"
 	}
-
-
 }

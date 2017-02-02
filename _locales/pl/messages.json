@@ -1,33 +1,67 @@
 { 
-	"extensionName":
+	"stringExtensionName":
 	{
 		"message": "Open Search"
 	}, 
-	"extensionDescription":
+	"stringExtensionDescription":
 	{
 		"message": "Szukaj zaznaczonego tekstu za pomocą wybranej wyszukiwarki"
 	},
-	"openSearchOptionPageTitle":
+	"titleOptionsPage": 
 	{
 		"message": "Open Search - opcje"
 	},
+	"labelSearchEngineHeader":
+	{
+		"message": "Silniki wyszukiwania"
+	},
+	"labelSearchMenuHeader":
+	{
+		"message": "Menu kontekstowe (przeciągni i upuść)"
+	},
+	"labelSearchGroupHeader":
+	{
+		"message": "Grupy"
+	},
+	"labelAddEngineBtn":
+	{
+		"message": "Dodaj silnik wyszukiwania"
+	},	
+	"labelAddGroupBtn":
+	{
+		"message": "Dodaj nową grupę"
+	},
+	"labelSaveMenuBtn":
+	{
+		"message": "Zapisz układ menu"
+	},
+	"titleNewEngineDialog":
+	{
+		"message": "Nowy silnik wyszukiwania"
+	},
+	
+	"stringEnterEngName":  
+	{
+		"message": "Podaj nazwę silnika wyszukiwania:"
+	},
+	"stringEnterEngUrl":
+	{
+		"message": "Podaj adres wyszukiwania:"
+	},
 	"placeholderEngName":
 	{
-		"message": "Example: My favorite search provider"
+		"message": "Przykład: moja ulubiona wyszukiwarka"
 	},
 	"placeholderEngUrl":
 	{
-		"message": "Example: http://www.bing.com/search?q="
-	},
-	"settingsMessage":
-	{
-		"message": "Ustawienia"
-	},
-	"popupTitle": 
-	{ 
-		"message": "Szukaj"
-	},
-	"menuItemSearchWith":
+		"message": "Przykład: $URL$",
+		"placecholder": {
+			"url": {
+				"content": "http://www.bing.com/search?q="
+			}
+		}
+	},	
+	"labelSearchTextMenu":
 	{
 		"message": "Szukaj \"$PATTERN$ [...]\" w ",
 		"placeholders": {
@@ -36,12 +70,44 @@
 			}
 		}
 	},
-	"menuItemSearchGoogleImage":
+	"titleNewGroupDialog":
+	{
+		"message": "Nowa grupa"
+	},
+	"stringEnterGroupName":
+	{
+		"message": "Podaj nazwę grupy:"
+	},
+	"stringSelectEngines":
+	{
+		"message": "Wybierz silniki:"
+	},
+	"placeholderGroupName":
+	{
+		"message": "Przykład: Moja ulubiona grupa"
+	},
+	"labelSearchImageMenu":
 	{	
 		"message": "Szukaj obrazów w Google.com"
 	},
-	"strDelimiterDisplayName":
+	"stringMenuDelimiter":
 	{
-		"message": " --- DELIMITER --- "
+		"message": " --- Separator (pozioma linia) --- "
+	},
+	"placeholderSearchLabel":
+	{
+		"message": "wprowadź tekst..."
+	},
+	"stringSetting":
+	{
+		"message": "Ustawienia"
+	},
+	"labelSettingsBtn":
+	{
+		"message": "Ustawienia"
+	},
+	"titlePopupPage": 
+	{ 
+		"message": "Szukaj"
 	}
 }

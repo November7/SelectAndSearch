@@ -1,4 +1,5 @@
 /****************************************************************/
+localizePage();
 
 var background = browser.extension.getBackgroundPage();
 
