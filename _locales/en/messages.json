@@ -63,12 +63,28 @@
 	},	
 	"labelSearchTextMenu":
 	{
-		"message": "search \"$PATTERN$ [...]\" with ",
+		"message": "Search \"$PATTERN$\" with ",
 		"placeholders": {
 			"pattern": {
 				"content": "%.30s"
 			}
 		}
+	},	
+	"labelSearchLinkMenu":
+	{
+		"message": "Search selected text with "
+	},
+	"labelSearchImageMenu":
+	{	
+		"message": "Search image with Google.com"
+	},
+	"labelSearchAllMenu":
+	{	
+		"message": "Use all"
+	},
+	"labelMenuDelimiter":
+	{
+		"message": " --- Delimiter (horizontal line) --- "
 	},
 	"titleNewGroupDialog":
 	{
@@ -85,14 +101,6 @@
 	"placeholderGroupName":
 	{
 		"message": "Example: my favourite group"
-	},
-	"labelSearchImageMenu":
-	{	
-		"message": "Search image with Google.com"
-	},
-	"stringMenuDelimiter":
-	{
-		"message": " --- Delimiter (horizontal line) --- "
 	},
 	"placeholderSearchLabel":
 	{

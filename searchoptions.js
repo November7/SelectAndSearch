@@ -132,7 +132,7 @@ function addMenuItem (id)
 	}
 	else {
 		strItemAttr = "separator";
-		strItemDisplayName = "<p class='title'>" + browser.i18n.getMessage("stringMenuDelimiter") + "</p>";
+		strItemDisplayName = "<p class='title'>" + browser.i18n.getMessage("labelMenuDelimiter") + "</p>";
 	}
 
 
@@ -160,7 +160,7 @@ function displayEngines()
 		addSearchObj(background.searchEngines[i]);	
 	}
 
-	addSearchObj({name: browser.i18n.getMessage("stringMenuDelimiter"), id: 0});
+	addSearchObj({name: browser.i18n.getMessage("labelMenuDelimiter"), id: 0});
 
 	for(var i = 0; i < background.searchMenu.length ; i++) 
 	{
@@ -223,7 +223,7 @@ $.ui.draggable.prototype._mouseStart = function (e, overrideHandle, nop) {
 
 function getNextId(stp)
 {
-	var gid = stp;
+	var gid = 2*stp; //first gid: 2 or -2
 	for (var i = 0; i < background.searchEngines.length ; i++)
 	{
 		if( background.searchEngines[i].id * stp > 0) {

@@ -63,12 +63,28 @@
 	},	
 	"labelSearchTextMenu":
 	{
-		"message": "Szukaj \"$PATTERN$ [...]\" w ",
+		"message": "Szukaj \"$PATTERN$\" w ",
 		"placeholders": {
 			"pattern": {
 				"content": "%.30s"
 			}
 		}
+	},
+	"labelSearchLinkMenu":
+	{
+		"message": "Szukaj zaznaczonego tesktu w "
+	},
+	"labelSearchImageMenu":
+	{	
+		"message": "Szukaj obrazów w Google.com"
+	},
+	"labelSearchAllMenu":
+	{	
+		"message": "Użyj wszystkich"
+	},
+	"labelMenuDelimiter":
+	{
+		"message": " --- Separator (pozioma linia) --- "
 	},
 	"titleNewGroupDialog":
 	{
@@ -85,14 +101,6 @@
 	"placeholderGroupName":
 	{
 		"message": "Przykład: Moja ulubiona grupa"
-	},
-	"labelSearchImageMenu":
-	{	
-		"message": "Szukaj obrazów w Google.com"
-	},
-	"stringMenuDelimiter":
-	{
-		"message": " --- Separator (pozioma linia) --- "
 	},
 	"placeholderSearchLabel":
 	{

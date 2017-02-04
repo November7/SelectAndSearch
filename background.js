@@ -3,43 +3,43 @@ var searchMenu		= [];
 var target = browser.tabs;
 var openInNewTab = true;
 var fileVer = "1.2";
-var menuIdPrefix = "openSMI"; //openSearchMenuItem
-
-//
+var menuIdPrefix = "openSMI"; //openSearchMenuItem//
 
 function loadDefault()
 {
+	// id 1 & -1 are reserved //
 	searchEngines = [
 		{
-			id: 		1, 
+			id: 		2, 
 			name: 		"Google", 
 			url: 		"https://google.com/search?q="			
 		},
 		{
-			id: 		2,
+			id: 		3,
 			name: 		"Bing", 
 			url: 		"http://www.bing.com/search?q="		
 		},
 		{
-			id: 		3,
-			name: 		"Yahoo", 
-			url: 		"https://search.yahoo.com/search?p=", 			
+			id: 		4,		
+			name: 		"IMDb", 
+			url: 		"http://www.imdb.com/find?q="		
 		},
 		{
-			id: 		4,		
+			id: 		5,		
 			name: 		"Filmweb", 
 			url: 		"http://www.filmweb.pl/search?q="		
-		},
-		{
-			id: 		-1,
-			name:		"Films",
-			members:	"1,4"
-		},
+		},		
 		{
 			id:			-2,
 			name:		"Global",
-			members:	"1,2,3"
+			members:	"2,3"
+		},
+		{
+			id: 		-3,
+			name:		"Films",
+			members:	"4,5"
 		}
+
 	]
 }
 
@@ -49,7 +49,7 @@ function removeEngines()
 	searchMenu = [];
 }
 
-function addSearchEngine(id,name,param)
+function addSearchEngine(id, name, param)
 {
 	var obj = {id: id, name: name};
 
@@ -57,8 +57,8 @@ function addSearchEngine(id,name,param)
 		obj.members = param;
 	else
 		obj.url = param;
-	searchEngines.push(obj); 
 
+	searchEngines.push(obj);
 }
 
 function addSearchMenu(id)
@@ -67,14 +67,12 @@ function addSearchMenu(id)
 }
 
 function saveOptions()
-{
-	// console.log("Saving...");	
+{	
 	browser.storage.local.set({
 		se: searchEngines,
 		sm: searchMenu,
 		fv: fileVer
 	});
-	// console.log(searchEngines);
 	updateMenu();
 }
 
@@ -86,8 +84,7 @@ browser.storage.local.get(function (item)
 	for(var i in item.sm)
 		searchMenu.push(item.sm[i]);
 
-	if(searchEngines == undefined || searchEngines.length == 0 || item.fv != fileVer)
-	{
+	if(searchEngines == undefined || searchEngines.length == 0 || item.fv != fileVer) {
 		loadDefault();
 	}	
 	updateMenu();
@@ -95,69 +92,105 @@ browser.storage.local.get(function (item)
 
 function getEngine(id)
 {
-	for(var i=0;i<searchEngines.length;i++)
-	{
+	for(var i=0;i<searchEngines.length;i++) {
 		if(searchEngines[i].id == id) return searchEngines[i];
 	}
+	return {id:0};
 }
 
-
-function createMenu(title, id, contexts, parentId) 
+function createMenu(p)
 {
-	var gid = menuIdPrefix+":"+id; 
-	if(parentId) gid = parentId+":"+id; 
-	if(id<0) {
-		
-		browser.contextMenus.create({ "title": title, "id": gid, "contexts": contexts, parentId: parentId}); 
-		browser.contextMenus.create({ "title": browser.i18n.getMessage("menuItemUseAll"), "id": menuIdPrefix+"G:"+id, "contexts": contexts, parentId: gid }); 		
-		browser.contextMenus.create({ "type": "separator", "contexts": contexts, parentId: gid }); 
-		var members = getEngine(id).members.split(",");
-		for(var i=0;i<members.length;i++) {
-			var obj = getEngine(members[i]);
-			createMenu(obj.name,obj.id,contexts, gid);	
-		}
-	}		
-	else if(id > 0) {
-		browser.contextMenus.create({ "title": title, "id": gid, "contexts": contexts, parentId: parentId }); //openSeachEngine - Menu
+	var gid = menuIdPrefix + "-" + p.contexts[0];
+	if( p.parentId ) gid = p.parentId;
+	var id = gid + ":" + p.id;
+
+	if( p.id == 0 ) {
+		browser.contextMenus.create({	type:		"separator", 
+										parentId: 	p.parentId, 
+										contexts: 	p.contexts
+									});
 	}
-	/*
+	else if( p.id == -1 ) {
+		browser.contextMenus.create({	title: 		p.title, 
+										id: 		gid, 
+										contexts: 	p.contexts 
+									});
+	}
+	else if( p.id > 0 ) {
+		browser.contextMenus.create({	title: 		p.title,
+										id: 		id,
+										parentId: 	p.parentId,
+										contexts: 	p.contexts 
+									}); 
+	}
 	else {
-		browser.contextMenus.create({"type":"separator", "parentId": parentId, "contexts": contexts});
-	}*/
+		browser.contextMenus.create({	title: 		p.title,
+										id: 		id,
+										parentId:	p.parentId,
+										contexts: 	p.contexts
+									}); 
+		browser.contextMenus.create({	title:		browser.i18n.getMessage("labelSearchAllMenu"),
+										id:			gid + "-G:" + p.id,
+										parentId: 	id,
+										contexts:	p.contexts
+									}); 		
+		browser.contextMenus.create({	type:		"separator",
+										parentId:	id,
+										contexts:	p.contexts										 
+									}); 
+		var members = getEngine(p.id).members.split(",");
+		for(var i = 0 ; i < members.length ; i++) {
+			var obj = getEngine(members[i]);
+			createMenu ({	title: 		obj.name,							
+							id:			obj.id,
+							parentId:	id,
+							contexts:	p.contexts
+						})
+		}
+		
+	}
 }
 
 function updateMenu()
 {
 	browser.contextMenus.removeAll();
 	var contexts = ["selection","link"];
-	/** Experimental !! */
-	browser.contextMenus.create({ "title": browser.i18n.getMessage("labelSearchImageMenu"), "id": menuIdPrefix + ":img", "contexts": ["image"] });
-	
-	/** */
+	var titles = [browser.i18n.getMessage("labelSearchTextMenu"),browser.i18n.getMessage("labelSearchLinkMenu")];
+	var parent = menuIdPrefix;
 
-	var title = browser.i18n.getMessage("labelSearchTextMenu");
-	
-
-	if(searchMenu.length == 1) {
-		var obj = getEngine(searchMenu[0]);
-		createMenu(title + obj.name, obj.id, contexts);
-	}
-	else if( searchMenu.length > 1) {
-		title = browser.i18n.getMessage("labelSearchTextMenu");
-		browser.contextMenus.create({"title": title,"id": menuIdPrefix, "contexts": contexts });
-		for (var i = 0 ; i < searchMenu.length ; i++)
-		{
-			if(searchMenu[i]) {
-				var obj = getEngine(searchMenu[i]);
-				createMenu(obj.name, obj.id, contexts, menuIdPrefix);
-			}
-			else browser.contextMenus.create({"type":"separator", "parentId": menuIdPrefix, "contexts": contexts});
+	switch(searchMenu.length) {
+	case 0: 
+		return;
+	case 1: 
+		parent = undefined;
+		break;
+	default:
+		for(var i = 0 ; i < contexts.length ; i++) {
+			createMenu ({	title: 		titles[i], 
+							contexts: 	[contexts[i]], 
+							id: 		-1
+						});
+			titles[i]="";
 		}
 	}
-	else return;
+
+	for (var i = 0 ; i < searchMenu.length ; i++) {
+		var obj = getEngine(searchMenu[i]);
+		for(var j = 0 ; j < contexts.length ; j++) {
+			var parentId;
+			if(parent) parentId = parent + "-" + contexts[j];
+			createMenu({	title:		titles[j] + obj.name, 
+							contexts: 	[contexts[j]], 
+							id: 		obj.id, 
+							parentId: 	parentId
+					   });
+		}		
+	}
 }
 
-function searchText(id, selText) {
+function searchText(id, selText) 
+{
+	if(selText == undefined || selText == "") return;
 	var url = [];
 	if( id > 0) {
 			url.push(getEngine(id).url + encodeURIComponent(selText));
@@ -173,19 +206,17 @@ function searchText(id, selText) {
 	}
 }
 
-
 browser.contextMenus.onClicked.addListener(function (info, tab) {
 
-	if (openInNewTab) {
+	/*if (openInNewTab) {
 		target = browser.tabs;
-	}
+	}*/
 	
-	if(info.mediaType === "image") {
-		url.push("https://www.google.com/searchbyimage?&image_url="+info.srcUrl);
+	if(info.mediaType == "image") {		
+		//target.create({ url: "https://www.google.com/searchbyimage?&image_url="+info.srcUrl});
 	}
 	else {		
-		var id = info.menuItemId.substr(info.menuItemId.lastIndexOf(":")+1); //get real item id
-		
+		var id = info.menuItemId.substr(info.menuItemId.lastIndexOf(":")+1); //get real item id		
 		if(info.selectionText == undefined) {
 			browser.tabs.sendMessage(tab.id, {method: "getSelText"}, function(response) {searchText(id,response.data);}); 
 		}
@@ -194,3 +225,8 @@ browser.contextMenus.onClicked.addListener(function (info, tab) {
 		} 		
 	}	
 });
+
+
+/** Experimental !! */
+//browser.contextMenus.create({ "title": browser.i18n.getMessage("labelSearchImageMenu"), "id": menuIdPrefix + ":img", "contexts": ["image"] });
+/** */
