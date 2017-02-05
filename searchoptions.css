@@ -141,6 +141,17 @@ div.panel .list-cnt {
 	height: 18px;		
 }
 
+.btn-reset {
+	float: right;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.btn-save {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
 .draggable-item-list .btn-edit, 
 .draggable-item-list .btn-delete {
 	display: none;

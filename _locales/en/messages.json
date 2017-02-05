@@ -40,11 +40,11 @@
 		"message": "New search provider"
 	},
 	
-	"stringEnterEngName":  
+	"labelEnterEngName":  
 	{
 		"message": "Enter search provider name:"
 	},
-	"stringEnterEngUrl":
+	"labelEnterEngUrl":
 	{
 		"message": "Enter search porovider url:"
 	},
@@ -55,7 +55,7 @@
 	"placeholderEngUrl":
 	{
 		"message": "Example: $URL$",
-		"placecholder": {
+		"placeholders": {
 			"url": {
 				"content": "http://www.bing.com/search?q="
 			}
@@ -82,6 +82,10 @@
 	{	
 		"message": "Use all"
 	},
+	"labelMenuAllGroup":
+	{
+		"message": "All"
+	},
 	"labelMenuDelimiter":
 	{
 		"message": " --- Delimiter (horizontal line) --- "
@@ -90,11 +94,11 @@
 	{
 		"message": "New group"
 	},
-	"stringEnterGroupName":
+	"labelEnterGroupName":
 	{
 		"message": "Enter group name:"
 	},
-	"stringSelectEngines":
+	"labelSelectEngines":
 	{
 		"message": "Choose search providers:"
 	},
@@ -106,7 +110,7 @@
 	{
 		"message": "enter text..."
 	},
-	"stringSetting":
+	"labelSetting":
 	{
 		"message": "Settings"
 	},

@@ -10,7 +10,8 @@
   <script src="i18n.js"></script> 
 </head>
 <body>
-  <h2 class='i18n'>__MSG_stringSetting__</h2>
+  <h2 class='i18n'>__MSG_labelSetting__</h2>
+  <p class="i18n">__MSG_stringSettingsInfo__</p>
   <div class="container">
     <div class="panel">
       <div class="header i18n">__MSG_labelSearchEngineHeader__</div>
@@ -29,28 +30,30 @@
     <div class="panel">
       <div class="header i18n">__MSG_labelSearchGroupHeader__</div>
       <div id="grps-cnt" class="list-cnt">
-        <div class="draggable-list"></div>
+        <div class="draggable-list group-list"></div>
       </div>
       <div class="footer"><p id="show-grp-dlg" class="i18n">__MSG_labelAddGroupBtn__</p></div>      
     </div>    
   </div>
   <div class="i18n" title="__MSG_titleNewEngineDialog__" id="add-eng-dlg" style="display: none">
     <form id="eng-frm">       
-      <label class="i18n">__MSG_stringEnterEngName__</label>
+      <label class="i18n">__MSG_labelEnterEngName__</label>
       <input class='eng-name i18n' type="text" placeholder="__MSG_placeholderEngName__">
-      <label class="i18n">__MSG_stringEnterEngUrl__</label>
+      <label class="i18n">__MSG_labelEnterEngUrl__</label>
       <input class='eng-url i18n' type="text" placeholder="__MSG_placeholderEngUrl__">
    </form>      
   </div>
 
   <div class="i18n" title="__MSG_titleNewGroupDialog__" id="add-grp-dlg" style="display: none">
     <form id="grp-frm">       
-      <label class="i18n">__MSG_stringEnterGroupName__</label>
+      <label class="i18n">__MSG_labelEnterGroupName__</label>
       <input class="grp-name i18n" type="text" placeholder="__MSG_placeholderGroupName__">
-      <label class="i18n">__MSG_stringSelectEngines__</label>
+      <label class="i18n">__MSG_labelSelectEngines__</label>
       <div class="eng-frm-engs"></div>
    </form>      
   </div>
+  <h2 class='i18n'>__MSG_labelExamples__</h2>
+  <p class="i18n">__MSG_stringExamples__</p>
 
 <script type="text/javascript" src="searchoptions.js"></script> 
 </body>

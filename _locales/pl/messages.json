@@ -40,11 +40,11 @@
 		"message": "Nowy silnik wyszukiwania"
 	},
 	
-	"stringEnterEngName":  
+	"labelEnterEngName":  
 	{
 		"message": "Podaj nazwę silnika wyszukiwania:"
 	},
-	"stringEnterEngUrl":
+	"labelEnterEngUrl":
 	{
 		"message": "Podaj adres wyszukiwania:"
 	},
@@ -55,7 +55,7 @@
 	"placeholderEngUrl":
 	{
 		"message": "Przykład: $URL$",
-		"placecholder": {
+		"placeholders": {
 			"url": {
 				"content": "http://www.bing.com/search?q="
 			}
@@ -86,15 +86,19 @@
 	{
 		"message": " --- Separator (pozioma linia) --- "
 	},
+	"labelMenuAllGroup":
+	{
+		"message": "Wszytskie"
+	},
 	"titleNewGroupDialog":
 	{
 		"message": "Nowa grupa"
 	},
-	"stringEnterGroupName":
+	"labelEnterGroupName":
 	{
 		"message": "Podaj nazwę grupy:"
 	},
-	"stringSelectEngines":
+	"labelSelectEngines":
 	{
 		"message": "Wybierz silniki:"
 	},
@@ -106,7 +110,7 @@
 	{
 		"message": "wprowadź tekst..."
 	},
-	"stringSetting":
+	"labelSetting":
 	{
 		"message": "Ustawienia"
 	},
@@ -117,5 +121,29 @@
 	"titlePopupPage": 
 	{ 
 		"message": "Szukaj"
+	},
+	"labelSaveBtn":
+	{
+		"message": "Zapisz"
+	},
+	"labelCancelBtn":
+	{
+		"message": "Anuluj"
+	},
+	"labelResetBtn":
+	{
+		"message": "Przywróć domyślne"
+	},
+	"labelExamples":
+	{
+		"message": "Przykłady:"
+	},
+	"stringSettingsInfo":
+	{
+		"message": "Dodaj nowe grupy i silniki wyszukiwania. Stwórz swoje menu kontekstowe, przeciągając wybrane elementy."
+	},
+	"stringExamples":
+	{
+		"message": "Reprehenderit quis reprehenderit ad voluptate aliqua consectetur est ut occaecat fugiat nostrud non deserunt. Laboris velit aliquip non deserunt in fugiat ex duis incididunt est in. Qui nulla incididunt sunt excepteur aute ullamco esse magna. Nostrud mollit sunt qui enim cupidatat nostrud ipsum deserunt magna nulla. Do laborum minim labore reprehenderit in sint labore cillum consequat. Tempor quis ut reprehenderit culpa velit dolor velit magna cillum duis minim. <br> Laboris ex tempor adipisicing ipsum magna voluptate incididunt mollit magna sunt eu dolore dolor. Labore occaecat non esse in deserunt laborum sint commodo officia. Excepteur non exercitation velit reprehenderit ullamco. Sunt nisi consequat qui officia veniam. Proident exercitation irure qui et dolore dolor pariatur aliquip aliqua."
 	}
 }

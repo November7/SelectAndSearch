@@ -39,8 +39,10 @@ function addSearchObj(obj)
 	if(obj.id < 0)	{
 		parent = '#grps-cnt .draggable-list';
 		strItemDisplayName = "<svg class='ico ico-left'><use xlink:href='ico/icons.svg#multi'></use></svg>" + strItemDisplayName;
-		strItemEdit += "<div class='edit-engs'><form>"
-					+  "Name: <input class='eng-in eng-name' type='text' value='" + obj.name + "'/><br/>";
+		strItemEdit += "<div class='edit-engs'><hr/><form>"
+					+  browser.i18n.getMessage("labelEnterGroupName") + "<br/>"
+					+ "<input class='eng-in eng-name' type='text' value='" + obj.name + "' placeholder='" + browser.i18n.getMessage("placeholderGroupName") + "'/><br/>"
+					+  browser.i18n.getMessage("labelSelectEngines") + "<br/>";
 
 		for (var i = 0; i < background.searchEngines.length ; i++)
 		{
@@ -52,15 +54,17 @@ function addSearchObj(obj)
 			}			
 		}
 	
-		strItemEdit += "<br/><input class='btn-se-save' value='save' type='button' /><input value='Default' type='reset'/>"
+		strItemEdit += "<hr/><input class='btn-save' value='" + browser.i18n.getMessage("labelSaveBtn") + "' type='button' /><input class='btn-reset' value='" + browser.i18n.getMessage("labelResetBtn") + "' type='reset'/>"
 		 			+  "</form></div>";
 	}
 	else if(obj.id > 0) {
 		
-		strItemEdit += "<div class='edit-engs'><form>"
-					+  "<input class='eng-in eng-name' type='text' value='" + obj.name + "' placeholder='Name'/><br/>"
-					+  "<input class='eng-in eng-url' type='text' value='" + obj.url + "' placeholder='Engine url'/>"
-					+  "<br/><input class='btn-se-save' value='Save' type='button' /><input value='Default' type='reset'/>"
+		strItemEdit += "<div class='edit-engs'><hr/><form>"
+					+  browser.i18n.getMessage("labelEnterEngName") + "<br/>"
+					+  "<input class='eng-in eng-name' type='text' value='" + obj.name + "' placeholder='" + browser.i18n.getMessage("placeholderEngName") + "'/><br/>"
+					+  browser.i18n.getMessage("labelEnterEngUrl") + "<br/>"
+					+  "<input class='eng-in eng-url' type='text' value='" + obj.url + "' placeholder='" + browser.i18n.getMessage("placeholderEngUrl") + "'/>"
+					+  "<hr/><input class='btn-save' value='" + browser.i18n.getMessage("labelSaveBtn") + "' type='button' /><input class='btn-reset' value='" + browser.i18n.getMessage("labelResetBtn") + "' type='reset'/>"
 					+  "</form></div>";
 	}
 	else {
@@ -88,7 +92,7 @@ function addSearchObj(obj)
 			saveSearchEngines();
 		});
 
-		item.find('.btn-se-save').click(function () {
+		item.find('.btn-save').click(function () {
 			saveSearchEngines();
 		});
 
@@ -112,7 +116,6 @@ function addSearchObj(obj)
 
 function addMenuItem (id) 
 {
-//	console.log(id);
 	var strItemAttr = "item' data-id='" + id;
 	var strItemDisplayName;
 	
@@ -135,7 +138,6 @@ function addMenuItem (id)
 		strItemDisplayName = "<p class='title'>" + browser.i18n.getMessage("labelMenuDelimiter") + "</p>";
 	}
 
-
 	var strItem = "<div class='draggable-item-list ";
 	strItem += strItemAttr + "'>";	
 	strItem += strItemDisplayName + "<svg class='ico ico-right btn-delete'><use xlink:href='ico/icons.svg#close'></use></svg>";
@@ -148,7 +150,6 @@ function addMenuItem (id)
 			$(this).parent().remove();			
 		});
 }
-
 
 function displayEngines()
 {
@@ -165,14 +166,14 @@ function displayEngines()
 	for(var i = 0; i < background.searchMenu.length ; i++) 
 	{
 		addMenuItem(background.searchMenu[i]);
-	}
-		
+	}		
 }
 
 displayEngines();
 
 $(".droppable-list").sortable({
   revert: 150,
+  axis: "y",
   placeholder: "placeholder",
   receive: function (event, ui) {
     var item = $(this).data().uiSortable.currentItem;
@@ -246,7 +247,7 @@ $('#show-eng-dlg').click(function() {
 			buttons: [ 
 						{
 							class: "btn-cancel",							
-							text: "Anuluj", 
+							text: browser.i18n.getMessage("labelCancelBtn"), 
 							click: function() { 
 								$('#eng-frm .eng-name').removeClass('required');
 								$( this ).dialog( "close" ); 
@@ -254,7 +255,7 @@ $('#show-eng-dlg').click(function() {
 						},
 						{
 							class: "btn-save",							
-							text: "Zapisz", 
+							text: browser.i18n.getMessage("labelSaveBtn"), 
 							click: function() { 
 								if(!/\S/.test($('#eng-frm .eng-name').val())) {
 									$('#eng-frm .eng-name').addClass('required');
@@ -274,7 +275,6 @@ $('#show-eng-dlg').click(function() {
 	});
 
 	$('#show-grp-dlg').click(function() {
-		console.log("dziala")
 		$('#add-grp-dlg').dialog({
 			modal: true,
 			resizable: false,
@@ -295,7 +295,7 @@ $('#show-eng-dlg').click(function() {
 			buttons: [ 
 						{
 							class: "btn-cancel",							
-							text: "Anuluj", 
+							text: browser.i18n.getMessage("labelCancelBtn"), 
 							click: function() { 
 								$('#grp-frm .grp-name').removeClass('required');
 								$( this ).dialog( "close" ); 
@@ -303,7 +303,7 @@ $('#show-eng-dlg').click(function() {
 						},
 						{
 							class: "btn-save",							
-							text: "Zapisz", 
+							text: browser.i18n.getMessage("labelSaveBtn"), 
 							click: function() { 
 								if(!/\S/.test($('#grp-frm .grp-name').val())) {
 									$('#grp-frm .grp-name').addClass('required');
@@ -325,6 +325,3 @@ $('#show-eng-dlg').click(function() {
 					] 
 		});
 	});
-
-	
-	/****************************************************************/

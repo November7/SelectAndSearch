@@ -21,25 +21,14 @@ function loadDefault()
 		},
 		{
 			id: 		4,		
-			name: 		"IMDb", 
-			url: 		"http://www.imdb.com/find?q="		
-		},
-		{
-			id: 		5,		
-			name: 		"Filmweb", 
-			url: 		"http://www.filmweb.pl/search?q="		
+			name: 		"DuckDuckGo", 
+			url: 		"https://duckduckgo.com/?q="		
 		},		
 		{
 			id:			-2,
-			name:		"Global",
-			members:	"2,3"
-		},
-		{
-			id: 		-3,
-			name:		"Films",
-			members:	"4,5"
+			name:		browser.i18n.getMessage("labelMenuAllGroup"),
+			members:	"2,3,4"
 		}
-
 	]
 }
 
