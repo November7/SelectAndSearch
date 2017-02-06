@@ -206,11 +206,6 @@ input.eng-in::-webkit-input-placeholder {
 }
 
 
-
-/****************************************************************************************/
-/*  Editor
-/****************************************************************************************/
-
 .ui-dialog.add-dlg {
 	border: none !important;
 	background-color: white;
@@ -284,4 +279,51 @@ ui-front {
 
 .ui-dialog-content input.required {
 	border-color:  #ce352c;
+}
+
+/****************************************************************************************/
+/*  paragraphs
+/****************************************************************************************/
+
+.paragraph-title {
+	font-size: 16pt;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	text-decoration: underline;
+}
+
+.paragraph-content {
+	
+	font-size: 11pt;
+	margin-left: 20px;
+}
+
+.paragraph-content p {
+	margin: 10px 10px 10px 10px;
+}
+
+.paragraph-content p i {
+	color: #60a817; 
+	font-weight: bold;
+}
+
+.paragraph-content thead {
+	background-color: #60a817; 
+	color: white;	
+}
+
+.paragraph-content  td {
+	padding: 5px 5px 5px 5px;
+	border-color: black;
+	border-width: 1px;
+	border-style: solid;
+}
+
+.paragraph-content table {
+	border-collapse: collapse;
+	margin: 5px;
+}
+
+#div-help-content {
+	display: none;
 }

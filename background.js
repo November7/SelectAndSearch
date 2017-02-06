@@ -10,14 +10,14 @@ function loadDefault()
 	// id 1 & -1 are reserved //
 	searchEngines = [
 		{
-			id: 		2, 
-			name: 		"Google", 
-			url: 		"https://google.com/search?q="			
-		},
-		{
-			id: 		3,
+			id: 		2,
 			name: 		"Bing", 
 			url: 		"http://www.bing.com/search?q="		
+		},
+		{
+			id: 		3, 
+			name: 		"Google", 
+			url: 		"https://google.com/search?q="			
 		},
 		{
 			id: 		4,		

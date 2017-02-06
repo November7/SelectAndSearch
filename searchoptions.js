@@ -325,3 +325,7 @@ $('#show-eng-dlg').click(function() {
 					] 
 		});
 	});
+
+	$("#div-help-more-btn").click(function() {
+		$("#div-help-content").toggle(300);
+	});

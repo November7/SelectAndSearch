@@ -136,7 +136,7 @@
 	},
 	"labelExamples":
 	{
-		"message": "Przykłady:"
+		"message": "Pomoc"
 	},
 	"stringSettingsInfo":
 	{
@@ -144,6 +144,6 @@
 	},
 	"stringExamples":
 	{
-		"message": "Reprehenderit quis reprehenderit ad voluptate aliqua consectetur est ut occaecat fugiat nostrud non deserunt. Laboris velit aliquip non deserunt in fugiat ex duis incididunt est in. Qui nulla incididunt sunt excepteur aute ullamco esse magna. Nostrud mollit sunt qui enim cupidatat nostrud ipsum deserunt magna nulla. Do laborum minim labore reprehenderit in sint labore cillum consequat. Tempor quis ut reprehenderit culpa velit dolor velit magna cillum duis minim. <br> Laboris ex tempor adipisicing ipsum magna voluptate incididunt mollit magna sunt eu dolore dolor. Labore occaecat non esse in deserunt laborum sint commodo officia. Excepteur non exercitation velit reprehenderit ullamco. Sunt nisi consequat qui officia veniam. Proident exercitation irure qui et dolore dolor pariatur aliquip aliqua."
+		"message": "Użyj swojej ulubionej wyszukiwarki (wyszukaj dowolnego tekstu), a następnie skopiuj adres usuwając z niego zbędne fragmenty takie jak wyszukiwana fraza i inne parametry zwykle poprzedzone znakiem &. [<a id='div-help-more-btn' href='#'>Więcej</a>]<div id='div-help-content'><br/>Przykład:<p>Wyszukiwane słowo: <i>samolot</i><br/>Adres wyników wyszukiwarki bing: <i>http://www.bing.com/search?q=samolot&qs=n&form=QBLH&sp=-1&pq=samolot&sc=8-5&sk=[...]</i><br/>Wyodrębniony adres: <i>http://www.bing.com/search?q=</i></p><br/>Przykładowe wyszukiwarki:<table><thead><td>Nazwa wyszukiwarki</td><td>Adres wyszukiwarki</td></thead><tr><td>Bing</td><td>http://www.bing.com/search?q=</td></tr><tr><td>Google</td><td>https://google.com/search?q=</td></tr><tr><td>Filmweb</td><td>http://www.filmweb.pl/search?q=</td></tr><tr><td>Wykop.pl</td><td>http://www.wykop.pl/szukaj/</td></tr></table>"
 	}
 }
