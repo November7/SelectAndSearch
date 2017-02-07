@@ -21,8 +21,10 @@ function saveSearchEngines()
 	});
 
 	$('#menu-cnt .droppable-list').children().each(function() {
-				
-		background.addSearchMenu($(this).attr('data-id'));
+
+		if(background.getEngine($(this).attr('data-id')).id) {
+			background.addSearchMenu($(this).attr('data-id'));
+		}			
 	});
 
 	background.saveOptions();
@@ -88,7 +90,7 @@ function addSearchObj(obj)
 		});
 
 		item.find('.btn-delete').click(function () {		
-			if(confirm("u sure?"))$(this).parent().remove();
+			if(confirm(browser.i18n.getMessage("labelDeleteConfirm")))$(this).parent().remove();
 			saveSearchEngines();
 		});
 

@@ -108,7 +108,7 @@
 	},
 	"placeholderSearchLabel":
 	{
-		"message": "wprowadź tekst..."
+		"message": "Szukana fraza..."
 	},
 	"labelSetting":
 	{
@@ -134,13 +134,17 @@
 	{
 		"message": "Przywróć domyślne"
 	},
+	"labelDeleteConfirm":
+	{
+		"message": "Usunąć zaznaczony element?"
+	},
 	"labelExamples":
 	{
 		"message": "Pomoc"
 	},
 	"stringSettingsInfo":
 	{
-		"message": "Dodaj nowe grupy i silniki wyszukiwania. Stwórz swoje menu kontekstowe, przeciągając wybrane elementy."
+		"message": "Dodaj nowe wyszukiwarki i grupy. Stwórz swoje menu kontekstowe, przeciągając wybrane elementy."
 	},
 	"stringExamples":
 	{

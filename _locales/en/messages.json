@@ -108,7 +108,7 @@
 	},
 	"placeholderSearchLabel":
 	{
-		"message": "enter text..."
+		"message": "Searched phrase..."
 	},
 	"labelSetting":
 	{
@@ -121,5 +121,33 @@
 	"titlePopupPage": 
 	{ 
 		"message": "Search"
+	},
+	"labelSaveBtn":
+	{
+		"message": "Save"
+	},
+	"labelCancelBtn":
+	{
+		"message": "Cancel"
+	},
+	"labelResetBtn":
+	{
+		"message": "Restore defaults"
+	},
+	"labelDeleteConfirm":
+	{
+		"message": "Delete selected item?"
+	},
+	"labelExamples":
+	{
+		"message": "Help"
+	},
+	"stringSettingsInfo":
+	{
+		"message": "Add a new search engines and groups. Create your context menu, dragging the selected items."
+	},
+	"stringExamples":
+	{
+		"message": "Use your favorite search engine (search for any text) and then copy the address by removing unnecessary portions such as the search term, and other parameters typically preceded by &. [<a id='div-help-more-btn' href='#'>More</a>]<div id='div-help-content'><br/>Example:<p>Searched phrase: <i>plane</i><br/>Address of Bing results: <i>http://www.bing.com/search?q=plane&qs=n&form=QBLH&sp=-1&pq=plane&sc=8-5&sk=[...]</i><br/>The extracted address: <i>http://www.bing.com/search?q=</i></p><br/>Examples of search engines:<table><thead><td>Name</td><td>Address</td></thead><tr><td>Bing</td><td>http://www.bing.com/search?q=</td></tr><tr><td>Google</td><td>https://google.com/search?q=</td></tr><tr><td>IMDb</td><td>http://www.imdb.com/find?q=</td></tr><tr><td>reddit.com</td><td>https://www.reddit.com/search?q=</td></tr></table>"
 	}
 }
