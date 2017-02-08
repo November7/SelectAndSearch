@@ -1,6 +1,6 @@
 {
   "author": "Marcin Kowalski",
-  "name": "Open search",
+  "name": "Select & Search",
   "description": "__MSG_stringExtensionDescription__",
   "version": "1.0.0.1",
   "permissions": [ "contextMenus", "storage","tabs","background"],
