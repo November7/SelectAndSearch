@@ -2,7 +2,7 @@
   "author": "Marcin Kowalski",
   "name": "Select And Search",
   "description": "__MSG_stringExtensionDescription__",
-  "version": "1.0.0.1",
+  "version": "1.0.0.0",
   "permissions": [ "contextMenus", "storage","tabs","background"],
 
   "content_scripts": [{
