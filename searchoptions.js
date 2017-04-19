@@ -21,10 +21,8 @@ function saveSearchEngines()
 	});
 
 	$('#menu-cnt .droppable-list').children().each(function() {
-
-		if(background.getEngine($(this).attr('data-id')).id) {
 			background.addSearchMenu($(this).attr('data-id'));
-		}			
+		
 	});
 
 	background.saveOptions();
